@@ -9,19 +9,19 @@ use ::models::*;
 pub struct Login
 {
 	/// Die ID des eingeloggten Users.
-	pub uid: 						u64,
+	pub uid: u64,
 	/// Der Avatar des eingeloggten Users.
-	pub avatar: 					String,
+	pub avatar: String,
 	/// Ein Login-Token. Möchte man das gewöhnliche Cookie-basierte Login System nicht verwenden, so kann man stattdessen bei jeder Anfrage die einen Login erfordert dieses Token senden.
-	pub token: 						String,
+	pub token: String,
 }
 
 /// Mit dieser Schnittstelle kann ein User ausgeloggt werden
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Logout
 {
-	pub error:						u8,
-	pub message:					String,
+	pub error: u8,
+	pub message: String,
 }
 
 /// Mit dieser Schnittstelle können die öffentlichen Daten jedes Users per ID oder Username abgefragt werden.
@@ -32,27 +32,27 @@ pub struct Logout
 pub struct UserInfo
 {
 	///  Die ID des abgefragten Users
-	pub uid: 					u64,
+	pub uid: u64,
 	/// Der Username des abgefragten Users
-	pub username:				String,
+	pub username: String,
 	/// Der Avatar des abgefragten Users
-	pub avatar:					String,
+	pub avatar: String,
 	/// Der momentane Status des abgefragten Users
-	pub status:					String,
+	pub status: String,
 	/// Der Zeitpunkt der letzten Änderung des Status des abgefragten Users (Als Unix-Timestamp in Sekunden, false wenn nicht gesetzt)
-	pub status_time:			i64,
+	pub status_time: i64,
 	/// Die Uploadpunkte des abgefragten Users
-	pub points_uploads:			u64,
+	pub points_uploads: u64,
 	/// Die Animepunkte des abgefragten Users
-	pub points_anime:			u64,
+	pub points_anime: u64,
 	/// Die Mangapunkte des abgefragten Users
-	pub points_manga:			u64,
+	pub points_manga: u64,
 	/// Die Infopunkte des abgefragten Users
-	pub points_info:			u64,
+	pub points_info: u64,
 	/// Die Forums-Punkte des abgefragten Users
-	pub points_forum:			u64,
+	pub points_forum: u64,
 	/// Die sonstigen Punkte des abgefragten Users
-	pub points_misc:			u64,
+	pub points_misc: u64,
 }
 
 /// Mit dieser Schnittstelle können die Topten jedes Users per ID oder Username abgefragt werden.
@@ -66,13 +66,13 @@ pub struct UserInfo
 pub struct TopTen
 {
 	///  Die ID des Entrys
-	pub eid: 					u64,
+	pub eid: u64,
 	///  Der Name des Entrys
-	pub name: 					String,
+	pub name: String,
 	/// Die Kategorie des Entrys (anime oder manga)
-	pub kat: 					Kategorie,
+	pub kat: Kategorie,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium: 				Medium,
+	pub medium: Medium,
 }
 
 /// Mit dieser Schnittstelle können die Entrylisten jedes Users per ID oder Username abgefragt werden.
@@ -86,29 +86,29 @@ pub struct TopTen
 pub struct List
 {
 	/// Die ID des Entrys
-	pub id: 					u64,
+	pub id: u64,
 	/// Der Name des Entrys
-	pub name: 					String,
+	pub name: String,
 	/// Anzahl der Folgen/Kapitel (müssen nicht hochgeladen sein!)
-	pub count: 					u64,
+	pub count: u64,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:					String,
+	pub medium: String,
 	/// Der Status des Entrys
-	pub estate:					u64,
+	pub estate: u64,
 	/// Die ID des zugehörigen Kommentars
-	pub cid:					u64,
+	pub cid: u64,
 	/// Der Text des zugehörigen Kommentars
-	pub comment:				String,
+	pub comment: String,
 	/// Der Status des zugehörigen Kommentars
-	pub state:					String,
+	pub state: String,
 	/// Die Episodenzahl des zugehörigen Kommentars (bis wohin der Entry gesehen/gelesen wurde)
-	pub episode:				u64,
+	pub episode: u64,
 	/// Die Daten des zugehörigen Kommentars
-	pub data:					String,
+	pub data: String,
 	/// Die Bewertung des Entrys durch den User (0 bis 10)
-	pub rating:					i8,
+	pub rating: i8,
 	/// Der Änderungszeitpunkt des Kommentars (Unix-Timestamp als Integer)
-	pub timestamp: 				i64,
+	pub timestamp: i64,
 }
 
 /// Mit dieser Schnittstelle können die letzten Kommentare jedes Users per ID oder Username abgefragt werden.
@@ -122,29 +122,29 @@ pub struct List
 pub struct LatestComment
 {
 	/// Die ID des Kommentars
-	pub id:						u64,
+	pub id: u64,
 	/// Die ID des Entrys
-	pub tid:					u64,
+	pub tid: u64,
 	/// Der beim Kommentar angegebene Status (0 = geschaut, 1 = am schauen, 2 = wird geschaut, 3 = abgebrochen)
-	pub state:					i8,
+	pub state: i8,
 	/// Zusätzliche informationen, die als json-String abgespeichert werden. Es kann sich hierbei beispielsweise um die "Genre"-Bewertung handeln.
-	pub data:					String,
+	pub data: String,
 	/// Der Kommentar-Text
-	pub comment:				String,
+	pub comment: String,
 	/// Die Bewertung des Entrys
-	pub rating:					i8,
+	pub rating: i8,
 	/// Die Episode, bis zu der der Kommentarschreiber geschaut hat
-	pub episode:				u64,
+	pub episode: u64,
 	/// Wie viele Personen den Kommentar hilfreich finden.
-	pub positive:				u64,
+	pub positive: u64,
 	/// Der Zeitpunkt der Erstellung des Kommentars (Unix-Timestamp in Sekunden)
-	pub timestamp:				i64,
+	pub timestamp: i64,
 	/// Der Username des Erstellers des Kommentars
-	pub username:				String,
+	pub username: String,
 	/// Die User-ID des Erstellers des Kommentars
-	pub uid:					u64,
+	pub uid:  u64,
 	/// Das Profilbild des Erstellers des Kommentars
-	pub avatar:					String,
+	pub avatar: String,
 }
 
 /// Diese Klasse beinhaltet die grundlegenden Schnittstellen zur Verwaltung von Userdaten,
@@ -154,15 +154,15 @@ pub struct LatestComment
 pub struct User<'user>
 {
 	/// Die ID des eingeloggten Users.
-	pub uid:			u64,
+	pub uid: u64,
 	/// Der Avatar des eingeloggten Users.
-	pub avatar:			String,
+	pub avatar: String,
 	///  Ein Login-Token.
 	/// Möchte man das gewöhnliche Cookie-basierte Login System nicht verwenden,
 	/// so kann man stattdessen bei jeder Anfrage die einen Login erfordert dieses Token senden.
-	pub token:			String,
+	pub token: String,
 
-	proxer:				&'user Proxer,
+	proxer: &'user Proxer,
 }
 
 impl<'user> User<'user>
@@ -174,10 +174,10 @@ impl<'user> User<'user>
 		let user: Login = User::login(&p_proxer, p_username, p_password)?;
 		Ok(User
 		{
-			uid:		user.uid,
-			avatar:		user.avatar,
-			token:		user.token,
-			proxer:		p_proxer,
+			uid: user.uid,
+			avatar: user.avatar,
+			token: user.token,
+			proxer: p_proxer,
 		})
 	}
 

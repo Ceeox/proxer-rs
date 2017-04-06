@@ -12,19 +12,19 @@ pub struct Constants
 {
 	/// Maximalanzahl an Zeichen pro Nachricht.
 	#[serde(rename="textCount")]
-	pub text_count:					u64,
+	pub text_count: u64,
 	/// Anzahl der Elemente, die "Get Conferences" maximal pro Aufruf/pro Seite liefert.
 	#[serde(rename="conferenceLimit")]
-	pub conference_limit:			u64,
+	pub conference_limit: u64,
 	/// Anzahl der Elemente, die "Get Messages" maximal pro Aufruf/pro Seite liefert.
 	#[serde(rename="messagesLimit")]
-	pub messages_limit:				u64,
+	pub messages_limit: u64,
 	/// Maximalanzahl an Benutzern pro Gruppenkonferenz.
 	#[serde(rename="userLimit")]
-	pub user_limit:					u64,
+	pub user_limit: u64,
 	/// Maximalanzahl an Zeichen für Konferenzthema.
 	#[serde(rename="tropicCount")]
-	pub topic_count:				u64,
+	pub topic_count: u64,
 }
 
 /// Liefert eine Liste der aktuellen Konferenzen.
@@ -32,28 +32,28 @@ pub struct Constants
 pub struct Conference
 {
 	/// Die Konferenz-ID
-	pub id: 						u64,
+	pub id: u64,
 	/// Der Titel einer Konferenz.
 	/// Dies ist entweder der Benutzername des Gesprächspartners, oder das Thema einer Gruppenkonferenz.
-	pub topic: 						String,
+	pub topic: String,
 	/// Der Titel, der vom Benutzer festgelegt wurde.
-	pub topic_custom: 				String,
+	pub topic_custom: String,
 	/// Anzahl der Konferenzteilnehmer.
-	pub count: 						u64,
+	pub count: u64,
 	/// true oder false. true Falls es sich um eine Gruppenkonferenz handelt. Ansonsten false.
-	pub group: 						bool,
+	pub group: bool,
 	/// Zeitstempel der letzten Nachricht.
-	pub timestamp_end: 				String,
+	pub timestamp_end: String,
 	/// true oder false: true falls Benutzer letzte Nachricht dieser Konferenz gelesen hat.
-	pub read: 						bool,
+	pub read: bool,
 	/// Anzahl der ungelesenen Nachrichten.
-	pub read_count: 				u64,
+	pub read_count: u64,
 	/// Die Message-ID der letzten gelesenen Nachricht.
-	pub read_mid:					u64,
+	pub read_mid: u64,
 	/// Bild der Konferenz. Format: "Bild-Typ:Bild-ID".
 	/// Typ ist meistens "avatar" und ID beispielsweise "62_yF5zd7.jpg".
 	/// Avatare haben den folgenden Link: http://cdn.proxer.me/avatar/tn/[Bild-ID]
-	pub image:						String,
+	pub image: String,
 }
 
 /// Informationen zu einer bestimmten Konferenz.
@@ -61,36 +61,36 @@ pub struct Conference
 pub struct ConferenceInfo
 {
 	/// Allgemeine Infos zur Konferenz. Objekt enthält folgende Spalten:
-	pub conference:					ConferenceInfoDataConference,
+	pub conference: ConferenceInfoDataConference,
 	/// Informationen zu Konferenzteilnehmern. Array enthält folgende Spalten:
-	pub users:						Vec<ConferenceInfoDataUsers>,
+	pub users: Vec<ConferenceInfoDataUsers>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ConferenceInfoDataConference
 {
 	/// Thema der Konferenz.
-	pub topic:						String,
+	pub topic: String,
 	/// Anzahl der Konferenzteilnehmer.
-	pub count:						u64,
+	pub count: u64,
 	/// Zeitstempel der letzten Konferenz-Nachricht.
-	pub timestamp_end:				i64,
+	pub timestamp_end: i64,
 	/// Die Benutzer-ID des Konferenzleiters.
-	pub leader:						u64,
+	pub leader: u64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ConferenceInfoDataUsers
 {
 	/// User-ID
-	pub uid:						u64,
+	pub uid: u64,
 	/// Bild-ID des Avatars.
 	/// Falls kein Avatar gesetzt ist, ist dieses Feld leer. Beispiel für Bild-ID: "62_yF5zd7.jpg"
-	pub avatar:						String,
+	pub avatar: String,
 	/// Benutzername.
-	pub username:					String,
+	pub username: String,
 	/// Statusmitteilung des Benutzers.
-	pub status:						String,
+	pub status: String,
 }
 
 /// Informationen zu einem bestimmten Benutzer.
@@ -100,11 +100,11 @@ pub struct UserInfo
 	/// Bild-ID des Avatars. Falls kein Avatar gesetzt ist, ist dieses Feld leer.
 	/// Beispiel für Bild-ID: "62_yF5zd7.jpg".
 	/// Avatare haben den folgenden Link: http://cdn.proxer.me/avatar/tn/[Bild-ID]
-	pub avatar: 					String,
+	pub avatar: String,
 	/// Benutzername des Benutzers
-	pub username: 					String,
+	pub username: String,
 	/// Status des Benutzers
-	pub status: 					String,
+	pub status: String,
 }
 
 /// Gibt die letzten Nachrichten einer Konferenz/eines Benutzers zurück.
@@ -132,21 +132,21 @@ pub struct Messages
 	///		(read=true, read_count=0, read_mid=letzte Nachrichten-ID).
 	/// Das Array-Element enthalten die folgenden Spalten:
 	/// Die Nachrichten-ID.
-	pub message_id:					u64,
+	pub message_id: u64,
 	/// Die Konferenz-ID.
-	pub conference_id:				u64,
+	pub conference_id: u64,
 	/// Die User-ID des Verfassers.
-	pub user_id:					u64,
+	pub user_id: u64,
 	/// Der Username des Verfassers.
-	pub username:					String,
+	pub username: String,
 	/// Die Nachricht.
-	pub message:					String,
+	pub message: String,
 	/// Falls es sich um ein Befehl handelt, ist hier der Befehl angegeben.
-	pub action:						String,
+	pub action: String,
 	/// Zeitstempel des Absendezeitpunktes.
-	pub timestamp:					i64,
+	pub timestamp: i64,
 	/// Das Gerät/die Anwendung aus der eine Nachricht gesendet wurde.
-	pub device:						String,
+	pub device: String,
 }
 
 /// Der Proxer Messenger ist ein Nachrichtensystem, welches es ermöglichen soll,
@@ -156,7 +156,7 @@ pub struct Messages
 #[derive(Debug)]
 pub struct Messenger<'messenger>
 {
-	proxer:			&'messenger Proxer,
+	proxer: &'messenger Proxer,
 }
 
 impl<'messenger> Messenger<'messenger>
@@ -167,7 +167,7 @@ impl<'messenger> Messenger<'messenger>
 	{
 		Messenger
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

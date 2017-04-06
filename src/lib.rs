@@ -129,24 +129,24 @@ use ::ucp::Ucp;
 use ::user::User;
 
 
-static BASE_URL:		&'static str = "https://proxer.me/api";
-static API_VERSION:		&'static str = "v1";
-static USER_AGENT:		&'static str = concat!("proxer-rs (https://github.com/souryo/proxer-rs, ",
-											env!("CARGO_PKG_VERSION"), ")");
-static CONTENT_TYPE:	&'static str = "application/x-www-form-urlencoded";
+static BASE_URL: &'static str = "https://proxer.me/api";
+static API_VERSION: &'static str = "v1";
+static USER_AGENT: &'static str = concat!("proxer-rs (https://github.com/souryo/proxer-rs, ",
+	env!("CARGO_PKG_VERSION"), ")");
+static CONTENT_TYPE: &'static str = "application/x-www-form-urlencoded";
 
-static NEWS_URL:		&'static str = "http://proxer.me/notifications?format=json&s=news&p=1";
+static NEWS_URL: &'static str = "http://proxer.me/notifications?format=json&s=news&p=1";
 
 /// Ermöglicht den Zugriff auf die Proxer News. Hierbei werden pro Seite höchstens 15 News ausgegeben.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct OldNews
 {
 	/// 0 (erfolgreich) oder 1.
-	pub error:			u64,
+	pub error: u64,
 	/// Eine Meldung im Falle eines Fehlers.
-	pub message:		Option<String>,
+	pub message: Option<String>,
 	/// Ein Array aus den Nachrichten-Objekten, im Falle einer erfolgreichen Ausgabe.
-	pub notifications:	Option<Vec<OldNotification>>,
+	pub notifications: Option<Vec<OldNotification>>,
 }
 
 /// Beinhaltet eine einzelene News bzw. Notification (Benutzt die alte api Schnittstelle?).
@@ -175,19 +175,19 @@ pub struct OldNews
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct OldNotification
 {
-	pub nid:			u64,
-	pub time:			i64,
-	pub description:	String,
-	pub image_id:		u64,
-	pub image_style:	String,
-	pub subject:		String,
-	pub hits:			u64,
-	pub thread:			u64,
-	pub uid:			u64,
-	pub uname:			String,
-	pub posts:			u64,
-	pub catid:			u64,
-	pub catname:		String,
+	pub nid: u64,
+	pub time: i64,
+	pub description: String,
+	pub image_id: u64,
+	pub image_style: String,
+	pub subject: String,
+	pub hits: u64,
+	pub thread: u64,
+	pub uid: u64,
+	pub uname: String,
+	pub posts: u64,
+	pub catid: u64,
+	pub catname: String,
 }
 
 impl OldNotification
@@ -217,8 +217,8 @@ impl OldNotification
 #[derive(Debug)]
 pub struct Proxer
 {
-	api_key:				String,
-	client:					hyper::Client,
+	api_key: String,
+	client: hyper::Client,
 }
 
 /// Struct um alle classen der Proxer-API zuspeichern.
@@ -239,15 +239,15 @@ pub struct Proxer
 pub struct ProxerClasses<'proxer>
 {
 
-	pub anime:				Anime<'proxer>,
-	pub info:				Info<'proxer>,
-	pub list:				List<'proxer>,
-	pub manga:				Manga<'proxer>,
-	pub media:				Media<'proxer>,
-	pub messenger:			Messenger<'proxer>,
-	pub notification:		Notification<'proxer>,
-	pub ucp:				Ucp<'proxer>,
-	pub user:				User<'proxer>,
+	pub anime: Anime<'proxer>,
+	pub info: Info<'proxer>,
+	pub list: List<'proxer>,
+	pub manga: Manga<'proxer>,
+	pub media: Media<'proxer>,
+	pub messenger: Messenger<'proxer>,
+	pub notification: Notification<'proxer>,
+	pub ucp: Ucp<'proxer>,
+	pub user: User<'proxer>,
 }
 
 impl Proxer
@@ -273,15 +273,15 @@ impl Proxer
 	{
 		Ok(ProxerClasses
 		{
-			anime: 				Anime::new(&self),
-			info:				Info::new(&self),
-			list:				List::new(&self),
-			manga:				Manga::new(&self),
-			media:				Media::new(&self),
-			messenger:			Messenger::new(&self),
-			notification:		Notification::new(&self),
-			ucp:				Ucp::new(&self),
-			user:				User::new(&self, &p_username, &p_password)?,
+			anime: Anime::new(&self),
+			info: Info::new(&self),
+			list: List::new(&self),
+			manga: Manga::new(&self),
+			media: Media::new(&self),
+			messenger: Messenger::new(&self),
+			notification: Notification::new(&self),
+			ucp: Ucp::new(&self),
+			user: User::new(&self, &p_username, &p_password)?,
 		})
 	}
 

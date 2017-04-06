@@ -10,26 +10,26 @@ use ::models::*;
 pub struct Stream
 {
 	/// Die ID des Streams
-	pub id: 							u64,
+	pub id: u64,
 	/// Auf welchem Hoster der Stream liegt
 	#[serde(rename="type")]
-	pub host_type: 						String,
+	pub host_type: String,
 	/// Der Name des Hosters (Klartext)
-	pub name: 							String,
+	pub name: String,
 	/// Das Anzeigebild des Hosters
-	pub img: 							String,
+	pub img: String,
 	/// Die ID des Uploaders
-	pub uploader: 						u64,
+	pub uploader: u64,
 	/// Der Name des Uploaders
-	pub username: 						String,
+	pub username: String,
 	/// Der Verlinkzeitpunkt (Unix-Timestamp als Integer)
-	pub timestamp: 						i64,
+	pub timestamp: i64,
 	/// Die ID der zugewiesenen Subgruppe, null wenn nicht vorhanden.
-	pub tid:							u64,
+	pub tid: u64,
 	/// Der Name der zugewiesenen Subgruppe, null wenn nicht vorhanden.
-	pub tname: 							String,
+	pub tname: String,
 	/// Der Typ des Hosters (iframe,embed,js,code,link)
-	pub htype:							String,
+	pub htype: String,
 }
 
 /// Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, inklusive des Proxerstreams!.
@@ -41,26 +41,26 @@ pub struct Stream
 pub struct ProxerStream
 {
 	/// Die ID des Streams
-	pub id: 							u64,
+	pub id: u64,
 	/// Auf welchem Hoster der Stream liegt
 	#[serde(rename="type")]
-	pub host_type:						String,
+	pub host_type: String,
 	/// Der Name des Hosters (Klartext)
-	pub name: 							String,
+	pub name: String,
 	/// Das Anzeigebild des Hosters
-	pub img: 							String,
+	pub img: String,
 	/// Die ID des Uploaders
-	pub uploader: 						u64,
+	pub uploader: u64,
 	/// Der Name des Uploaders
-	pub username: 						String,
+	pub username: String,
 	/// Der Verlinkzeitpunkt (Unix-Timestamp als Integer)
-	pub timestamp: 						i64,
+	pub timestamp: i64,
 	/// Die ID der zugewiesenen Subgruppe, null wenn nicht vorhanden.
-	pub tid: 							String,
+	pub tid: String,
 	/// Der Name der zugewiesenen Subgruppe, null wenn nicht vorhanden.
-	pub tname:							String,
+	pub tname: String,
 	/// Der Typ des Hosters (iframe,embed,js,code,link)
-	pub htype:							String,
+	pub htype: String,
 }
 
 /// Diese Klasse dient dazu, Streams für Animes zu erhalten, und andere rein Anime-bezogene Aktionen durchzuführen.
@@ -68,7 +68,7 @@ pub struct ProxerStream
 #[derive(Debug)]
 pub struct Anime<'anime>
 {
-	proxer:			&'anime Proxer,
+	proxer: &'anime Proxer,
 }
 
 impl<'anime> Anime<'anime>
@@ -79,7 +79,7 @@ impl<'anime> Anime<'anime>
 	{
 		Anime
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

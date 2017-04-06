@@ -10,23 +10,23 @@ use ::models::*;
 pub struct Chapter
 {
 	/// Die ID des Kapitels
-	pub cid:					u64,
+	pub cid: u64,
 	/// Die ID des Entrys
-	pub eid:					u64,
+	pub eid: u64,
 	/// Der Titel des Kapitels
-	pub title:					String,
+	pub title: String,
 	/// Die ID des Uploaders
-	pub uploader:				u64,
+	pub uploader: u64,
 	/// Der Name des Uploaders
-	pub username:				String,
+	pub username: String,
 	/// Der Hochladezeitpunkt (Unix-Timestamp als Integer)
-	pub timestamp:				i64,
+	pub timestamp: i64,
 	/// Die ID der zugewiesenen Scangruppe, null wenn nicht vorhanden.
-	pub tid:					u64,
+	pub tid: u64,
 	/// Der Name der zugewiesenen Scangruppe, null wenn nicht vorhanden.
-	pub tname:					String,
+	pub tname: String,
 	/// Notwendig zur Anzeige der Seiten, siehe "pages"
-	pub server:					u32,
+	pub server: u32,
 	/// Ein Array aus Arrays, die die Seiten des Kapitels in geordneter Reihenfolge enthalten.
 	/// Jedes Unter-Array enthält dabei folgende Daten:
 	/// 0 => Name der Seite (Dateiname),
@@ -34,7 +34,7 @@ pub struct Chapter
 	/// 2 => Breite der Seite.
 	/// Um eine einzelne Seite anzuzeigen, ist folgender Link nötig: //manga<server>.proxer.me/f/<eid>/<cid>/<page[0]>
 	/// (Unter der Annahme, dass page = pages[i])
-	pub pages:					Vec<Vec<(i32, i32, i32)>>,
+	pub pages: Vec<Vec<(i32, i32, i32)>>,
 }
 
 impl Chapter
@@ -53,7 +53,7 @@ impl Chapter
 #[derive(Debug)]
 pub struct Manga<'manga>
 {
-	proxer:			&'manga Proxer,
+	proxer: &'manga Proxer,
 }
 
 impl<'manga> Manga<'manga>
@@ -64,7 +64,7 @@ impl<'manga> Manga<'manga>
 	{
 		Manga
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

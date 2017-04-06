@@ -9,27 +9,27 @@ use ::models::*;
 pub struct List
 {
 	/// Die ID des Entrys
-	pub id:						u64,
+	pub id: u64,
 	/// Der Name des Entrys
-	pub name:					String,
+	pub name: String,
 	/// Anzahl der Folgen/Kapitel (müssen nicht hochgeladen sein!)
-	pub count:					u64,
+	pub count: u64,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:					Medium,
+	pub medium: Medium,
 	/// Der Status des Entrys
-	pub estate:					String,
+	pub estate: String,
 	/// Die ID des zugehörigen Kommentars
-	pub cid:					u64,
+	pub cid: u64,
 	/// Der Text des zugehörigen Kommentars
-	pub comment:				String,
+	pub comment: String,
 	/// Der Status des zugehörigen Kommentars
-	pub state:					String,
+	pub state: String,
 	/// Die Episodenzahl des zugehörigen Kommentars (bis wohin der Entry gesehen/gelesen wurde)
-	pub episode:				u64,
+	pub episode: u64,
 	/// Die Daten des zugehörigen Kommentars
-	pub data:					String,
+	pub data: String,
 	/// Die Bewertung des Entrys durch den User (0 bis 10)
-	pub rating:					f32,
+	pub rating: f32,
 }
 
 /// Diese Funktion liefert die Chronik des Users.
@@ -37,19 +37,19 @@ pub struct List
 pub struct History
 {
 	/// Die ID des Entrys
-	pub eid:						u64,
+	pub eid: u64,
 	/// Der Name des Entrys
-	pub name:						String,
+	pub name: String,
 	/// Die Sprache des Entrys
-	pub language:					String,
+	pub language: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:						Medium,
+	pub medium: Medium,
 	/// Die Kategorie des Entrys (anime,manga)
-	pub kat:						Kategorie,
+	pub kat: Kategorie,
 	/// Die Episoden/Kapitelnummer
-	pub episode:					u64,
+	pub episode: u64,
 	/// Der Zeitpunkt des Aufrufs (Format: 'YYYY-MM-DD hh:mm:ss')
-	pub timestamp:					i64,
+	pub timestamp: i64,
 }
 
 /// Diese Funktion liefert die Kommentarvotes des Users.
@@ -57,22 +57,22 @@ pub struct History
 pub struct Vote
 {
 	/// Die ID des Kommentarvotes
-	pub id:							u64,
+	pub id: u64,
 	/// Der Name des gevoteten Entrys
-	pub name:						String,
+	pub name: String,
 	/// Die User-ID des Erstellers des Kommentars
-	pub uid:						u64,
+	pub uid: u64,
 	/// Der Username des Erstellers des Kommentars
-	pub username:					String,
+	pub username: String,
 	/// Die ID des Kommentars
-	pub kid:						u64,
+	pub kid: u64,
 	/// Der Inhalt des Kommentars
-	pub comment:					String,
+	pub comment: String,
 	/// Die Bewertung des Kommentars
-	pub rating:						String,
+	pub rating: String,
 	/// Der Typ des Votes
 	#[serde(rename="type")]
-	pub vote_type:					String,
+	pub vote_type: String,
 }
 
 /// Diese Funktion liefert eine Liste aller Lesezeichen des Users.
@@ -80,21 +80,21 @@ pub struct Vote
 pub struct Reminder
 {
 	/// Die ID des Entrys
-	pub eid:						u64,
+	pub eid: u64,
 	/// Die Kategorie des Entrys (anime,manga)
-	pub kat:						Kategorie,
+	pub kat: Kategorie,
 	/// Der Name des Entrys
-	pub name:						String,
+	pub name: String,
 	/// Die Folgen/Kapitelnummer des Lesezeichens
-	pub episode:					u64,
+	pub episode: u64,
 	/// Die Sprache des Lesezeichens
-	pub language:					String,
+	pub language: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:						Medium,
+	pub medium: Medium,
 	/// Die ID des Lesezeichens
-	pub id:							u64,
+	pub id: u64,
 	/// Der Status des Entrys
-	pub state:						String,
+	pub state: String,
 }
 
 /// Diese Klasse dient der Verwaltung sämtlicher Daten, die normalerweise über das UCP Abrufbar/Veränderbar sind.
@@ -102,7 +102,7 @@ pub struct Reminder
 #[derive(Debug)]
 pub struct Ucp<'ucp>
 {
-	proxer:			&'ucp Proxer,
+	proxer: &'ucp Proxer,
 }
 
 impl<'ucp> Ucp<'ucp>
@@ -113,7 +113,7 @@ impl<'ucp> Ucp<'ucp>
 	{
 		Ucp
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

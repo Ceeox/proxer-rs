@@ -9,56 +9,56 @@ use ::models::*;
 pub struct EntrySearch
 {
 	/// Die ID des Entrys
-	pub id:				u64,
+	pub id: u64,
 	/// Der Name des Entrys (Der selbe Entry kann mit unterschiedlichen Namen mehrfach auftreten)
-	pub name:			String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre: 			Vec<String>,
+	pub genre: Vec<String>,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium: 		Medium,
+	pub medium: Medium,
 	/// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
-	pub count: 			u64,
+	pub count: u64,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt
 	/// 0: Nicht Erschienen (Pre-Airing)
 	/// 1: Abgeschlossen
 	/// 2: Airing/Am Laufen
 	/// 3: Abgebrochen
 	/// 4: Abgeschlossen/Nicht fertiggesubbt
-	pub state: 			u8,
+	pub state: u8,
 	/// Die Summe aller Bewertungen
-	pub rate_sum: 		u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count: 	u64,
+	pub rate_count: u64,
 	/// Die Sprachen, in denen der Entry verfügbar ist, als Komma-separierter String
-	pub language: 		Vec<String>,
+	pub language: Vec<String>,
 }
 /// Diese Funktion liefert eine Liste aller Entrys einer Kategorie mit bestimmten Einschränkungsmöglichkeiten.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct EntryList
 {
 	/// Die ID des Entrys
-	pub id:				u64,
+	pub id: u64,
 	/// Der Name des Entrys (Der selbe Entry kann mit unterschiedlichen Namen mehrfach auftreten)
-	pub name:			String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre:			Vec<String>,
+	pub genre: Vec<String>,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:			Medium,
+	pub medium: Medium,
 	/// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
-	pub count:			u64,
+	pub count: u64,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt
 	/// 0: Nicht Erschienen (Pre-Airing)
 	/// 1: Abgeschlossen
 	/// 2: Airing/Am Laufen
 	/// 3: Abgebrochen
 	/// 4: Abgeschlossen/Nicht fertiggesubbt
-	pub state:			u64,
+	pub state: u64,
 	/// Die Summe aller Bewertungen
-	pub rate_sum:		u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count:		u64,
+	pub rate_count: u64,
 	/// Die Sprachen, in denen der Entry verfügbar ist, als Komma-separierter String
-	pub language:		Vec<String>,
+	pub language: Vec<String>,
 }
 
 /// Diese Funktion zieht aus einem String die IDs aller darin vorkommenden Tags und gibt sie zurück.
@@ -66,9 +66,9 @@ pub struct EntryList
 pub struct TagIDs
 {
 	/// Ein Array, dass die IDs aller vorkommenden Tags ohne Minus ("-") enthält.
-	pub tags:			Vec<String>,
+	pub tags: Vec<String>,
 	/// Ein Array, dass die IDs aller vorkommenden Tags mit Minus ("-") enthält.
-	pub notags:			Vec<String>,
+	pub notags: Vec<String>,
 }
 
 /// Diese Funktion liefert eine Liste aller Tags, anhand bestimmter Kriterien.
@@ -76,18 +76,18 @@ pub struct TagIDs
 pub struct Tag
 {
 	/// Die ID des Tags
-	pub id:				u64,
+	pub id: u64,
 	/// Der Typ des Tags (entry_genre,entry_tag,entry_tag_h,gallery)
 	#[serde(rename="type")]
-	pub tag_type:		String,
+	pub tag_type: String,
 	/// Der Name des Tags
-	pub tag:			String,
+	pub tag: String,
 	/// Die Beschreibung des Tags
-	pub description:	String,
+	pub description: String,
 	/// Ob der Tag verwendet werden kann (Dieser Wert ist immer gleich 0, da geblacklistete Tags nicht ausgegeben werden)
-	pub blacklist:		u8,
+	pub blacklist: u8,
 	/// In welche Kategorie der Tag gehört. (Arten siehe Eingabeparameter)
-	pub subtype:		Kategorie,
+	pub subtype: Kategorie,
 }
 
 /// Diese Funktion liefert eine Liste aller Sub/Scanlation Gruppen, anhand bestimmter Kriterien.
@@ -95,13 +95,13 @@ pub struct Tag
 pub struct TranslatorGroup
 {
 	/// Die id der Gruppe
-	pub id: 			u64,
+	pub id: u64,
 	/// Der Name der Gruppe
-	pub name: 			String,
+	pub name: String,
 	/// Die Sprache der Gruppe (misc, de, en)
-	pub country: 		String,
+	pub country: String,
 	/// Ein Bildlink für ein Bild der Gruppe (kann leer sein)
-	pub image: 			Option<String>,
+	pub image: Option<String>,
 }
 
 /// Diese Funktion liefert eine Liste aller Firmen, anhand bestimmter Kriterien.
@@ -109,16 +109,16 @@ pub struct TranslatorGroup
 pub struct Industry
 {
 	/// Die id der Gruppe
-	pub id: 			u64,
+	pub id: u64,
 	/// Der Typ der Firma (publisher, studio, producer, record_label, talent_agent, streaming)
 	#[serde(rename="type")]
-	pub industry_type: 	Firma,
+	pub industry_type: Firma,
 	/// Der Name der Firma
-	pub name: 			String,
+	pub name: String,
 	/// Das Land der Firma (misc, de, us (England/USA), jp)
-	pub country: 		String,
+	pub country: String,
 	/// Folgender Link enthält das Coverbild einer Firma: ///cdn.proxer.me/industry/<id>.jpg
-	pub link:			String,
+	pub link: String,
 }
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Gruppe anhand ihrer ID.
@@ -126,29 +126,29 @@ pub struct Industry
 pub struct TranslatorGroupProject
 {
 	/// Die id des Entrys
-	pub id:					u64,
+	pub id: u64,
 	/// Der Name des Entrys (Originalname)
-	pub name:				String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre:				String,
+	pub genre: String,
 	/// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Gefahrensymbol)
-	pub fsk:				String,
+	pub fsk: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:				Medium,
+	pub medium: Medium,
 	/// Der Status der Subgruppe (Werte siehe Parameter)
 	#[serde(rename="type")]
-	pub trans_group_type: 	String,
+	pub trans_group_type: String,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt
 	/// 0: Nicht Erschienen (Pre-Airing)
 	/// 1: Abgeschlossen
 	/// 2: Airing/Am Laufen
 	/// 3: Abgebrochen
 	/// 4: Abgeschlossen/Nicht fertiggesubbt
-	pub state:				u8,
+	pub state: u8,
 	/// Die Summe aller Bewertungen
-	pub rate_sum:			u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count:			u64,
+	pub rate_count: u64,
 }
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Firma anhand ihrer ID.
@@ -156,29 +156,29 @@ pub struct TranslatorGroupProject
 pub struct IndustrysProject
 {
 	/// Die id des Entrys
-	pub id: 			u64,
+	pub id: u64,
 	/// Der Name des Entrys (Originalname)
-	pub name: 			String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre: 			String,
+	pub genre: String,
 	/// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Gefahrensymbol)
-	pub fsk: 			String,
+	pub fsk: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium: 		Medium,
+	pub medium: Medium,
 	/// Der Typ der Firma (Werte siehe Parameter)
 	#[serde(rename="type")]
-	pub industy_type:	String,
+	pub industy_type: String,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt
 	/// 0: Nicht Erschienen (Pre-Airing)
 	/// 1: Abgeschlossen
 	/// 2: Airing/Am Laufen
 	/// 3: Abgebrochen
 	/// 4: Abgeschlossen/Nicht fertiggesubbt
-	pub state: 			u8,
+	pub state: u8,
 	/// Die Summe aller Bewertungen
-	pub rate_sum: 		u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count: 	u64,
+	pub rate_count: u64,
 }
 
 /// Diese Klasse dient als Hauptmethode um die Daten von Entrys zu erhalten,
@@ -189,7 +189,7 @@ pub struct IndustrysProject
 #[derive(Debug)]
 pub struct List<'list>
 {
-	proxer:			&'list Proxer,
+	proxer: &'list Proxer,
 }
 
 impl<'list> List<'list>

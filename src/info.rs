@@ -8,107 +8,107 @@ use ::models::*;
 pub struct FullEntry
 {
 	/// Die ID des Entrys
-	pub id: 											u64,
+	pub id: u64,
 	/// Der Originaltitel des Entrys
-	pub name: 											String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre: 											String,
+	pub genre: String,
 	/// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Eintrag)
-	pub fsk: 											String,
+	pub fsk: String,
 	/// Die Beschreibung des Entrys
-	pub description: 									String,
+	pub description:String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium: 										Medium,
+	pub medium: Medium,
 	/// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
-	pub count: 											u64,
+	pub count: u64,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt (0 = x....)
-	pub state: 											u8,
+	pub state: u8,
 	/// Die Summe aller Bewertungen
-	pub rate_sum: 										u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count: 									u64,
+	pub rate_count: u64,
 	/// Die Anzahl der Klicks, die ein Anime/Manga bekommen hat. (Wird alle 3 Monate resettet)
-	pub clicks:											u64,
+	pub clicks: u64,
 	/// Die Kategorie des Entrys ("anime" oder "manga")
-	pub kat: 											Kategorie,
+	pub kat: Kategorie,
 	/// 0= Unbekannt, 1 = Nicht lizenziert, 2 = lizenziert
-	pub license: 										u8,
+	pub license: u8,
 	/// Ein boolean-Wert, der anzeigt, ob der Anime ab 18 ist oder nicht. (Ist dieser Wert "true", so sollte das Alter des Users geprüft werden)
-	pub gate: 											bool,
+	pub gate: bool,
 	/// Ein Array von Objekten der Synonyme des Entrys
-	pub names: 											Vec<String>,
+	pub names: Vec<String>,
 	/// Die Sprachen, in denen der Anime verfügbar ist. (Ein Array von Strings, Werte: "de" => Deutsch, "en" => Englisch)
-	pub lang: 											Vec<String>,
+	pub lang: Vec<String>,
 	/// Die Seasons des Animes (Array von Objekten)
-	pub seasons: 										Vec<FullEntryDataSeasons>,
+	pub seasons: Vec<FullEntryDataSeasons>,
 	/// Die eingetragenen Subgruppen (Array von Objekten)
-	pub groups: 										Vec<FullEntryDataGroups>,
+	pub groups: Vec<FullEntryDataGroups>,
 	/// Die Industrie-Einträge (Array von Objekten)
-	pub publisher: 										Vec<FullEntryDataPublisher>,
+	pub publisher: Vec<FullEntryDataPublisher>,
 	/// Die Tags (Array von Objekten)
-	pub tags: 											Vec<FullEntryDataTags>
+	pub tags: Vec<FullEntryDataTags>
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FullEntryDataSeasons
 {
 	/// Die ID des Eintrags
-	pub id: 										u64,
+	pub id: u64,
 	/// ... (Nicht näher definiert)
 	#[serde(rename="type")]
-	pub entry_type: 								String,
+	pub entry_type: String,
 	/// Das Jahr der Season
-	pub year: 										i32,
+	pub year: i32,
 	/// Eine Zahl: 0=Keine Season,1...4=winter, fühling, sommer, herbst
-	pub season: 									u8,
+	pub season: u8,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FullEntryDataGroups
 {
 	/// Die ID der Gruppe
-	pub id: 										u64,
+	pub id: u64,
 	/// Der Name der Gruppe
-	pub name: 										String,
+	pub name: String,
 	/// Die Sprache der Gruppe
-	pub country: 									String,
+	pub country: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FullEntryDataPublisher
 {
 	/// Die ID des Publishers
-	pub id: 										u64,
+	pub id: u64,
 	/// Der Name des Publishers
-	pub name: 										String,
+	pub name: String,
 	/// Der Typ des Publishers
 	#[serde(rename="type")]
-	pub entry_type: 								String,
+	pub entry_type: String,
 	/// Die Sprache des Publishers
-	pub country: 									String,
+	pub country: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FullEntryDataTags
 {
 	/// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
-	pub id: 										u64,
+	pub id: u64,
 	/// Die ID des Tags
-	pub tid: 										u64,
+	pub tid: u64,
 	/// Der Zeitpunkt, zu dem der Tag in den Entry eingetragen wurde. (Format: YYYY-MM-DD HH:ii:ss)
-	pub timestamp: 									String,
+	pub timestamp: String,
 	/// Ob der Tag zum Entry passt (0 = Unbestimmt, 1 = passt zum Entry, unpassende Tags werden nicht ausgegeben)
-	pub rate_flag: 									u8,
+	pub rate_flag: u8,
 	/// Ob der Tag ein Spoiler ist (0 = Kein Spoiler, 1 = Spoiler).
 	/// WARNUNG: "Kein Spoiler" ist der Default-Wert. Wenn also ein Tag noch nicht genug gevoted wurde,
 	/// um ein Spoiler zu sein, obwohl er es ist, so hat er trotzdem den Wert 0.
 	/// Deswegen ist es sinnvoll, alle "unbestimmten" Tags wie Spoiler zu behandeln.
 	/// (Bzw. ihn zwar getrennt von den Spoilern anzuzeigen, aber nicht sofort offensichtlich zu machen)
-	pub spoiler_flag: 								u8,
+	pub spoiler_flag: u8,
 	/// Der Name des Tags
-	pub tag: 										String,
+	pub tag: String,
 	/// Die Beschreibung des Tags
-	pub description: 								String,
+	pub description: String,
 }
 
 /// Diese Funktion liefert die Daten eines Animes/Mangas anhand seiner ID (Dies bezieht sich NUR auf die Kerndaten des Anime,
@@ -117,31 +117,31 @@ pub struct FullEntryDataTags
 pub struct Entry
 {
 	/// Die ID des Entrys
-	pub id:											u64,
+	pub id: u64,
 	/// Der Originaltitel des Entrys
-	pub name:										String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre:										String,
+	pub genre: String,
 	/// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Eintrag)
-	pub fsk:										String,
+	pub fsk: String,
 	/// Die Beschreibung des Entrys
-	pub description:								String,
+	pub description: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium:										Medium,
+	pub medium: Medium,
 	/// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
-	pub count:										u64,
+	pub count: u64,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt (0 = x....)
-	pub state:										u64,
+	pub state: u64,
 	/// Die Summe aller Bewertungen
-	pub rate_sum:									u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count:									u64,
+	pub rate_count: u64,
 	/// Die Anzahl der Klicks, die ein Anime/Manga bekommen hat. (Wird alle 3 Monate resettet)
-	pub clicks:										u64,
+	pub clicks: u64,
 	/// Die Kategorie des Entrys ("anime" oder "manga")
-	pub kat:										Kategorie,
+	pub kat: Kategorie,
 	/// 0= Unbekannt, 1 = Nicht lizenziert, 2 = lizenziert
-	pub license:									u8,
+	pub license: u8,
 }
 
 /// Diese Funktion liefert die unterschiedlichen Synonyme eines Animes/Mangas anhand seiner ID
@@ -149,14 +149,14 @@ pub struct Entry
 pub struct Name
 {
 	/// Die ID des Namens
-	pub id: 										u64,
+	pub id: u64,
 	/// Die ID des Entrys
-	pub eid: 										u64,
+	pub eid: u64,
 	/// Der Typ des Namens (...)
 	#[serde(rename="type")]
-	pub name_type: 									String,
+	pub name_type: String,
 	/// Der Name.
-	pub name: 										String,
+	pub name: String,
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Seasons.
@@ -164,16 +164,16 @@ pub struct Name
 pub struct Season
 {
 	/// Die ID des Eintrags
-	pub id: 										u64,
+	pub id: u64,
 	/// Die ID des Entrys
-	pub eid: 										u64,
+	pub eid: u64,
 	/// ...
 	#[serde(rename="type")]
-	pub season_type: 								String,
+	pub season_type: String,
 	/// Das Jahr der Season
-	pub year: 										i32, // time crate saves years, min etc as i32,
+	pub year: i32, // time crate saves years, min etc as i32,
 	/// Eine Zahl: 0=Keine Season,1...4=winter, fühling, sommer, herbst
-	pub season: 									u8,
+	pub season: u8,
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Übersetzergruppen.
@@ -181,11 +181,11 @@ pub struct Season
 pub struct Group
 {
 	/// Die ID der Gruppe
-	pub id: 									u64,
+	pub id: u64,
 	/// Der Name der Gruppe
-	pub name: 									String,
+	pub name: String,
 	/// Die Sprache der Gruppe
-	pub country: 								String,
+	pub country: String,
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Publisher.
@@ -193,14 +193,14 @@ pub struct Group
 pub struct Publisher
 {
 	/// Die ID des Publishers
-	pub id: 									u64,
+	pub id: u64,
 	/// Der Name des Publishers
-	pub name: 									String,
+	pub name: String,
 	/// Der Typ des Publishers
 	#[serde(rename="type")]
-	pub publisher_type: 						String,
+	pub publisher_type: String,
 	/// Die Sprache des Publishers
-	pub country: 								String,
+	pub country: String,
 }
 
 /// Diese Funktion liefert eine Liste aller Episoden/Kapitel eines Entrys anhand dessen ID.
@@ -208,20 +208,20 @@ pub struct Publisher
 pub struct ListInfo
 {
 	/// Die Nummer des ersten Kapitels
-	pub start:									u64,
+	pub start: u64,
 	/// Die Nummer des letzten Kapitels
-	pub end:									u64,
+	pub end: u64,
 	/// Die Kategorie des Entrys ("anime" oder "manga")
-	pub kat:									Kategorie,
+	pub kat: Kategorie,
 	/// Ein Array von Strings, das die vorhanden Sprachen enthält
-	pub lang:									String,
+	pub lang: String,
 	/// Dieser Wert stellt den momentanen Stand des Users bei diesem Anime dar.
 	/// Wenn kein User eingeloggt ist, so ist dieser Wert 0.
-	pub state:									u64,
+	pub state: u64,
 	/// Die Daten der einzelnen Episoden/Kapitel.
 	/// (Array von Objekten, erst sortiert nach Sprache, dann nach Episodennummer).
 	/// Diese enthalten abhängig von der Kategorie unterschiedliche Werte:
-	pub episodes:								Vec<ListInfoDataEpisode>,
+	pub episodes: Vec<ListInfoDataEpisode>,
 
 }
 
@@ -229,15 +229,15 @@ pub struct ListInfo
 pub struct ListInfoDataEpisode
 {
 	/// Die Nummer des Kapitels/Episode
-	pub no:										u64,
+	pub no: u64,
 	/// Der Titel des Kapitels
-	pub title:									Option<String>,
+	pub title: Option<String>,
 	/// Die Sprache des Kapitels/Episode
-	pub typ:									String,
+	pub typ: String,
 	/// Ein Komma-separierter String von Typen (vorhandene Hoster)
-	pub types:									Option<String>,
+	pub types: Option<String>,
 	/// Ein Komma-separierter String von Bildlinks der Hoster
-	pub typeimg:								Option<String>,
+	pub typeimg: Option<String>,
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga abgegebenen Kommentare (mit mehr als 300 Zeichen).
@@ -245,33 +245,33 @@ pub struct ListInfoDataEpisode
 pub struct Comment
 {
 	/// Die ID des Kommentars
-	pub id:										u64,
+	pub id: u64,
 	/// Die ID des Entrys
-	pub tid:									u64,
+	pub tid: u64,
 	/// Der Typ des Kommentars
 	#[serde(rename="type")]
-	pub comment_type:							String,
+	pub comment_type: String,
 	/// Der beim Kommentar angegebene Status (0 = geschaut, 1 = am schauen, 2 = wird geschaut, 3 = abgebrochen)
-	pub state:									u8,
+	pub state: u8,
 	/// Zusätzliche informationen, die als json-String abgespeichert werden.
 	/// Es kann sich hierbei beispielsweise um die "Genre"-Bewertung handeln.
-	pub data:									String,
+	pub data: String,
 	/// Der Kommentar-Text
-	pub comment:								String,
+	pub comment: String,
 	/// Die Bewertung des Entrys
-	pub rating:									f32,
+	pub rating: f32,
 	/// Die Episode, bis zu der der Kommentarschreiber geschaut hat.
-	pub episode:								u64,
+	pub episode: 	u64,
 	/// Wie viele Personen den Kommentar hilfreich finden.
-	pub positive:								u64,
+	pub positive: u64,
 	/// Der Zeitpunkt der letzten Bearbeitung/Erstellung (?) des Kommentars (Unix-Timestamp in Sekunden)
-	pub timestamp:								i64,
+	pub timestamp: i64,
 	/// Der Username des Erstellers des Kommentars
-	pub username:								String,
+	pub username: String,
 	/// Die User-ID des Erstellers des Kommentars
-	pub uid:									u64,
+	pub uid: u64,
 	/// Das Profilbild des Erstellers des Kommentars
-	pub avatar:									String,
+	pub avatar: String,
 }
 
 /// Diese Funktion liefert alle Verbindungen eines Entrys.
@@ -279,37 +279,37 @@ pub struct Comment
 pub struct Relation
 {
 	/// Die ID des Entrys
-	pub id: 									u64,
+	pub id: u64,
 	/// Der Originaltitel des Entrys
-	pub name: 									String,
+	pub name: String,
 	/// Die Genre des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Genre)
-	pub genre: 									String,
+	pub genre: String,
 	/// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Eintrag)
-	pub fsk: 									String,
+	pub fsk: String,
 	/// Die Beschreibung des Entrys
-	pub description: 							String,
+	pub description: String,
 	/// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
-	pub medium: 								Medium,
+	pub medium: Medium,
 	/// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
-	pub count: 									u64,
+	pub count: u64,
 	/// Ein Integer-Wert, der den Status des Entrys beschreibt (0 = x....)
-	pub state: 									u64,
+	pub state: u64,
 	/// Die Summe aller Bewertungen
-	pub rate_sum: 								u64,
+	pub rate_sum: u64,
 	/// Die Anzahl der Bewertungen
-	pub rate_count: 							u64,
+	pub rate_count: u64,
 	/// Die Anzahl der Klicks, die ein Anime/Manga bekommen hat. (Wird alle 3 Monate resettet)
-	pub clicks: 								u64,
+	pub clicks: u64,
 	/// Die Kategorie des Entrys ("anime" oder "manga")
-	pub kat: 									Kategorie,
+	pub kat: Kategorie,
 	/// 0= Unbekannt, 1 = Nicht lizenziert, 2 = lizenziert
-	pub license: 								u8,
+	pub license: u8,
 	/// Die Sprachen, in denen der Entry verfügbar ist, als Komma-separierter String
-	pub language: 								String,
+	pub language: String,
 	/// Das Jahr der Season
-	pub year: 									i32,
+	pub year: i32,
 	/// Die Season
-	pub season: 								u8,
+	pub season: u8,
 }
 
 /// Diese Funktion liefert alle Tags eines Entrys.
@@ -317,19 +317,19 @@ pub struct Relation
 pub struct EntryTag
 {
 	/// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
-	pub id:										u64,
+	pub id: u64,
 	/// Die ID des Tags
-	pub tid:									u64,
+	pub tid: u64,
 	/// Der Zeitpunkt, zu dem der Tag in den Entry eingetragen wurde. (Format: YYYY-MM-DD HH:ii:ss)
-	pub timestamp:								i64,
+	pub timestamp: i64,
 	/// Ob der Tag zum Entry passt (0 = Unbestimmt, 1 = passt zum Entry, unpassende Tags werden nicht ausgegeben)
-	pub rate_flag:								u8,
+	pub rate_flag: u8,
 	/// Ob der Tag ein Spoiler ist (0 = Kein Spoiler, 1 = Spoiler). WARNUNG: "Kein Spoiler" ist der Default-Wert. Wenn also ein Tag noch nicht genug gevoted wurde, um ein Spoiler zu sein, obwohl er es ist, so hat er trotzdem den Wert 0. Deswegen ist es sinnvoll, alle "unbestimmten" Tags wie Spoiler zu behandeln. (Bzw. ihn zwar getrennt von den Spoilern anzuzeigen, aber nicht sofort offensichtlich zu machen)
-	pub spoiler_flag:							u8,
+	pub spoiler_flag: u8,
 	/// Der Name des Tags
-	pub tag:									String,
+	pub tag: String,
 	/// Die Beschreibung des Tags
-	pub description:							String,
+	pub description: String,
 }
 
 /// Diese Funktion liefert alle Daten zu einer Sub/Scanlation Gruppe anhand ihrer ID.
@@ -337,21 +337,21 @@ pub struct EntryTag
 pub struct TranslatorGroup
 {
 	/// Die id der Gruppe
-	pub id: 									u64,
+	pub id: u64,
 	/// Der Name der Gruppe
-	pub name: 									String,
+	pub name: String,
 	/// Der Link zur Website der Gruppe
-	pub link: 									String,
+	pub link: String,
 	/// Die Sprache der Gruppe (misc, de, en)
-	pub country: 								String,
+	pub country: String,
 	/// Ein Bildlink für ein Bild der Gruppe (kann leer sein)
-	pub image: 									Option<String>,
+	pub image: Option<String>,
 	/// Die Beschreibung der Gruppe
-	pub description: 							String,
+	pub description: String,
 	/// ...
-	pub count: 									String,
+	pub count: String,
 	/// ...
-	pub cprojects: 								String,
+	pub cprojects: String,
 }
 
 /// Diese Funktion liefert alle Daten zu einer Firma anhand ihrer ID.
@@ -359,18 +359,18 @@ pub struct TranslatorGroup
 pub struct Industry
 {
 	/// Die id der Gruppe
-	pub id:  									u64,
+	pub id: u64,
 	/// Der Typ der Firma (publisher, studio, producer, record_label, talent_agent, streaming)
 	#[serde(rename="type")]
-	pub industry_type:  						Firma,
+	pub industry_type: Firma,
 	/// Der Name der Firma
-	pub name:  									String,
+	pub name: String,
 	/// Das Land der Firma (misc, de, us (England/USA), jp)
-	pub country:  								String,
+	pub country: String,
 	/// Ein Link zur Website der Firma
-	pub link:  									String,
+	pub link: String,
 	/// Die Beschreibung der Firma
-	pub description:  							String,
+	pub description: String,
 }
 
 impl Industry
@@ -388,7 +388,7 @@ impl Industry
 #[derive(Debug)]
 pub struct Info<'info>
 {
-	proxer:			&'info Proxer,
+	proxer: &'info Proxer,
 }
 
 impl<'info> Info<'info>
@@ -399,7 +399,7 @@ impl<'info> Info<'info>
 	{
 		Info
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

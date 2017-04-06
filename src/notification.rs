@@ -12,33 +12,33 @@ use ::models::*;
 pub struct News
 {
 	/// Die ID der News
-	pub nid:				u64,
+	pub nid: u64,
 	/// Der Zeitpunkt der publizierung (Unix-Timestamp als Sekunden gespeichert)
-	pub time:				i64,
+	pub time: i64,
 	/// Die ID des entsprechenden Forumsbeitrags
-	pub mid:				u64,
+	pub mid: u64,
 	/// Die Beschreibung der News
-	pub description:		String,
+	pub description: String,
 	/// ID zum Bild.
-	pub image_id:			String,
+	pub image_id: String,
 	/// CSS-Konforme Style-Elemente um die Positionierung des Bildes zu bestimmen.
-	pub image_style:		String,
+	pub image_style: String,
 	/// Der Titel des entsprechenden Forumsbeitrags
-	pub subject:			String,
+	pub subject: String,
 	/// Anzahl der Zugriffe auf den entsprechenden Forumsbeitrag
-	pub hits:				u64,
+	pub hits: u64,
 	/// mid
-	pub thread:				u64,
+	pub thread: u64,
 	/// User-ID des Erstellers des Forumsposts
-	pub uid:				u64,
+	pub uid: u64,
 	/// Benutzername des Autors
-	pub uname:				String,
+	pub uname: String,
 	/// Anzahl der Antworten/Kommentare auf die News
-	pub posts:				u64,
+	pub posts: u64,
 	/// Die ID der Kategorie, in der sich eine News befindet.
-	pub catid:				u64,
+	pub catid: u64,
 	/// Der Name der Kategorie.
-	pub catname:			String,
+	pub catname: String,
 }
 
 /// Diese Klasse beinhaltet alle Schnittstellen,
@@ -47,7 +47,7 @@ pub struct News
 #[derive(Debug)]
 pub struct Notification<'notification>
 {
-	proxer:			&'notification Proxer,
+	proxer: &'notification Proxer,
 }
 
 impl<'notification> Notification<'notification>
@@ -58,7 +58,7 @@ impl<'notification> Notification<'notification>
 	{
 		Notification
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 

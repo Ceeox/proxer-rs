@@ -10,11 +10,11 @@ use ::models::*;
 pub struct RandomHeader
 {
 	/// Die ID des Headers in der Gallerie
-	pub gid: 			u64,
+	pub gid: u64,
 	/// Der Pfad zum Bild
-	pub catpath: 		String,
+	pub catpath: String,
 	/// Der Name des Bildes
-	pub imgfilename: 	String,
+	pub imgfilename: String,
 }
 
 impl RandomHeader
@@ -32,11 +32,11 @@ impl RandomHeader
 pub struct HeaderList
 {
 	/// Die ID des Headers in der Gallerie
-	pub gid: 			u64,
+	pub gid: u64,
 	/// Der Pfad zum Bild
-	pub catpath: 		String,
+	pub catpath: String,
 	/// Der Name des Bildes
-	pub imgfilename: 	String,
+	pub imgfilename: String,
 }
 
 impl HeaderList
@@ -53,7 +53,7 @@ impl HeaderList
 #[derive(Debug)]
 pub struct Media<'media>
 {
-	proxer:			&'media Proxer,
+	proxer: &'media Proxer,
 }
 
 impl<'media> Media<'media>
@@ -64,7 +64,7 @@ impl<'media> Media<'media>
 	{
 		Media
 		{
-			proxer:		p_proxer,
+			proxer: p_proxer,
 		}
 	}
 
