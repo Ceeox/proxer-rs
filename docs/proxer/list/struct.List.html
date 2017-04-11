@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `List` struct in crate `proxer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, List">
+
+    <title>proxer::list::List - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>proxer</a>::<wbr><a href='index.html'>list</a></p><script>window.sidebarCurrent = {name: 'List', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>proxer</a>::<wbr><a href='index.html'>list</a>::<wbr><a class='struct' href=''>List</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/proxer/list.rs.html#190-193' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct List&lt;'list&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Diese Klasse dient als Hauptmethode um die Daten von Entrys zu erhalten,
+insbesondere der ID (die für jede spezielle Entry Schnittstelle nötig ist).
+Sie enthält zwei Arten von Schnittstellen: Eine &quot;Search&quot; Schnittstelle,
+die wie die Erweiterte Suche auf Proxer funktioniert, sowie Auflistungs-Schnittstellen,
+die Animelisten nach bestimmten Schemata erstellen.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'list&gt; <a class='struct' href='../../proxer/list/struct.List.html' title='proxer::list::List'>List</a>&lt;'list&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/list.rs.html#195-500' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.entry_search' class='method'><span id='entry_search.v' class='invisible'><code>fn <a href='#method.entry_search' class='fnname'>entry_search</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_name: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_language: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Medium.html' title='proxer::models::Medium'>Medium</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_genre: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_nogenre: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_fsk: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sort: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.SearchSort.html' title='proxer::models::SearchSort'>SearchSort</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_length: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_lengthlimit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.LengthLimit.html' title='proxer::models::LengthLimit'>LengthLimit</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_tags: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_notags: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_tagratefilter: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_tagspoilerfilter: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.EntrySearch.html' title='proxer::list::EntrySearch'>EntrySearch</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion erfüllt die Aufgabe der erweiterten Suche</p>
+
+<h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
+<ul>
+<li><code>p_name</code> - Ein zu suchender Entryname. Die Schnittstelle sucht sowohl nach exakten Matches
+als auch nach Teil-Matches im Titel des Entrys (oder einem seiner Synonyme)</li>
+<li><code>p_language</code> - Die zu suchende Sprache. Erlaubte Werte: &quot;de&quot;,&quot;en&quot;. Default: Beide.</li>
+<li><code>p_type</code> - Der zu suchende Typ. Erlaubte Werte:
+&#39;p_animeseries&#39;, &#39;movie&#39;, &#39;ova&#39;, &#39;mangaseries&#39;, &#39;oneshot&#39;, &#39;doujin&#39;, &#39;hentai&#39;, &#39;hmanga&#39;,
+&#39;p_all-anime&#39;(kein H), &#39;all-manga&#39;(kein H), &#39;all&#39; (Default, kein H), &#39;all18&#39;(H)</li>
+<li><code>p_genre</code> - Genre, die der Entry enthalten soll. Als Leerzeichen (oder Plus &quot;+&quot;)
+separierter String, Genre-Namen wie in Suche. (Also ausgeschrieben, z.B. &quot;Action&quot;) (Kein Effekt wenn leer)</li>
+<li><code>p_nogenre</code> - Genre, die der Entry nicht enthalten darf. Angabe wie genre. (Kein Effekt wenn leer)</li>
+<li><code>p_fsk</code> - Die zu suchenden Gefahrensymbole/Altersbeschränkungen. Erlaubte Werte:
+&quot;fsk0&quot;, &quot;fsk6&quot;, &quot;fsk12&quot;, &quot;fsk16&quot;, &quot;fsk18&quot;, &quot;bad_language&quot;, &quot;violence&quot;, &quot;fear&quot;, &quot;sex&quot;.
+Anzugeben als Leerzeichen oder Plus (&quot;+&quot;) separierter String. (Kein Effekt wenn leer)</li>
+<li><code>p_sort</code> - Wie die Ergebnisse sortiert werden sollen. Erlaubte Werte:
+&quot;relevance&quot; (Qualität des Name-Matches, Default), &quot;clicks&quot;, &quot;rating&quot;
+(Sortierung erst nach Anzahl und dann Wertung der Stimmen), &quot;count&quot; (Anzahl der Kapitel/Episoden),
+&quot;name&quot; (Alphabetisch)</li>
+<li><code>p_length</code> - Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!),
+die ein Entry mindestens/höchstens haben darf. Zwischen 0 und 400 (exklusive). (Kein Effekt wenn leer)</li>
+<li><code>p_length-limit</code> - Ob der Parameter &quot;length&quot; als Minimal- oder Maximalwert verwendet werden soll.
+Erlaubte Werte: &quot;up&quot; (größer gleich), &quot;down&quot; (kleiner gleich, Default).
+Hat keinen Effekt wenn &quot;length&quot; nicht korrekt gesetzt ist.</li>
+<li><code>p_tags</code> - Tags, die der Entry enthalten soll. Als Leerzeichen (oder Plus &quot;+&quot;)
+separierter String von Tag-Ids. (Kein Effekt wenn leer)</li>
+<li><code>p_notags</code> - Tags, die der Entry nicht enthalten darf.
+Als Leerzeichen (oder Plus &quot;+&quot;) separierter String von Tag-Ids. (Kein Effekt wenn leer)</li>
+<li><code>p_tagratefilter</code> - Welche Art Tags berücksichtigt werden soll (negativ als auch positiv),
+&quot;rate_1&quot; für nur eingetragene Tags (Default), &quot;rate_10&quot; für zusätzlich Unbestimmte Tags.</li>
+<li><code>p_tagspoilerfilter</code> - Inwieweit Spoiler-Tags berücksichtigt werden sollen (negativ als auch positiv),
+&quot;spoiler_0&quot; für keine Spoiler (Default), &quot;spoiler_10&quot; für Spoiler und Nicht-Spoiler, &quot;spoiler_1&quot; für nur Spoiler.</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div><h4 id='method.get_entrylist' class='method'><span id='get_entrylist.v' class='invisible'><code>fn <a href='#method.get_entrylist' class='fnname'>get_entrylist</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_kat: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Kategorie.html' title='proxer::models::Kategorie'>Kategorie</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_medium: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Medium.html' title='proxer::models::Medium'>Medium</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_is_h: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_start: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.EntryList.html' title='proxer::list::EntryList'>EntryList</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Entrys einer Kategorie mit bestimmten Einschränkungsmöglichkeiten.</p>
+
+<h1 id='arguments-1' class='section-header'><a href='#arguments-1'>Arguments</a></h1>
+<ul>
+<li><code>p_kat</code> - Die Kategorie des Entrys. Erlaubte Werte: &quot;anime&quot;,&quot;manga&quot;. Default: &quot;anime&quot;</li>
+<li><code>p_medium</code> - Welche Art medium geladen werden soll.
+Erlaubte Werte: &quot;animeseries&quot;, &quot;movie&quot;, &quot;ova&quot;, &quot;hentai&quot;, &quot;mangaseries&quot;, &quot;oneshot&quot;, &quot;doujin&quot;, &quot;hmanga&quot;.
+(Kein Effekt wenn leer)</li>
+<li><code>p_is_h</code> - Ob die Liste Hentais enthalten soll. &quot;true&quot; für Hentai-Liste, sonst non-Hentai Liste (default).
+Dieser Parameter hat keinen Effekt wenn &quot;medium&quot; gesetzt ist</li>
+<li><code>p_start</code> - Mit welchem String der Name der Entrys beginnen soll.
+Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
+Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, &#39;nonAlpha&#39; angeben. (Kein Effekt wenn leer)</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div><h4 id='method.get_tag_ids' class='method'><span id='get_tag_ids.v' class='invisible'><code>fn <a href='#method.get_tag_ids' class='fnname'>get_tag_ids</a>(&amp;self, p_search: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/list/struct.TagIDs.html' title='proxer::list::TagIDs'>TagIDs</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion zieht aus einem String die IDs aller darin vorkommenden Tags und gibt sie zurück.</p>
+
+<h1 id='arguments-2' class='section-header'><a href='#arguments-2'>Arguments</a></h1>
+<ul>
+<li><code>search</code> - Ein beliebiger String. Sollte sinnvollerweise Tags enthalten,
+einzelne Tags durch Leerzeichen getrennt (also keine Kommata zur Trennung oder dergleichen verwenden).
+Es können nur Tags erkannt werden, vor und nach denen ein Leerzeichen bzw der Anfang/das Ende des Strings sind.
+Zudem darf vor einem Tag (Also nach dem Leerzeichen/Beginn des Strings vor dem Tag) ein Minus (&quot;-&quot;) stehen.
+Solcherart gekennzeichnete Tags werden gesondert ausgegeben.</li>
+</ul>
+</div><h4 id='method.get_tags' class='method'><span id='get_tags.v' class='invisible'><code>fn <a href='#method.get_tags' class='fnname'>get_tags</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_search: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sort: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sort_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sub_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.SubType.html' title='proxer::models::SubType'>SubType</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.Tag.html' title='proxer::list::Tag'>Tag</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Tags, anhand bestimmter Kriterien.</p>
+
+<h1 id='arguments-3' class='section-header'><a href='#arguments-3'>Arguments</a></h1>
+<ul>
+<li><code>p_search</code> - Ein beliebiger String. Nur Tags,
+deren Name oder Beschreibung diesen String als Substring haben oder gleich ihm sind sind werden ausgegeben.</li>
+<li><code>p_type</code> - Welcher Typ Tag angezeigt werden soll.
+Mögliche Werte: entry_genre (Genres, momentan nicht in Benutzung), entry_tag (normale Tags),
+entry_tag_h (H-tags), gallery (Gallerie Tags, momentan nicht in Benutzung). Default: Alles außer H-Tags.</li>
+<li><code>p_sort</code> - Nach welchem Ausgabeparameter die Liste sortiert werden soll.
+Erlaubte Werte: id, type, tag, description, blacklist, subtype. Default: tag</li>
+<li><code>p_sort_type</code> - In welcher Reihenfolge die Sortierung ist. &#39;ASC&#39; für aufsteigend,
+&#39;DESC&#39; für absteigend (Jeder andere Wert wird zu DESC). Default: ASC</li>
+<li><code>p_subtype</code> - Die Kategorie des Tags</li>
+</ul>
+</div><h4 id='method.get_translatorgroups' class='method'><span id='get_translatorgroups.v' class='invisible'><code>fn <a href='#method.get_translatorgroups' class='fnname'>get_translatorgroups</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_start: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_contains: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.TranslatorGroup.html' title='proxer::list::TranslatorGroup'>TranslatorGroup</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Sub/Scanlation Gruppen, anhand bestimmter Kriterien.</p>
+
+<h1 id='arguments-4' class='section-header'><a href='#arguments-4'>Arguments</a></h1>
+<ul>
+<li><code>p_start</code> - Mit welchem String der Name der Gruppen beginnen soll.
+Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
+Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, &#39;nonAlpha&#39; angeben. (Kein Effekt wenn leer)</li>
+<li><code>p_contains</code> - Nur Gruppen, die diesen String als Substring ihres Namens haben, werden ausgegeben.
+(Kein Effekt wenn leer)
+country (optional): Ermöglich, Gruppen nach Sprache zu filtern,
+erlaubte Werte: &quot;de&quot;, &quot;en&quot;, &quot;misc&quot;. Default: Alle.</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div><h4 id='method.get_industrys' class='method'><span id='get_industrys.v' class='invisible'><code>fn <a href='#method.get_industrys' class='fnname'>get_industrys</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_start: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_contains: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_country: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Firma.html' title='proxer::models::Firma'>Firma</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.Industry.html' title='proxer::list::Industry'>Industry</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Firmen, anhand bestimmter Kriterien.</p>
+
+<h1 id='arguments-5' class='section-header'><a href='#arguments-5'>Arguments</a></h1>
+<ul>
+<li><code>p_start</code> - Mit welchem String der Name der Firma beginnen soll.
+Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
+Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, &#39;nonAlpha&#39; angeben.(Kein Effekt wenn leer)</li>
+<li><code>p_contains</code> - Nur Firmen, die diesen String als Substring ihres Namens haben,
+werden ausgegeben. (Kein Effekt wenn leer)</li>
+<li><code>p_country</code> - Ermöglich, Firmen nach Sprache zu filtern,
+erlaubte Werte: &quot;de&quot;, &quot;us&quot;, &quot;jp&quot;, &quot;misc&quot;. Default: Alle.</li>
+<li><code>p_type</code> - Ermöglicht, Firmen nach Typ zu filtern,
+erlaubte Werte: &#39;publisher&#39;,&#39;studio&#39;,&#39;producer&#39;,&#39;record_label&#39;,&#39;talent_agent&#39;,&#39;streaming&#39;. Default: Alle.</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div><h4 id='method.get_translatorgroups_projects' class='method'><span id='get_translatorgroups_projects.v' class='invisible'><code>fn <a href='#method.get_translatorgroups_projects' class='fnname'>get_translatorgroups_projects</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.TranslationStatus.html' title='proxer::models::TranslationStatus'>TranslationStatus</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_is_h: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.TranslatorGroupProject.html' title='proxer::list::TranslatorGroupProject'>TranslatorGroupProject</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Gruppe anhand ihrer ID.</p>
+
+<h1 id='arguments-6' class='section-header'><a href='#arguments-6'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID der gewünschten Gruppe.</li>
+<li><code>p_type</code> - Ein Integer. Wenn gesetzt werden nur Entrys des gegebenen Übersezungs-Status ausgegeben
+(0=undefined, 1=abgeschlossen, 2=am laufen, 3=Geplant, 4=abgebrochen, 5=lizenziert). Default: Alle.</li>
+<li><code>p_is_h</code> - Ein Integer. Steuert die Ausgabe von H-Inhalten. Werte:
+-1 (kein H, Default), 0 (beides), 1 (nur H)</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div><h4 id='method.get_industry_projects' class='method'><span id='get_industry_projects.v' class='invisible'><code>fn <a href='#method.get_industry_projects' class='fnname'>get_industry_projects</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_type: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Firma.html' title='proxer::models::Firma'>Firma</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_is_h: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/list/struct.IndustrysProject.html' title='proxer::list::IndustrysProject'>IndustrysProject</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Firma anhand ihrer ID.</p>
+
+<h1 id='arguments-7' class='section-header'><a href='#arguments-7'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID der gewünschten Firma.</li>
+<li><code>p_type</code> - Ermöglicht, Entrys nach Typ der Firma zu filtern
+(eine Firma kann als verschiedene Typen auftreten),
+erlaubte Werte: &#39;publisher&#39;,&#39;studio&#39;,&#39;producer&#39;,&#39;record_label&#39;,&#39;talent_agent&#39;,&#39;streaming&#39;. Default: Alle.</li>
+<li><code>p_is_h</code> - Ein Integer. Steuert die Ausgabe von H-Inhalten.
+Werte: -1 (kein H, Default), 0 (beides), 1 (nur H)</li>
+<li><code>p_page</code> - Die zu ladende Seite, Beginn bei 0, Default 0.</li>
+<li><code>p_limit</code> - Wie viele Einträge eine Seite enthalten soll. Default 100.</li>
+</ul>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'list&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../proxer/list/struct.List.html' title='proxer::list::List'>List</a>&lt;'list&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/list.rs.html#189' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "proxer";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

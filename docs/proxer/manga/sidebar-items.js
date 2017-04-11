@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Chapter","Diese Funktion liefert ein Kapitel eines festgelegten Mangas. Um Mangapunkte für das Lesen zu erhalten muss ein User angemeldet sein."],["Manga","Diese Klasse dient dazu, Kapitel für Mangas zu erhalten, und andere rein Manga-bezogene Aktionen durchzuführen. Der Zugriff auf diese Klasse ist stark beschränkt."]]});

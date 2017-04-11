@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Anime` struct in crate `proxer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Anime">
+
+    <title>proxer::anime::Anime - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>proxer</a>::<wbr><a href='index.html'>anime</a></p><script>window.sidebarCurrent = {name: 'Anime', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>proxer</a>::<wbr><a href='index.html'>anime</a>::<wbr><a class='struct' href=''>Anime</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/proxer/anime.rs.html#69-72' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Anime&lt;'anime&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Diese Klasse dient dazu, Streams für Animes zu erhalten, und andere rein Anime-bezogene Aktionen durchzuführen.
+Der Zugriff auf diese Klasse ist stark beschränkt.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'anime&gt; <a class='struct' href='../../proxer/anime/struct.Anime.html' title='proxer::anime::Anime'>Anime</a>&lt;'anime&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/anime.rs.html#74-149' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_streams' class='method'><span id='get_streams.v' class='invisible'><code>fn <a href='#method.get_streams' class='fnname'>get_streams</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_episode: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_language: <a class='enum' href='../../proxer/models/enum.Language.html' title='proxer::models::Language'>Language</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/anime/struct.Stream.html' title='proxer::anime::Stream'>Stream</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, ohne den Proxerstream!.
+Um Animepunkte für das Schauen zu erhalten muss ein User angemeldet sein.</p>
+
+<h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die id des Entrys</li>
+<li><code>p_episode</code> - Die Episodennummer der zu ladenden Folge</li>
+<li><code>p_language</code> - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)</li>
+</ul>
+</div><h4 id='method.get_proxerstreams' class='method'><span id='get_proxerstreams.v' class='invisible'><code>fn <a href='#method.get_proxerstreams' class='fnname'>get_proxerstreams</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_episode: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_language: <a class='enum' href='../../proxer/models/enum.Language.html' title='proxer::models::Language'>Language</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/anime/struct.ProxerStream.html' title='proxer::anime::ProxerStream'>ProxerStream</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, inklusive des Proxerstreams!.
+Um Animepunkte für das Schauen zu erhalten muss ein User angemeldet sein.
+Die Schnittstelle liefert auch alle weiteren Streams,
+eine zusätzliche Abfrage der &quot;Get Streams&quot; Schnittstelle ist also nicht nötig.
+Hinweis: Diese Schnittstelle ist momentan gesperrt!</p>
+
+<h1 id='arguments-1' class='section-header'><a href='#arguments-1'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die id des Entrys</li>
+<li><code>p_episode</code> - Die Episodennummer der zu ladenden Folge</li>
+<li><code>p_language</code> - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)</li>
+</ul>
+</div><h4 id='method.get_link' class='method'><span id='get_link.v' class='invisible'><code>fn <a href='#method.get_link' class='fnname'>get_link</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion dient dazu, den Link zu einem einzelnen Stream zu erhalten.
+Dazu muss die ID des gewählten Streams angegeben werden.
+Dieser kann erhalten werden durch die Get Streams oder Get Proxerstreams Funktionen.
+Diese Funktion erhöht euch den Viewcount des Streams.</p>
+
+<h1 id='arguments-2' class='section-header'><a href='#arguments-2'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die id des Entrys</li>
+</ul>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'anime&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../proxer/anime/struct.Anime.html' title='proxer::anime::Anime'>Anime</a>&lt;'anime&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/anime.rs.html#68' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "proxer";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

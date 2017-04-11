@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `proxer` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, proxer">
+
+    <title>proxer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'proxer', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>proxer</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/proxer/lib.rs.html#1-268' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>proxer-rs (proxer-api &lt;-&gt; proxer-rs &lt;-&gt; your_rust_application)</p>
+
+<p>Inoffizielle Bibliothek zur proxer-api in rust.</p>
+
+<p>Die meisten Dokumentationen sind aus dem Proxer-API wiki.
+Sollte etwas in der crate fehlen, oder anderweitig nicht stimmen, bitte auf Github melden.</p>
+
+<p>Aktuell nur auf nighly verfügbar.</p>
+
+<h1 id='auszug-aus-dem-proxer-api-wiki' class='section-header'><a href='#auszug-aus-dem-proxer-api-wiki'>Auszug aus dem Proxer-API wiki</a></h1>
+<p>Die Proxer API ist eine Programmierschnittstelle,
+die dazu dient, Proxer in allen Aspekten erweiterbar zu machen.</p>
+
+<h2 id='nutzungsbedingungen' class='section-header'><a href='#nutzungsbedingungen'>Nutzungsbedingungen</a></h2>
+<ul>
+<li>Die Anwendung muss ausdrücklich als &quot;inoffizielle Anwendung&quot;
+deklariert werden (z.B. beim Starten der Anwendung in Form eines Dialogs,
+in der Anwendungsbeschreibung, im Impressum und/oder in den Credits).</li>
+<li>Die Anzahl der Anfragen an den Proxer-Server muss so gering gehalten werden wie nur möglich.
+*Auf die Sicherheit der Anwendung muss stark geachtet werden.
+Falls möglich, soll immer SSL zur Verschlüsselung der Kommunikation verwendet werden.
+Gemeldete Sicherheitsprobleme müssen in kürzester Zeit behoben werden.</li>
+<li>In besonderen Fällen kann genesis zusätzliche Forderungen stellen, die dann ebenfalls eingehalten werden müssen.</li>
+<li>Die Nutzungsbedingungen könnten sich jederzeit ändern.
+Nach einer Änderung müssen die Änderungen innerhalb von 30 Tagen umgesetzt werden.
+Alle Änderungen werden in der Mailing-List erläutert.</li>
+</ul>
+
+<h1 id='finanzielles' class='section-header'><a href='#finanzielles'>Finanzielles</a></h1>
+<p>Nehmen wir an, es gibt eine &quot;Kodi&quot; Anwendung.
+Wenn alle diese Anwendung verwenden würden, könnten wir unsere Server nicht mehr bezahlen.
+Das wäre nachteilhaft für alle beteiligten.
+Programmiere deine Anwendungen so, dass du es mit bestem Gewissen verwenden und verteilen kannst.
+Prinzipiell werden wir dich nicht davon abhalten, z.B. mit Hilfe von Werbung Geld mit deiner Anwendung zu verdienen.
+Unsere Bitte an dieser Stelle ist,
+dass ihr unsere Spenden-Adresse irgendwo in die Anwendung einbaut (bei Android Anwendungen z.B. in das Menü),
+oder ein Teil der Einnahmen spendet, damit wir weiterhin imstande sind unsere Server zu finanzieren.</p>
+
+<h2 id='verwaltung' class='section-header'><a href='#verwaltung'>Verwaltung</a></h2>
+<ul>
+<li><code>Mailing-List</code>
+Der Eintrag in der Mailing-List ist freiwillig.
+Du kannst dich in unsere Mailing-List eintragen lassen um per Proxer-PN über eine Änderung an den Nutzungsbedingungen
+oder der API benachrichtigt zu werden.
+Schreibe hierfür eine kurze PN an genesis mit dem Inhalt: &quot;Ich möchte in der API-Mailingliste eingetragen werden&quot;.
+Wir laden dich dann in eine Proxer-Gruppe ein.</li>
+<li><code>Open Source</code>
+Open-Source Projekte haben die Möglichkeit, &quot;mehr&quot; als nur eine inoffizielle Anwendung zu bleiben.
+Falls das Projekt z.B. auf github oder einer anderen Versionsverwaltung gehostet ist, besteht die Möglichkeit,
+dass wir die Anwendung zu unseren offiziellen Anwendungen aufnehmen.
+Offizielle Anwendungen werden wir beispielsweise auf unserer Facebook-Seite empfehlen und aktiv unterstützen.</li>
+<li><code>Support</code>
+Proxer stellt für den Support deiner Anwendung eine Forum-Kategorie zur Verfügung.
+Hier kannst du für deine Anwendung einen Thread erstellen, welcher für Fragen, Vorschläge, Probleme und Kritik offen steht.
+In den ersten Beitrag beschreibst du deine Anwendung, postest dein Changelog,
+wie man deine Anwendung benutzt und ggf. weitere Links wie z.B. zum git-repository.
+Werbung für deine private Webseite sind strengstens untersagt und ist gegen die Forumsregeln.
+Für sonstige Diskussionen und initiierung neuer Projekte haben wir ebenfalls eine eigene Kategorie.</li>
+</ul>
+
+<h2 id='datenschutz' class='section-header'><a href='#datenschutz'>Datenschutz</a></h2>
+<ul>
+<li><code>Passwörter</code>
+Eingegebene Passwörter sollten stets entweder in geschützten Speicherbereichen
+(z.B. SharedPreferences in Android) und/oder verschlüsselt gespeichert werden.</li>
+<li><code>Statistiken</code>
+Du darfst gerne Google Analytics verwenden, wir empfehlen jedoch die
+datenschutzfreundliche(<a href="https://www.datenschutzbeauftragter-info.de/fachbeitraege/google-analytics-datenschutzkonform-einsetzen/">https://www.datenschutzbeauftragter-info.de/fachbeitraege/google-analytics-datenschutzkonform-einsetzen/</a>)
+Version zu verwenden.</li>
+<li><code>Transparenz</code>
+Deine Anwendung sollte möglichst transparent arbeiten und keine dubiosen Aktionen im Hintergrund durchführen.
+Wir werden in bestimmten Abständen Anwendungen prüfen
+und bei festgestelltem Missbrauch der Schnittstelle die Erlaubnis zur Nutzung der Anwendung entziehen.</li>
+</ul>
+
+<h2 id='technische-informationen' class='section-header'><a href='#technische-informationen'>Technische Informationen</a></h2>
+<ul>
+<li><code>Ressourcen</code>
+Wir bitten ausdrücklich, sparsam mit unseren Ressourcen umzugehen.
+Das ist sehr wichtig, da unsere Server besonders an Wochenenden an ihren Grenzen sind.
+Um dies zu erzielen, muss darauf geachtet werden, dass keine Anfrage unnötig gesendet wird.
+Im Falle einer Anwendung, die darstellt ob eine neue Episode eines Animes erschienen ist,
+würde es beispielsweise ausreichen, wenn die Abfrage höchstens alle 30 Minuten durchgeführt wird.</li>
+<li><code>Firewall</code>
+Proxer verwendet Cloudflare, um im Falle eines Ddos-Angriffes die Aufrechterhaltung unserer Dienste zu gewährleisten.
+Aktuell besteht leider keine Möglichkeit, diese zu umgehen.
+Fehlerhafte Anfragen sollten daher abgefangen werden, damit die Anwendung im Falle eines Angriffes nicht abstürzt.</li>
+</ul>
+
+<h2 id='dokumentation-der-schnittstellen' class='section-header'><a href='#dokumentation-der-schnittstellen'>Dokumentation der Schnittstellen</a></h2>
+<p>Im Juni 2016 wurde eine Neuentwicklung der Schnittstellen durchgeführt.
+Die alten Schnittstellen werden ab sofort nicht mehr unterstüzt, bleiben jedoch bis Januar 2017 weiterhin aktiv.
+Die neue API ermöglicht eine Versionisierung der Schnittstellen, sodass eine nahtlose Weiterentwicklung stattfindet.</p>
+
+<ul>
+<li><code>Proxer-API Version 1:</code> Unterstützung ab Juni 2016. Aktuelle Version.</li>
+</ul>
+
+<h1 id='weitere-fragen' class='section-header'><a href='#weitere-fragen'>Weitere Fragen?</a></h1>
+<p>Du kannst dich jederzeit an genesis(<a href="http://proxer.me/wiki/Benutzer:Genesis">http://proxer.me/wiki/Benutzer:Genesis</a>) wenden.</p>
+
+<p>(Quelle:<a href="http://proxer.me/wiki/Proxer_API">http://proxer.me/wiki/Proxer_API</a>, vom 20.01.2017 18:00)</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='anime/index.html'
+                                  title='proxer::anime'>anime</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='error/index.html'
+                                  title='proxer::error'>error</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='info/index.html'
+                                  title='proxer::info'>info</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='list/index.html'
+                                  title='proxer::list'>list</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='manga/index.html'
+                                  title='proxer::manga'>manga</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='media/index.html'
+                                  title='proxer::media'>media</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='messenger/index.html'
+                                  title='proxer::messenger'>messenger</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='models/index.html'
+                                  title='proxer::models'>models</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='notification/index.html'
+                                  title='proxer::notification'>notification</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='ucp/index.html'
+                                  title='proxer::ucp'>ucp</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='user/index.html'
+                                  title='proxer::user'>user</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.check_data.html'
+                                  title='proxer::check_data'>check_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.check_error.html'
+                                  title='proxer::check_error'>check_error</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.param_build.html'
+                                  title='proxer::param_build'>param_build</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.url.html'
+                                  title='proxer::url'>url</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.OldNews.html'
+                                  title='proxer::OldNews'>OldNews</a></td>
+                           <td class='docblock-short'>
+                                <p>Ermöglicht den Zugriff auf die Proxer News. Hierbei werden pro Seite höchstens 15 News ausgegeben.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.OldNotification.html'
+                                  title='proxer::OldNotification'>OldNotification</a></td>
+                           <td class='docblock-short'>
+                                <p>Beinhaltet eine einzelene News bzw. Notification (Benutzt die alte api Schnittstelle?).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Proxer.html'
+                                  title='proxer::Proxer'>Proxer</a></td>
+                           <td class='docblock-short'>
+                                <p>Klasse um die http/s Verbindungen aufzubauen und die API-Daten zu verwalten.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "proxer";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

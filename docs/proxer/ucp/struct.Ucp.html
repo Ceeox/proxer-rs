@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Ucp` struct in crate `proxer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Ucp">
+
+    <title>proxer::ucp::Ucp - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>proxer</a>::<wbr><a href='index.html'>ucp</a></p><script>window.sidebarCurrent = {name: 'Ucp', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>proxer</a>::<wbr><a href='index.html'>ucp</a>::<wbr><a class='struct' href=''>Ucp</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/proxer/ucp.rs.html#103-106' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Ucp&lt;'ucp&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Diese Klasse dient der Verwaltung sämtlicher Daten, die normalerweise über das UCP Abrufbar/Veränderbar sind.
+Logischerweise erfordern alle diese Funktionen, dass der User eingeloggt ist.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'ucp&gt; <a class='struct' href='../../proxer/ucp/struct.Ucp.html' title='proxer::ucp::Ucp'>Ucp</a>&lt;'ucp&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/ucp.rs.html#108-316' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_list' class='method'><span id='get_list.v' class='invisible'><code>fn <a href='#method.get_list' class='fnname'>get_list</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_kat: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Kategorie.html' title='proxer::models::Kategorie'>Kategorie</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_search: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_search_start: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sort: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Sort.html' title='proxer::models::Sort'>Sort</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/ucp/struct.List.html' title='proxer::ucp::List'>List</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Liste aller Animes/Mangas, zu denen der User einen Eintrag im UCP hat.</p>
+
+<h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
+<ul>
+<li><code>p_kat</code> - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.</li>
+<li><code>p_page</code> - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.</li>
+<li><code>p_limt</code> - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 100.</li>
+<li><code>p_search</code> - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
+die den angegeben Wert als Substring ihres Namens haben. Dabei ist die Position im Namen egal.</li>
+<li><code>p_search_start</code> - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
+die den angegeben Wert als Substring zu Beginn ihres Namens haben.</li>
+<li><code>p_sort</code> - Dieser Parameter gibt an, wie die Liste sortiert werden soll,
+erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)</li>
+</ul>
+</div><h4 id='method.get_listsum' class='method'><span id='get_listsum.v' class='invisible'><code>fn <a href='#method.get_listsum' class='fnname'>get_listsum</a>(&amp;self, p_kat: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Kategorie.html' title='proxer::models::Kategorie'>Kategorie</a>&gt;) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Summe der Episoden/Kapitel, die der User bisher gesehen hat.</p>
+
+<h1 id='arguments-1' class='section-header'><a href='#arguments-1'>Arguments</a></h1>
+<ul>
+<li><code>p_kat</code> - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.</li>
+</ul>
+</div><h4 id='method.get_topten' class='method'><span id='get_topten.v' class='invisible'><code>fn <a href='#method.get_topten' class='fnname'>get_topten</a>(&amp;self) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Top-Ten des Users. (Anime und Manga)</p>
+</div><h4 id='method.get_history' class='method'><span id='get_history.v' class='invisible'><code>fn <a href='#method.get_history' class='fnname'>get_history</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/ucp/struct.History.html' title='proxer::ucp::History'>History</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Chronik des Users.</p>
+
+<h1 id='arguments-2' class='section-header'><a href='#arguments-2'>Arguments</a></h1>
+<ul>
+<li><code>p_limit</code> - Dieser Parameter gibt an, wie viele Einträge eine Seite der Chronik haben soll. Default Wert 50.</li>
+<li><code>p_page</code> - Dieser Parameter gibt an, welche Seite der Chronik geladen werden soll. Start bei 0, Default Wert 0.</li>
+</ul>
+</div><h4 id='method.get_votes' class='method'><span id='get_votes.v' class='invisible'><code>fn <a href='#method.get_votes' class='fnname'>get_votes</a>(&amp;self) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/ucp/struct.Vote.html' title='proxer::ucp::Vote'>Vote</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Kommentarvotes des Users.</p>
+</div><h4 id='method.get_reminder' class='method'><span id='get_reminder.v' class='invisible'><code>fn <a href='#method.get_reminder' class='fnname'>get_reminder</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_kat: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Kategorie.html' title='proxer::models::Kategorie'>Kategorie</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/ucp/struct.Reminder.html' title='proxer::ucp::Reminder'>Reminder</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Lesezeichen des Users.</p>
+
+<h1 id='arguments-3' class='section-header'><a href='#arguments-3'>Arguments</a></h1>
+<ul>
+<li><code>p_kat</code> - Dieser Parameter gibt an, welche Kategorie geladen werden soll.
+Wenn weggelassen werden beide Kategorien geladen. Erlaubte Werte: &quot;anime&quot;,&quot;manga&quot;</li>
+<li><code>p_page</code> - Die zu ladende Seite, Start bei 0. Default 0</li>
+<li><code>p_limit</code> - Die zu ladenden Einträge pro Seite. Default 100</li>
+</ul>
+</div><h4 id='method.delete_reminder' class='method'><span id='delete_reminder.v' class='invisible'><code>fn <a href='#method.delete_reminder' class='fnname'>delete_reminder</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion löscht ein Lesezeichen.</p>
+
+<h1 id='arguments-4' class='section-header'><a href='#arguments-4'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID des zu löschenden Lesezeichens (erhältlich über die &quot;Reminder&quot; Funktion)</li>
+</ul>
+</div><h4 id='method.delte_favorite' class='method'><span id='delte_favorite.v' class='invisible'><code>fn <a href='#method.delte_favorite' class='fnname'>delte_favorite</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion löscht einen Eintrag der Top-ten.</p>
+
+<h1 id='arguments-5' class='section-header'><a href='#arguments-5'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID des zu löschenden Eintrags (erhältlich über die &quot;Favorite&quot; Funktion)</li>
+</ul>
+</div><h4 id='method.delte_vote' class='method'><span id='delte_vote.v' class='invisible'><code>fn <a href='#method.delte_vote' class='fnname'>delte_vote</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion löscht einen Kommentarvote.</p>
+
+<h1 id='arguments-6' class='section-header'><a href='#arguments-6'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID des zu löschenden Eintrags (erhältlich über die &quot;Vote&quot; Funktion)</li>
+</ul>
+</div><h4 id='method.set_commentstate' class='method'><span id='set_commentstate.v' class='invisible'><code>fn <a href='#method.set_commentstate' class='fnname'>set_commentstate</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, p_value: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion setzt die Zahl der bereits gesehenen/gelesenen Folgen/Kapitel
+für einen Anime/Manga aus der Liste des Users.
+Wird dieser Wert auf oder über die Zahl der vorhandenen Folgen/Kapitel gesetzt,
+so wird zudem der Status des Animes/Mangas auf &quot;Abgeschlossen&quot; gesetzt.</p>
+
+<h1 id='arguments-7' class='section-header'><a href='#arguments-7'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die ID des zu bearbeitenden Eintrags (erhältlich über die &quot;List&quot; Funktion)</li>
+<li><code>p_value</code> - Der zu setzende Wert</li>
+</ul>
+</div><h4 id='method.set_reminder' class='method'><span id='set_reminder.v' class='invisible'><code>fn <a href='#method.set_reminder' class='fnname'>set_reminder</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, p_value: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion setzt eine Episode auf die Watch/Readlist eines eingeloggten Users.</p>
+
+<h1 id='arguments-8' class='section-header'><a href='#arguments-8'>Arguments</a></h1>
+<ul>
+<li><code>p_id</code> - Die id des Entrys</li>
+<li><code>p_episode</code> - Die Episodennummer, auf die das Lesezeichen gesetzt werden soll.</li>
+<li><code>p_language</code> - Die zu ladende Sprache. (Für Animes: gersub,gerdub,engsub,engdub; Für Mangas: de,en)</li>
+<li><code>p_kat</code> - Die Kategorie des Entrys (manga oder anime)</li>
+</ul>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'ucp&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../proxer/ucp/struct.Ucp.html' title='proxer::ucp::Ucp'>Ucp</a>&lt;'ucp&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/ucp.rs.html#102' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "proxer";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

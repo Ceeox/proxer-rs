@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Info` struct in crate `proxer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Info">
+
+    <title>proxer::info::Info - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>proxer</a>::<wbr><a href='index.html'>info</a></p><script>window.sidebarCurrent = {name: 'Info', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>proxer</a>::<wbr><a href='index.html'>info</a>::<wbr><a class='struct' href=''>Info</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/proxer/info.rs.html#389-392' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Info&lt;'info&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Diese Klasse beinhaltet alle Schnittstellen, die sich auf das Info-System Proxers beziehen,
+insbesondere in Bezug auf Informationen zu Animes und Mangas, aber auch zu den weiteren Verzeichnissen.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'info&gt; <a class='struct' href='../../proxer/info/struct.Info.html' title='proxer::info::Info'>Info</a>&lt;'info&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/info.rs.html#394-664' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_fullentry' class='method'><span id='get_fullentry.v' class='invisible'><code>fn <a href='#method.get_fullentry' class='fnname'>get_fullentry</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/info/struct.FullEntry.html' title='proxer::info::FullEntry'>FullEntry</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert ALLE Daten eines Animes/Mangas anhand seiner ID.
+Diese Schnittstelle belastet den Server stark und sollte nur verwendet werden,
+wenn auch wirklich ALLE Informationen des Animes benötigt werden (wie etwa bei Detailseiten).</p>
+
+<h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_entry' class='method'><span id='get_entry.v' class='invisible'><code>fn <a href='#method.get_entry' class='fnname'>get_entry</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/info/struct.Entry.html' title='proxer::info::Entry'>Entry</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die Daten eines Animes/Mangas anhand seiner ID
+(Dies bezieht sich NUR auf die Kerndaten des Anime, nicht die Daten,
+die über die folgenden Funktionen abgefragt werden können)</p>
+
+<h1 id='arguments-1' class='section-header'><a href='#arguments-1'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_name' class='method'><span id='get_name.v' class='invisible'><code>fn <a href='#method.get_name' class='fnname'>get_name</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Name.html' title='proxer::info::Name'>Name</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die unterschiedlichen Synonyme eines Animes/Mangas anhand seiner ID</p>
+
+<h1 id='arguments-2' class='section-header'><a href='#arguments-2'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_gate' class='method'><span id='get_gate.v' class='invisible'><code>fn <a href='#method.get_gate' class='fnname'>get_gate</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert einen boolean Wert zurück,
+ob der per ID spezifizierte Anime/Manga eine ab-18 Prüfung erfordert.</p>
+
+<h1 id='arguments-3' class='section-header'><a href='#arguments-3'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_language' class='method'><span id='get_language.v' class='invisible'><code>fn <a href='#method.get_language' class='fnname'>get_language</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die für einen Anime/Manga Eingetragenen Sprachen
+(in denen der Eintrag auf Proxer erhältlich ist).</p>
+
+<h1 id='arguments-4' class='section-header'><a href='#arguments-4'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_season' class='method'><span id='get_season.v' class='invisible'><code>fn <a href='#method.get_season' class='fnname'>get_season</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Season.html' title='proxer::info::Season'>Season</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die für einen Anime/Manga Eingetragenen Seasons.</p>
+
+<h1 id='arguments-5' class='section-header'><a href='#arguments-5'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_groups' class='method'><span id='get_groups.v' class='invisible'><code>fn <a href='#method.get_groups' class='fnname'>get_groups</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Group.html' title='proxer::info::Group'>Group</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die für einen Anime/Manga Eingetragenen Übersetzergruppen.</p>
+
+<h1 id='arguments-6' class='section-header'><a href='#arguments-6'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_publisher' class='method'><span id='get_publisher.v' class='invisible'><code>fn <a href='#method.get_publisher' class='fnname'>get_publisher</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Publisher.html' title='proxer::info::Publisher'>Publisher</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die für einen Anime/Manga Eingetragenen Publisher.</p>
+
+<h1 id='arguments-7' class='section-header'><a href='#arguments-7'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_listinfo' class='method'><span id='get_listinfo.v' class='invisible'><code>fn <a href='#method.get_listinfo' class='fnname'>get_listinfo</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/info/struct.ListInfo.html' title='proxer::info::ListInfo'>ListInfo</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert eine Liste aller Episoden/Kapitel eines Entrys anhand dessen ID.</p>
+
+<h1 id='arguments-8' class='section-header'><a href='#arguments-8'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+<li><code>p</code> - (optional): Die zu ladende Seite der Liste, Start bei 0. Default 0.</li>
+<li><code>limit</code> - (optional): Die Nummer der zu ladenden Episoden/Kapitel pro Seite. Default 50.</li>
+</ul>
+</div><h4 id='method.get_comments' class='method'><span id='get_comments.v' class='invisible'><code>fn <a href='#method.get_comments' class='fnname'>get_comments</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_page: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_limit: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_sort: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../proxer/models/enum.Sort.html' title='proxer::models::Sort'>Sort</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Group.html' title='proxer::info::Group'>Group</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert die für einen Anime/Manga abgegebenen Kommentare (mit mehr als 300 Zeichen).</p>
+
+<h1 id='arguments-9' class='section-header'><a href='#arguments-9'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+<li><code>p</code> - Die zu ladende Seite der Liste, Start bei 0. Default 0.</li>
+<li><code>limit</code> - Die Nummer der zu ladenden Kommentare pro Seite. Default 25.</li>
+<li><code>sort</code> - Ändert die Sortierung der Liste. Setze Wert &quot;rating&quot; um nach meisten Empfehlungen zu sortieren,
+ansonsten Sortierung nach Neueste zuerst.</li>
+</ul>
+</div><h4 id='method.get_relations' class='method'><span id='get_relations.v' class='invisible'><code>fn <a href='#method.get_relations' class='fnname'>get_relations</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.Relation.html' title='proxer::info::Relation'>Relation</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert alle Verbindungen eines Entrys.</p>
+
+<h1 id='arguments-10' class='section-header'><a href='#arguments-10'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_entrytag' class='method'><span id='get_entrytag.v' class='invisible'><code>fn <a href='#method.get_entrytag' class='fnname'>get_entrytag</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../proxer/info/struct.EntryTag.html' title='proxer::info::EntryTag'>EntryTag</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert alle Tags eines Entrys.</p>
+
+<h1 id='arguments-11' class='section-header'><a href='#arguments-11'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+</ul>
+</div><h4 id='method.get_translatorgroup' class='method'><span id='get_translatorgroup.v' class='invisible'><code>fn <a href='#method.get_translatorgroup' class='fnname'>get_translatorgroup</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/info/struct.TranslatorGroup.html' title='proxer::info::TranslatorGroup'>TranslatorGroup</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert alle Daten zu einer Sub/Scanlation Gruppe anhand ihrer ID.</p>
+
+<h1 id='arguments-12' class='section-header'><a href='#arguments-12'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID der gewünschten Gruppe.</li>
+</ul>
+</div><h4 id='method.get_industry' class='method'><span id='get_industry.v' class='invisible'><code>fn <a href='#method.get_industry' class='fnname'>get_industry</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='struct' href='../../proxer/info/struct.Industry.html' title='proxer::info::Industry'>Industry</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion liefert alle Daten zu einer Firma anhand ihrer ID.</p>
+
+<h1 id='arguments-13' class='section-header'><a href='#arguments-13'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID der gewünschten Gruppe.</li>
+</ul>
+</div><h4 id='method.set_userinfo' class='method'><span id='set_userinfo.v' class='invisible'><code>fn <a href='#method.set_userinfo' class='fnname'>set_userinfo</a>(&amp;self, p_id: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, p_type: <a class='enum' href='../../proxer/models/enum.WatchType.html' title='proxer::models::WatchType'>WatchType</a>) -&gt; <a class='type' href='../../proxer/error/type.Result.html' title='proxer::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Diese Funktion setzt einen per ID spezifizierten Anime/Manga auf eine der Listen des Users, abhängig vom Paramter &quot;type&quot;.</p>
+
+<h1 id='arguments-14' class='section-header'><a href='#arguments-14'>Arguments</a></h1>
+<ul>
+<li><code>id</code> - Die ID des gewünschten Animes/Mangas.</li>
+<li><code>type</code> - Die Liste, zu der der Anime hinzugefügt werden soll.
+Erlaubt: &quot;note&quot; (Wird noch geschaut), &quot;favor&quot; (Favoriten), &quot;finish&quot; (Abgeschlossen)</li>
+</ul>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'info&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../proxer/info/struct.Info.html' title='proxer::info::Info'>Info</a>&lt;'info&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/proxer/info.rs.html#388' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "proxer";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
