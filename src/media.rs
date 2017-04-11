@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -71,10 +71,10 @@ impl<'media> Media<'media>
 	/// Diese Funktion liefert einen zufälligen Header.
 	/// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
 	pub fn get_randomheader(&self, p_style: Option<String>)
-	-> Result<Vec<RandomHeader>, Error>
+	-> Result<Vec<RandomHeader>>
 	{
 		let url = url!("media", "randomheader");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "style" => p_style);
+		let body = param_build!("style" => p_style);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<RandomHeader>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -84,10 +84,10 @@ impl<'media> Media<'media>
 	/// Diese Funktion liefert eine Liste aller aktuellen Header.
 	/// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
 	pub fn get_headerlist(&self)
-	-> Result<Vec<HeaderList>, Error>
+	-> Result<Vec<HeaderList>>
 	{
 		let url = url!("media", "headerlist");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key));
+		let body = String::new();
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<HeaderList>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);

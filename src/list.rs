@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -255,11 +255,10 @@ impl<'list> List<'list>
 		p_tagspoilerfilter: Option<String>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>)
-	-> Result<Vec<EntrySearch>, Error>
+	-> Result<Vec<EntrySearch>>
 	{
 		let url = url!("list", "entrysearch");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"name" => p_name,
+		let body = param_build!("name" => p_name,
 			"language" => p_language,
 			"type" => p_type,
 			"genre" => p_genre,
@@ -301,11 +300,10 @@ impl<'list> List<'list>
 		p_start: Option<String>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>)
-	-> Result<Vec<EntryList>, Error>
+	-> Result<Vec<EntryList>>
 	{
 		let url = url!("list", "entrylist");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"kat" => p_kat,
+		let body = param_build!("kat" => p_kat,
 			"medium" => p_medium,
 			"isH" => p_is_h,
 			"start" => p_start,
@@ -327,10 +325,10 @@ impl<'list> List<'list>
 	/// Zudem darf vor einem Tag (Also nach dem Leerzeichen/Beginn des Strings vor dem Tag) ein Minus ("-") stehen.
 	/// Solcherart gekennzeichnete Tags werden gesondert ausgegeben.
 	pub fn get_tag_ids(&self, p_search: String)
-	-> Result<TagIDs, Error>
+	-> Result<TagIDs>
 	{
 		let url = url!("list", "tagids");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "search" => Some(p_search));
+		let body = param_build!("search" => Some(p_search));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<TagIDs> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -356,11 +354,10 @@ impl<'list> List<'list>
 		p_sort: Option<String>,
 		p_sort_type: Option<String>,
 		p_sub_type: Option<SubType>)
-	-> Result<Vec<Tag>, Error>
+	-> Result<Vec<Tag>>
 	{
 		let url = url!("list", "tags");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"search" => p_search,
+		let body = param_build!("search" => p_search,
 			"type" => p_type,
 			"sort" => p_sort,
 			"p_sort_type" => p_sort_type,
@@ -388,11 +385,10 @@ impl<'list> List<'list>
 		p_contains: Option<String>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>)
-	-> Result<Vec<TranslatorGroup>, Error>
+	-> Result<Vec<TranslatorGroup>>
 	{
 		let url = url!("list", "translatorgroups");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"start" => p_start,
+		let body = param_build!("start" => p_start,
 			"contains" => p_contains,
 			"p" => p_page,
 			"limit" => p_limit);
@@ -424,11 +420,10 @@ impl<'list> List<'list>
 		p_type: Option<Firma>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>,)
-	-> Result<Vec<Industry>, Error>
+	-> Result<Vec<Industry>>
 	{
 		let url = url!("list", "industrys");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"start" => p_start,
+		let body = param_build!("start" => p_start,
 			"contains" => p_contains,
 			"country" => p_country,
 			"type" => p_type,
@@ -457,11 +452,10 @@ impl<'list> List<'list>
 		p_is_h: Option<i8>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>,)
-	-> Result<Vec<TranslatorGroupProject>, Error>
+	-> Result<Vec<TranslatorGroupProject>>
 	{
 		let url = url!("list", "translatorgroupprojects");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"type" => p_type,
 			"isH" => p_is_h,
 			"p" => p_page,
@@ -490,11 +484,10 @@ impl<'list> List<'list>
 		p_is_h: Option<i8>,
 		p_page: Option<u64>,
 		p_limit: Option<u64>)
-	-> Result<Vec<IndustrysProject>, Error>
+	-> Result<Vec<IndustrysProject>>
 	{
 		let url = url!("list", "industryprojects");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"type" => p_type,
 			"isH" => p_is_h,
 			"p" => p_page,

@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -77,11 +77,10 @@ impl<'manga> Manga<'manga>
 	/// * `episode` - Die Episodennummer des zu ladenden Kapitels
 	/// * `language` - Die zu ladende Sprache (de,en)
 	pub fn get_chapter(&self, p_id: u64, p_episode: u64, p_language: &str)
-	-> Result<Vec<Chapter>, Error>
+	-> Result<Vec<Chapter>>
 	{
 		let url = url!("manga", "chapter");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"episode" => Some(p_episode),
 			"language" => Some(p_language));
 		let response = self.proxer.connect(&url, &body)?;

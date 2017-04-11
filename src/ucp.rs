@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -137,11 +137,10 @@ impl<'ucp> Ucp<'ucp>
 		p_search: Option<String>,
 		p_search_start: Option<String>,
 		p_sort: Option<Sort>)
-	-> Result<Vec<List>, Error>
+	-> Result<Vec<List>>
 	{
 		let url = url!("ucp", "list");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"kat" => p_kat,
+		let body = param_build!("kat" => p_kat,
 			"p" => p_page,
 			"limit" => p_limit,
 			"search" => p_search,
@@ -158,10 +157,10 @@ impl<'ucp> Ucp<'ucp>
 	///
 	/// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
 	pub fn get_listsum(&self, p_kat: Option<Kategorie>)
-	-> Result<String, Error>
+	-> Result<String>
 	{
 		let url = url!("ucp", "listsum");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "kat" => p_kat);
+		let body = param_build!("kat" => p_kat);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<String> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -170,10 +169,10 @@ impl<'ucp> Ucp<'ucp>
 
 	/// Diese Funktion liefert die Top-Ten des Users. (Anime und Manga)
 	pub fn get_topten(&self)
-	-> Result<String, Error>
+	-> Result<String>
 	{
 		let url = url!("ucp", "topten");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key));
+		let body = String::new();
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<String> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -187,10 +186,10 @@ impl<'ucp> Ucp<'ucp>
 	/// * `p_limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite der Chronik haben soll. Default Wert 50.
 	/// * `p_page` - Dieser Parameter gibt an, welche Seite der Chronik geladen werden soll. Start bei 0, Default Wert 0.
 	pub fn get_history(&self, p_limit: Option<u64>, p_page: Option<u64>)
-	-> Result<Vec<History>, Error>
+	-> Result<Vec<History>>
 	{
 		let url = url!("ucp", "history");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "limit" => p_limit, "p" => p_page);
+		let body = param_build!("limit" => p_limit, "p" => p_page);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<History>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -199,10 +198,10 @@ impl<'ucp> Ucp<'ucp>
 
 	/// Diese Funktion liefert die Kommentarvotes des Users.
 	pub fn get_votes(&self)
-	-> Result<Vec<Vote>, Error>
+	-> Result<Vec<Vote>>
 	{
 		let url = url!("ucp", "votes");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key));
+		let body = String::new();
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Vote>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -218,10 +217,10 @@ impl<'ucp> Ucp<'ucp>
 	/// * `p_page` - Die zu ladende Seite, Start bei 0. Default 0
 	/// * `p_limit` - Die zu ladenden Einträge pro Seite. Default 100
 	pub fn get_reminder(&self, p_kat: Option<Kategorie>, p_page: Option<u64>, p_limit: Option<u64>)
-	-> Result<Vec<Reminder>, Error>
+	-> Result<Vec<Reminder>>
 	{
 		let url = url!("ucp", "reminder");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "kat" => p_kat, "p" => p_page, "limit" => p_limit);
+		let body = param_build!("kat" => p_kat, "p" => p_page, "limit" => p_limit);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Reminder>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -234,10 +233,10 @@ impl<'ucp> Ucp<'ucp>
 	///
 	/// * `p_id` - Die ID des zu löschenden Lesezeichens (erhältlich über die "Reminder" Funktion)
 	pub fn delete_reminder(&self, p_id: u64)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("ucp", "deletereminder");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -250,10 +249,10 @@ impl<'ucp> Ucp<'ucp>
 	///
 	/// * `p_id` - Die ID des zu löschenden Eintrags (erhältlich über die "Favorite" Funktion)
 	pub fn delte_favorite(&self, p_id: u64)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("ucp", "deletefavorite");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -266,10 +265,10 @@ impl<'ucp> Ucp<'ucp>
 	///
 	/// * `p_id` - Die ID des zu löschenden Eintrags (erhältlich über die "Vote" Funktion)
 	pub fn delte_vote(&self, p_id: u64)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("ucp", "deletevote");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -286,10 +285,10 @@ impl<'ucp> Ucp<'ucp>
 	/// * `p_id` - Die ID des zu bearbeitenden Eintrags (erhältlich über die "List" Funktion)
 	/// * `p_value` - Der zu setzende Wert
 	pub fn set_commentstate(&self, p_id: u64, p_value: u64)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("ucp", "setcommentstate");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id), "value" => Some(p_value));
+		let body = param_build!("id" => Some(p_id), "value" => Some(p_value));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -305,10 +304,10 @@ impl<'ucp> Ucp<'ucp>
 	/// * `p_language` - Die zu ladende Sprache. (Für Animes: gersub,gerdub,engsub,engdub; Für Mangas: de,en)
 	/// * `p_kat` - Die Kategorie des Entrys (manga oder anime)
 	pub fn set_reminder(&self, p_id: u64, p_value: u64)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("ucp", "setreminder");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id), "value" => Some(p_value));
+		let body = param_build!("id" => Some(p_id), "value" => Some(p_value));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);

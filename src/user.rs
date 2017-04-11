@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -157,7 +157,7 @@ pub struct User<'user>
 	pub uid: u64,
 	/// Der Avatar des eingeloggten Users.
 	pub avatar: String,
-	///  Ein Login-Token.
+	/// Ein Login-Token.
 	/// Möchte man das gewöhnliche Cookie-basierte Login System nicht verwenden,
 	/// so kann man stattdessen bei jeder Anfrage die einen Login erfordert dieses Token senden.
 	pub token: String,
@@ -169,7 +169,7 @@ impl<'user> User<'user>
 {
 	#[doc(hidden)]
 	pub fn new(p_proxer: &'user Proxer, p_username: &str, p_password: &str)
-	-> Result<User<'user>, Error>
+	-> Result<User<'user>>
 	{
 		let user: Login = User::login(&p_proxer, p_username, p_password)?;
 		Ok(User
@@ -189,12 +189,11 @@ impl<'user> User<'user>
 	/// * `p_password` - Das Passwort des zu einloggenden Benutzers
 	/// * `p_api_key` - API_KEY.
 	pub fn login(p_proxer: &Proxer, p_username: &str, p_password: &str)
-	-> Result<Login, Error>
+	-> Result<Login>
 	{
 		let url = url!("user", "login");
 		let body = param_build!("username" => Some(p_username),
-			"password" => Some(p_password),
-			"api_key" => Some(&p_proxer.key()));
+			"password" => Some(p_password));
 		let response = p_proxer.connect(&url, &body)?;
 		let data: Response<Login> = serde_json::from_reader(response)?;
 		check_data!(data.data)
@@ -202,7 +201,7 @@ impl<'user> User<'user>
 
 	/// Mit dieser Schnittstelle kann ein User ausgeloggt werden
 	pub fn logout(self)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("user", "logout");
 		let response = self.proxer.connect(&url, "")?;
@@ -220,7 +219,7 @@ impl<'user> User<'user>
 	///
 	/// * `&self` - User-ID, deren Daten abgefragt werden sollen
 	pub fn get_userinfo(&self)
-	-> Result<UserInfo, Error>
+	-> Result<UserInfo>
 	{
 		let url = url!("user", "userinfo");
 		let body = param_build!("uid" => Some(self.uid));
@@ -243,7 +242,7 @@ impl<'user> User<'user>
 	/// * `p_uid` - User-ID, deren Daten abgefragt werden sollen
 	/// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
 	pub fn get_topten(&self, p_uid: u64, p_kat: Option<Kategorie>)
-	-> Result<Vec<TopTen>, Error>
+	-> Result<Vec<TopTen>>
 	{
 		let url = url!("user", "topten");
 		let body = param_build!("uid" => Some(p_uid), "kat" => p_kat);
@@ -278,7 +277,7 @@ impl<'user> User<'user>
 		p_search: Option<String>,
 		p_search_start: Option<String>,
 		p_sort: Option<Sort>)
-	-> Result<Vec<List>, Error>
+	-> Result<Vec<List>>
 	{
 		let url = url!("user", "list");
 		let body = param_build!("uid" => Some(p_uid),
@@ -312,7 +311,7 @@ impl<'user> User<'user>
 		p_page: Option<u64>,
 		p_limit: Option<u64>,
 		p_length: Option<u64>)
-	-> Result<Vec<LatestComment>, Error>
+	-> Result<Vec<LatestComment>>
 	{
 		let url = url!("user", "comments");
 		let body = param_build!("uid" => Some(self.uid),

@@ -92,10 +92,9 @@
 //!
 //! (Quelle:http://proxer.me/wiki/Proxer_API, vom 20.01.2017 18:00)
 
-#![doc(html_logo_url = "",
-       html_favicon_url = "")]
+#![doc(html_logo_url = "", html_favicon_url = "")]
 
-extern crate hyper;
+#[macro_use] extern crate hyper;
 #[macro_use] extern crate serde_derive;
 extern crate serde_json;
 #[macro_use] extern crate log;
@@ -114,26 +113,14 @@ pub mod ucp;
 pub mod user;
 
 use hyper::client::Client;
-use hyper::header::{ContentType, UserAgent};
+use hyper::header::{ Headers, ContentType, UserAgent };
 
-use ::error::Error;
-
-use ::anime::Anime;
-use ::info::Info;
-use ::list::List;
-use ::manga::Manga;
-use ::media::Media;
-use ::messenger::Messenger;
-use ::notification::Notification;
-use ::ucp::Ucp;
-use ::user::User;
-
+use ::error::*;
 
 static BASE_URL: &'static str = "https://proxer.me/api";
 static API_VERSION: &'static str = "v1";
 static USER_AGENT: &'static str = concat!("proxer-rs (https://github.com/souryo/proxer-rs, ",
 	env!("CARGO_PKG_VERSION"), ")");
-static CONTENT_TYPE: &'static str = "application/x-www-form-urlencoded";
 
 static NEWS_URL: &'static str = "http://proxer.me/notifications?format=json&s=news&p=1";
 
@@ -175,14 +162,22 @@ pub struct OldNews
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct OldNotification
 {
+	/// News id
 	pub nid: u64,
+	/// Time als Unix-Timestamp
 	pub time: i64,
+	/// Die Beschreibung
 	pub description: String,
+	/// Die Bild id
 	pub image_id: u64,
+	/// Bildstyles
 	pub image_style: String,
 	pub subject: String,
+	/// Aufrufe der Notification
 	pub hits: u64,
+	/// thread id
 	pub thread: u64,
+	///
 	pub uid: u64,
 	pub uname: String,
 	pub posts: u64,
@@ -194,6 +189,8 @@ impl OldNotification
 {
 	/// Der Link zum Bild ist folgendermaßen aufgebaut:
 	/// http://cdn.proxer.me/news/{nid}_{image_id}.png
+	/// (Souryo: Sollte eigentlich nicht von belangen sein,
+	/// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
 	/// Beachte, dass hier nur Thumbnails ausgegeben werden.
 	/// Falls Zugriff auf die Originalbilder nötig ist,
 	/// kann genesis(http://proxer.me/wiki/Benutzer:Genesis) hierzu angeschrieben werden.
@@ -206,6 +203,8 @@ impl OldNotification
 	/// Der Link zur News ist folgendermaßen aufgebaut:
 	/// http://proxer.me/forum/{catid}/{thread}
 	/// Alternativ kann an den Link der Anker #top angegeben werden.
+	/// (Souryo: Sollte eigentlich nicht von belangen sein,
+	/// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
 	pub fn get_news_link(&self)
 	-> String
 	{
@@ -217,78 +216,38 @@ impl OldNotification
 #[derive(Debug)]
 pub struct Proxer
 {
-	api_key: String,
 	client: hyper::Client,
+	header: hyper::header::Headers,
 }
 
-/// Struct um alle classen der Proxer-API zuspeichern.
-/// Sollte Proxer oder ProxerClasses außerhalb eines Scopes gesehenen
-/// werden alle automatisch zerstört.
-///
-/// #Arguments
-///
-/// * `anime` - Beinhaltet die Klasse Anime
-/// * `info` - Beinhaltet die Klasse Info
-/// * `list` - Beinhaltet die Klasse List
-/// * `manga` - Beinhaltet die Klasse Manga
-/// * `media` - Beinhaltet die Klasse Media
-/// * `messenger` - Beinhaltet die Klasse Messenger
-/// * `notification` - Beinhaltet die Klasse Notification
-/// * `ucp` - Beinhaltet die Klasse Ucp
-/// * `user` - Beinhaltet die Klasse User
-pub struct ProxerClasses<'proxer>
-{
-
-	pub anime: Anime<'proxer>,
-	pub info: Info<'proxer>,
-	pub list: List<'proxer>,
-	pub manga: Manga<'proxer>,
-	pub media: Media<'proxer>,
-	pub messenger: Messenger<'proxer>,
-	pub notification: Notification<'proxer>,
-	pub ucp: Ucp<'proxer>,
-	pub user: User<'proxer>,
-}
-
+// TODO use ssl/tls
 impl Proxer
 {
 	/// Erstellt eine Proxer-Sitzung mit dem angegebenen API-Key.
 	pub fn new(p_api_key: &str)
-	-> Result<Proxer, Error>
+	-> Result<Proxer>
 	{
 		println!("proxer-rs ist eine inoffiziell Bibliothek!");
+
+		let mut header = Headers::new();
+		header.set(ContentType::form_url_encoded());
+		header.set(UserAgent(USER_AGENT.to_owned()));
+
+		header!{ (ProxerApiToken, "proxer-api-token") => [String] };
+		header.set(ProxerApiToken(p_api_key.to_owned()));
+
 		let proxer = Proxer
 		{
-			api_key:			p_api_key.to_owned(),
-			client:				Client::new(),
+			client: Client::new(),
+			header: header,
 		};
 		Ok(proxer)
-	}
-
-	/// Funktion um alle Klassen zuinitialisieren.
-	/// Erst nach abruf dieser Funktion wird der Benutzer eingeloggt und die
-	/// die Userdaten in der User Klasse abgespeichert.
-	pub fn init_classes<'proxer>(&'proxer self, p_username: &str, p_password: &str)
-	-> Result<ProxerClasses<'proxer>, Error>
-	{
-		Ok(ProxerClasses
-		{
-			anime: Anime::new(&self),
-			info: Info::new(&self),
-			list: List::new(&self),
-			manga: Manga::new(&self),
-			media: Media::new(&self),
-			messenger: Messenger::new(&self),
-			notification: Notification::new(&self),
-			ucp: Ucp::new(&self),
-			user: User::new(&self, &p_username, &p_password)?,
-		})
 	}
 
 	/// Funktion um über die alte? News API News abzurufen.
 	/// Die ausgegebenen News stammen aus dem News-Feed der Startseite.
 	pub fn get_news(&self)
-	-> Result<Vec<OldNotification>, Error>
+	-> Result<Vec<OldNotification>>
 	{
 		let url = NEWS_URL;
 		let result = self.connect(&url, "")?;
@@ -297,30 +256,13 @@ impl Proxer
 		check_data!(data.notifications)
 	}
 
-	fn key(&self)
-	-> &str
-	{
-		&self.api_key
-	}
-
+	// TODO try to remove clone() call, if possible
 	fn connect(&self, url: &str, body: &str)
-	-> Result<hyper::client::Response, Error>
+	-> Result<hyper::client::Response>
 	{
-		if !body.is_empty()
-		{
-			Ok(self.client.post(url)
-				.header(UserAgent(USER_AGENT.to_owned()))
-				.header(ContentType(CONTENT_TYPE.parse().unwrap()))
-				.body(body)
-				.send()?)
-		}
-		else
-		{
-			Ok(self.client.post(url)
-				.header(UserAgent(USER_AGENT.to_owned()))
-				.header(ContentType(CONTENT_TYPE.parse().unwrap()))
-				.send()?)
-		}
-
+		Ok(self.client.post(url)
+			.headers(self.header.clone())
+			.body(body)
+			.send()?)
 	}
 }

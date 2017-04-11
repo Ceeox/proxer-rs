@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -411,10 +411,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_fullentry(&self, p_id: u64)
-	-> Result<FullEntry, Error>
+	-> Result<FullEntry>
 	{
 		let url = url!("info", "fullentry");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<FullEntry> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -429,10 +429,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_entry(&self, p_id: u64)
-	-> Result<Entry, Error>
+	-> Result<Entry>
 	{
 		let url = url!("info", "entry");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Entry> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -445,10 +445,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_name(&self, p_id: u64)
-	-> Result<Vec<Name>, Error>
+	-> Result<Vec<Name>>
 	{
 		let url = url!("info", "names");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Name>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -462,10 +462,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_gate(&self, p_id: u64)
-	-> Result<bool, Error>
+	-> Result<bool>
 	{
 		let url = url!("info", "gate");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<bool> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -479,10 +479,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_language(&self, p_id: u64)
-	-> Result<Vec<String>, Error>
+	-> Result<Vec<String>>
 	{
 		let url = url!("info", "lang");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<String>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -495,10 +495,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_season(&self, p_id: u64)
-	-> Result<Vec<Season>, Error>
+	-> Result<Vec<Season>>
 	{
 		let url = url!("info", "season");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Season>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -511,10 +511,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_groups(&self, p_id: u64)
-	-> Result<Vec<Group>, Error>
+	-> Result<Vec<Group>>
 	{
 		let url = url!("info", "groups");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Group>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -527,10 +527,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_publisher(&self, p_id: u64)
-	-> Result<Vec<Publisher>, Error>
+	-> Result<Vec<Publisher>>
 	{
 		let url = url!("info", "publisher");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Publisher>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -545,11 +545,10 @@ impl<'info> Info<'info>
 	/// * `p` - (optional): Die zu ladende Seite der Liste, Start bei 0. Default 0.
 	/// * `limit` - (optional): Die Nummer der zu ladenden Episoden/Kapitel pro Seite. Default 50.
 	pub fn get_listinfo(&self, p_id: u64, p_page: Option<u64>, p_limit: Option<u64>)
-	-> Result<ListInfo, Error>
+	-> Result<ListInfo>
 	{
 		let url = url!("info", "listinfo");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"p" => p_page,
 			"limit" => p_limit);
 		let response = self.proxer.connect(&url, &body)?;
@@ -568,11 +567,10 @@ impl<'info> Info<'info>
 	/// * `sort` - Ändert die Sortierung der Liste. Setze Wert "rating" um nach meisten Empfehlungen zu sortieren,
 	/// ansonsten Sortierung nach Neueste zuerst.
 	pub fn get_comments(&self, p_id: u64, p_page: Option<u64>, p_limit: Option<u64>, p_sort: Option<Sort>)
-	-> Result<Vec<Group>, Error>
+	-> Result<Vec<Group>>
 	{
 		let url = url!("info", "comments");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"p" => p_page,
 			"limit" => p_limit,
 			"sort" => p_sort);
@@ -588,10 +586,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_relations(&self, p_id: u64)
-	-> Result<Vec<Relation>, Error>
+	-> Result<Vec<Relation>>
 	{
 		let url = url!("info", "relations");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<Relation>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -604,10 +602,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID des gewünschten Animes/Mangas.
 	pub fn get_entrytag(&self, p_id: u64)
-	-> Result<Vec<EntryTag>, Error>
+	-> Result<Vec<EntryTag>>
 	{
 		let url = url!("info", "entrytag");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<EntryTag>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -620,10 +618,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID der gewünschten Gruppe.
 	pub fn get_translatorgroup(&self, p_id: u64)
-	-> Result<TranslatorGroup, Error>
+	-> Result<TranslatorGroup>
 	{
 		let url = url!("info", "translatorgroup");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<TranslatorGroup> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -636,10 +634,10 @@ impl<'info> Info<'info>
 	///
 	/// * `id` - Die ID der gewünschten Gruppe.
 	pub fn get_industry(&self, p_id: u64)
-	-> Result<Industry, Error>
+	-> Result<Industry>
 	{
 		let url = url!("info", "industry");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Industry> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -654,10 +652,10 @@ impl<'info> Info<'info>
 	/// * `type` - Die Liste, zu der der Anime hinzugefügt werden soll.
 	/// Erlaubt: "note" (Wird noch geschaut), "favor" (Favoriten), "finish" (Abgeschlossen)
 	pub fn set_userinfo(&self, p_id: u64, p_type: WatchType)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("info", "setuserinfo");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id), "type" => Some(p_type));
+		let body = param_build!("id" => Some(p_id), "type" => Some(p_type));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);

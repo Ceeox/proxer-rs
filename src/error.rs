@@ -2,6 +2,8 @@ use std::io::Error as IoError;
 use hyper::error::Error as HyperError;
 use serde_json::error as serde;
 
+pub type Result<T> = ::std::result::Result<T, Error>;
+
 #[derive(Debug)]
 pub enum Error
 {

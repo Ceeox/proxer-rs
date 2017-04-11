@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -72,10 +72,10 @@ impl<'notification> Notification<'notification>
 	/// * 4 = News
 	/// * 5 = Benachrichtigungen
 	pub fn get_count(&self)
-	-> Result<String, Error>
+	-> Result<String>
 	{
 		let url = url!("notifications", "count");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key));
+		let body = String::new();
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<String> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -93,10 +93,10 @@ impl<'notification> Notification<'notification>
 	/// nach hinten werden die News älter). Wenn nicht gegeben, so wird die erste Seite geladen.
 	/// * `limit` - Die Anzahl der zu ladenden News pro Seite. Default 15.
 	pub fn get_news_per_api(&self, p_page: Option<u64>, p_limit: Option<u64>)
-	-> Result<Vec<News>, Error>
+	-> Result<Vec<News>>
 	{
 		let url = url!("notifications", "news");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "p" => p_page, "limit" => p_limit);
+		let body = param_build!("p" => p_page, "limit" => p_limit);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<Vec<News>> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -110,10 +110,10 @@ impl<'notification> Notification<'notification>
 	/// * `p_nid` - Die ID der zu löschenden Notification.
 	/// Wenn weggelassen oder 0, so werden alle als gelesen markierten Benachrichtigungen gelöscht.
 	pub fn delete_notification(&self, p_nid: Option<u64>)
-	-> Result<(), Error>
+	-> Result<()>
 	{
 		let url = url!("notifications", "delete");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "nid" => p_nid);
+		let body = param_build!("nid" => p_nid);
 		let response = self.proxer.connect(&url, &body)?;
 		let data: EmptyResponse = serde_json::from_reader(response)?;
 		check_error!(data.error, 0, data.message);

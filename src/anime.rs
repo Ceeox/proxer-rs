@@ -1,6 +1,6 @@
 use serde_json;
 
-use ::error::Error;
+use ::error::*;
 use ::Proxer;
 use ::models::*;
 
@@ -92,11 +92,10 @@ impl<'anime> Anime<'anime>
 	/// * `p_episode` - Die Episodennummer der zu ladenden Folge
 	/// * `p_language` - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)
 	pub fn get_streams(&self, p_id: u64, p_episode: u64, p_language: Language)
-	-> Result<Vec<Stream>, Error>
+	-> Result<Vec<Stream>>
 	{
 		let url = url!("anime", "streams");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"episode" => Some(p_episode),
 			"language" => Some(p_language));
 		let response = self.proxer.connect(&url, &body)?;
@@ -117,11 +116,10 @@ impl<'anime> Anime<'anime>
 	/// * `p_episode` - Die Episodennummer der zu ladenden Folge
 	/// * `p_language` - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)
 	pub fn get_proxerstreams(&self, p_id: u64, p_episode: u64, p_language: Language)
-	-> Result<Vec<ProxerStream>, Error>
+	-> Result<Vec<ProxerStream>>
 	{
 		let url = url!("anime", "proxerstreams");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key),
-			"id" => Some(p_id),
+		let body = param_build!("id" => Some(p_id),
 			"episode" => Some(p_episode),
 			"language" => Some(p_language));
 		let response = self.proxer.connect(&url, &body)?;
@@ -139,10 +137,10 @@ impl<'anime> Anime<'anime>
 	///
 	/// * `p_id` - Die id des Entrys
 	pub fn get_link(&self, p_id: u64)
-	-> Result<String, Error>
+	-> Result<String>
 	{
 		let url = url!("anime", "link");
-		let body = param_build!("api_key" => Some(&self.proxer.api_key), "id" => Some(p_id));
+		let body = param_build!("id" => Some(p_id));
 		let response = self.proxer.connect(&url, &body)?;
 		let data: Response<String> = serde_json::from_reader(response)?;
 		check_error!(data.error, data.code.unwrap_or_default(), data.message);
