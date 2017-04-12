@@ -244,7 +244,7 @@ impl Proxer
 		Ok(proxer)
 	}
 
-	/// Funktion um über die alte? News API News abzurufen.
+	/// Funktion um, über die alte? News API, News abzurufen.
 	/// Die ausgegebenen News stammen aus dem News-Feed der Startseite.
 	pub fn get_news(&self)
 	-> Result<Vec<OldNotification>>
