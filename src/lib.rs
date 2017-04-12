@@ -95,6 +95,7 @@
 #![doc(html_logo_url = "", html_favicon_url = "")]
 
 #[macro_use] extern crate hyper;
+extern crate hyper_native_tls;
 #[macro_use] extern crate serde_derive;
 extern crate serde_json;
 #[macro_use] extern crate log;
@@ -114,6 +115,8 @@ pub mod user;
 
 use hyper::client::Client;
 use hyper::header::{ Headers, ContentType, UserAgent };
+use hyper::net::HttpsConnector;
+use hyper_native_tls::NativeTlsClient;
 
 use ::error::*;
 
@@ -235,10 +238,14 @@ impl Proxer
 
 		header!{ (ProxerApiToken, "proxer-api-token") => [String] };
 		header.set(ProxerApiToken(p_api_key.to_owned()));
+		// TODO remove unwrap()
+		let ssl = NativeTlsClient::new().unwrap();
+		let connector = HttpsConnector::new(ssl);
+		let client = Client::with_connector(connector);
 
 		let proxer = Proxer
 		{
-			client: Client::new(),
+			client: client,
 			header: header,
 		};
 		Ok(proxer)
