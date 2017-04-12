@@ -1,12 +1,10 @@
 # Proxer-rs
 
-proxer-rs (proxer-api <-> proxer-rs <-> your_rust_application)
-
 Inoffizielle Bibliothek zur proxer-api in rust.
 
 Die meisten Dokumentationen sind aus dem Proxer-API wiki.
-Sollte etwas in der crate fehlen, oder anderweitig nicht stimmen, bitte auf Github melden.
+Sollte etwas in der crate fehlen, oder anderweitig nicht stimmen, bitte melden.
 
-Aktuell nur auf nighly verfügbar und wurde noch nicht vollständig auf funktionalität geprüft.
+Benötigte Rust Version >= 1.15, zudem hab ich die noch nicht vollständig auf Funktionalität geprüft.
 
 ## [Documentation](https://souryo.github.io/proxer-rs/proxer/index.html)
