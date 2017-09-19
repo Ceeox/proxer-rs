@@ -129,14 +129,14 @@ static NEWS_URL: &'static str = "http://proxer.me/notifications?format=json&s=ne
 
 /// Ermöglicht den Zugriff auf die Proxer News. Hierbei werden pro Seite höchstens 15 News ausgegeben.
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct OldNews
+pub struct ProxerNews
 {
 	/// 0 (erfolgreich) oder 1.
 	pub error: u64,
 	/// Eine Meldung im Falle eines Fehlers.
 	pub message: Option<String>,
 	/// Ein Array aus den Nachrichten-Objekten, im Falle einer erfolgreichen Ausgabe.
-	pub notifications: Option<Vec<OldNotification>>,
+	pub notifications: Option<Vec<NewsNotification>>,
 }
 
 /// Beinhaltet eine einzelene News bzw. Notification (Benutzt die alte api Schnittstelle?).
@@ -163,7 +163,7 @@ pub struct OldNews
 /// * `catid` - Die Kategorie-ID der Kategorie, in der sich die News befindet.
 /// * `catname` - Der Name der Kategorie, in der sich die News befindet.
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct OldNotification
+pub struct NewsNotification
 {
 	/// News id
 	pub nid: u64,
@@ -180,15 +180,19 @@ pub struct OldNotification
 	pub hits: u64,
 	/// thread id
 	pub thread: u64,
-	///
+	/// Die Benutzer-ID des Autors.
 	pub uid: u64,
+	/// Der Benutzername des Autors.
 	pub uname: String,
+	/// Anzahl der Antworten/Kommentare auf die News.
 	pub posts: u64,
+	/// Die Kategorie-ID der Kategorie, in der sich die News befindet.
 	pub catid: u64,
+	/// Der Name der Kategorie, in der sich die News befindet.
 	pub catname: String,
 }
 
-impl OldNotification
+impl NewsNotification
 {
 	/// Der Link zum Bild ist folgendermaßen aufgebaut:
 	/// http://cdn.proxer.me/news/{nid}_{image_id}.png
@@ -254,11 +258,11 @@ impl Proxer
 	/// Funktion um, über die alte? News API, News abzurufen.
 	/// Die ausgegebenen News stammen aus dem News-Feed der Startseite.
 	pub fn get_news(&self)
-	-> Result<Vec<OldNotification>>
+	-> Result<Vec<NewsNotification>>
 	{
 		let url = NEWS_URL;
 		let result = self.connect(&url, "")?;
-		let data: OldNews = serde_json::from_reader(result)?;
+		let data: ProxerNews = serde_json::from_reader(result)?;
 		check_error!(data.error, 0, data.message.unwrap_or_default());
 		check_data!(data.notifications)
 	}
