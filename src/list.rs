@@ -5,7 +5,7 @@ use ::Proxer;
 use ::models::*;
 
 /// Diese Funktion erfüllt die Aufgabe der erweiterten Suche
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct EntrySearch
 {
 	/// Die ID des Entrys
@@ -33,7 +33,7 @@ pub struct EntrySearch
 	pub language: Vec<String>,
 }
 /// Diese Funktion liefert eine Liste aller Entrys einer Kategorie mit bestimmten Einschränkungsmöglichkeiten.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct EntryList
 {
 	/// Die ID des Entrys
@@ -62,7 +62,7 @@ pub struct EntryList
 }
 
 /// Diese Funktion zieht aus einem String die IDs aller darin vorkommenden Tags und gibt sie zurück.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct TagIDs
 {
 	/// Ein Array, dass die IDs aller vorkommenden Tags ohne Minus ("-") enthält.
@@ -72,7 +72,7 @@ pub struct TagIDs
 }
 
 /// Diese Funktion liefert eine Liste aller Tags, anhand bestimmter Kriterien.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Tag
 {
 	/// Die ID des Tags
@@ -91,7 +91,7 @@ pub struct Tag
 }
 
 /// Diese Funktion liefert eine Liste aller Sub/Scanlation Gruppen, anhand bestimmter Kriterien.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct TranslatorGroup
 {
 	/// Die id der Gruppe
@@ -105,7 +105,7 @@ pub struct TranslatorGroup
 }
 
 /// Diese Funktion liefert eine Liste aller Firmen, anhand bestimmter Kriterien.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Industry
 {
 	/// Die id der Gruppe
@@ -122,7 +122,7 @@ pub struct Industry
 }
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Gruppe anhand ihrer ID.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct TranslatorGroupProject
 {
 	/// Die id des Entrys
@@ -152,7 +152,7 @@ pub struct TranslatorGroupProject
 }
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Firma anhand ihrer ID.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct IndustrysProject
 {
 	/// Die id des Entrys

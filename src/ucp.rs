@@ -5,7 +5,7 @@ use ::Proxer;
 use ::models::*;
 
 /// Diese Funktion liefert die Liste aller Animes/Mangas, zu denen der User einen Eintrag im UCP hat.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct List
 {
 	/// Die ID des Entrys
@@ -33,7 +33,7 @@ pub struct List
 }
 
 /// Diese Funktion liefert die Chronik des Users.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct History
 {
 	/// Die ID des Entrys
@@ -53,7 +53,7 @@ pub struct History
 }
 
 /// Diese Funktion liefert die Kommentarvotes des Users.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Vote
 {
 	/// Die ID des Kommentarvotes
@@ -76,7 +76,7 @@ pub struct Vote
 }
 
 /// Diese Funktion liefert eine Liste aller Lesezeichen des Users.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Reminder
 {
 	/// Die ID des Entrys

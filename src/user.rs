@@ -5,7 +5,7 @@ use ::Proxer;
 use ::models::*;
 
 /// Mit dieser Schnittstelle kann ein User mithilfe eines Passwortes und eines Usernamen eingeloggt werden
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Login
 {
 	/// Die ID des eingeloggten Users.
@@ -17,7 +17,7 @@ pub struct Login
 }
 
 /// Mit dieser Schnittstelle kann ein User ausgeloggt werden
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Logout
 {
 	pub error: u8,
@@ -28,7 +28,7 @@ pub struct Logout
 /// Sind ID und Username gegeben, so wird ausschließlich die ID verwendet.
 /// Ist weder ID noch Username gegeben, so werden die Daten des eingeloggten Users abgerufen.
 /// Ist auch dies nicht gegeben, so wird eine Fehlermeldung ausgegeben.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct UserInfo
 {
 	///  Die ID des abgefragten Users
@@ -62,7 +62,7 @@ pub struct UserInfo
 /// Hat ein User etwa die Sichtbarkeit nur "Für Freunde",
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct TopTen
 {
 	///  Die ID des Entrys
@@ -82,7 +82,7 @@ pub struct TopTen
 /// Hat ein User etwa die Sichtbarkeit nur "Für Freunde",
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct List
 {
 	/// Die ID des Entrys
@@ -118,7 +118,7 @@ pub struct List
 /// Hat ein User etwa die Sichtbarkeit nur "Für Freunde",
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct LatestComment
 {
 	/// Die ID des Kommentars

@@ -4,7 +4,7 @@ use ::error::*;
 use ::Proxer;
 use ::models::*;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct FullEntry
 {
 	/// Die ID des Entrys
@@ -49,7 +49,7 @@ pub struct FullEntry
 	pub tags: Vec<FullEntryDataTags>
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct FullEntryDataSeasons
 {
 	/// Die ID des Eintrags
@@ -63,7 +63,7 @@ pub struct FullEntryDataSeasons
 	pub season: u8,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct FullEntryDataGroups
 {
 	/// Die ID der Gruppe
@@ -74,7 +74,7 @@ pub struct FullEntryDataGroups
 	pub country: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct FullEntryDataPublisher
 {
 	/// Die ID des Publishers
@@ -88,7 +88,7 @@ pub struct FullEntryDataPublisher
 	pub country: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct FullEntryDataTags
 {
 	/// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
@@ -113,7 +113,7 @@ pub struct FullEntryDataTags
 
 /// Diese Funktion liefert die Daten eines Animes/Mangas anhand seiner ID (Dies bezieht sich NUR auf die Kerndaten des Anime,
 /// nicht die Daten, die über die folgenden Funktionen abgefragt werden können)
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Entry
 {
 	/// Die ID des Entrys
@@ -145,7 +145,7 @@ pub struct Entry
 }
 
 /// Diese Funktion liefert die unterschiedlichen Synonyme eines Animes/Mangas anhand seiner ID
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Name
 {
 	/// Die ID des Namens
@@ -160,7 +160,7 @@ pub struct Name
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Seasons.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Season
 {
 	/// Die ID des Eintrags
@@ -177,7 +177,7 @@ pub struct Season
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Übersetzergruppen.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Group
 {
 	/// Die ID der Gruppe
@@ -189,7 +189,7 @@ pub struct Group
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Publisher.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Publisher
 {
 	/// Die ID des Publishers
@@ -204,7 +204,7 @@ pub struct Publisher
 }
 
 /// Diese Funktion liefert eine Liste aller Episoden/Kapitel eines Entrys anhand dessen ID.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ListInfo
 {
 	/// Die Nummer des ersten Kapitels
@@ -225,7 +225,7 @@ pub struct ListInfo
 
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ListInfoDataEpisode
 {
 	/// Die Nummer des Kapitels/Episode
@@ -241,7 +241,7 @@ pub struct ListInfoDataEpisode
 }
 
 /// Diese Funktion liefert die für einen Anime/Manga abgegebenen Kommentare (mit mehr als 300 Zeichen).
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Comment
 {
 	/// Die ID des Kommentars
@@ -275,7 +275,7 @@ pub struct Comment
 }
 
 /// Diese Funktion liefert alle Verbindungen eines Entrys.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Relation
 {
 	/// Die ID des Entrys
@@ -313,7 +313,7 @@ pub struct Relation
 }
 
 /// Diese Funktion liefert alle Tags eines Entrys.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct EntryTag
 {
 	/// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
@@ -333,7 +333,7 @@ pub struct EntryTag
 }
 
 /// Diese Funktion liefert alle Daten zu einer Sub/Scanlation Gruppe anhand ihrer ID.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct TranslatorGroup
 {
 	/// Die id der Gruppe
@@ -355,7 +355,7 @@ pub struct TranslatorGroup
 }
 
 /// Diese Funktion liefert alle Daten zu einer Firma anhand ihrer ID.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Industry
 {
 	/// Die id der Gruppe

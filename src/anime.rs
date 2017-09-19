@@ -6,7 +6,7 @@ use ::models::*;
 
 /// Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, ohne den Proxerstream!.
 /// Um Animepunkte für das Schauen zu erhalten muss ein User angemeldet sein.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Stream
 {
 	/// Die ID des Streams
@@ -37,7 +37,7 @@ pub struct Stream
 /// Die Schnittstelle liefert auch alle weiteren Streams,
 /// eine zusätzliche Abfrage der "Get Streams" Schnittstelle ist also nicht nötig.
 /// Hinweis: Diese Schnittstelle ist momentan gesperrt!
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ProxerStream
 {
 	/// Die ID des Streams

@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Response<T>
 {
 	pub error: u8,
@@ -9,7 +9,7 @@ pub struct Response<T>
 	pub data: Option<T>
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct EmptyResponse
 {
 	pub error: u8,
@@ -23,7 +23,7 @@ pub struct EmptyResponse
 ///
 /// * `Anime` - Ist ein Anime
 /// * `Manga` - Ist ein Managa
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Kategorie
 {
 	#[serde(rename="anime")]
@@ -57,7 +57,7 @@ impl fmt::Display for Kategorie
 /// * `Oneshot` - Das Medium ist Oneshot
 /// * `Doujin` - Das Medium ist ein Doujin
 /// * `Hmanga` - Das Medium ist ein Hmanaga
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Medium
 {
 	Animeseries,
@@ -105,7 +105,7 @@ impl fmt::Display for Medium
 /// * `changeDateDESC` - Sortierung nach letzter Änderung Absteigend
 /// * `stateChangeDateASC` - Sortierung nach Status des Entrys, dann letzter Änderung Aufsteigend
 /// * `stateChangeDateDESC` - Sortierung nach Status des Entrys, dann letzter Änderung Absteigend
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Sort
 {
 	NameASC,
@@ -150,7 +150,7 @@ impl fmt::Display for Sort
 /// * `RecordLabel` -  Ein RecordLabel
 /// * `TalentAgent` -  Eine TalentAgent
 /// * `Streaming` -  Eine Streaming Seite eins Animes/Mangas
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Firma
 {
 	Publisher,
@@ -188,7 +188,7 @@ impl fmt::Display for Firma
 /// * `GerDub` - German Synchronized
 /// * `EngSub` - English Subtitles
 /// * `EngDub` - English Synchronized
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Language
 {
 	GerSub,
@@ -220,7 +220,7 @@ impl fmt::Display for Language
 /// * `Note` - Wird noch geschaut
 /// * `Favor` - Favoriten (Favorisiert)
 /// * `Finish` - Abgeschlossen
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum WatchType
 {
 	Note,
@@ -253,7 +253,7 @@ impl fmt::Display for WatchType
 /// * `rating` - Sortierung erst nach Anzahl und dann Wertung der Stimmen
 /// * `count` - Anzahl der Kapitel/Episoden
 /// * `name` - Alphabetisch
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum SearchSort
 {
 	Relevance,
@@ -286,7 +286,7 @@ impl fmt::Display for SearchSort
 ///
 /// * `up` - größer gleich
 /// * `down` - kleiner gleich, Default
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum LengthLimit
 {
 	Up,
@@ -322,7 +322,7 @@ impl fmt::Display for LengthLimit
 /// * `zukunft` - Zukunft und Technik
 /// * `story` - Story-Inhalte
 /// * `prota` - Protagonist
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum SubType
 {
 	Misc,
@@ -369,7 +369,7 @@ impl fmt::Display for SubType
 /// * `geplant` - Ein Projekt das auf der TODO Liste steht.
 /// * `abgebrochen` - Abgebrochenes Projekt
 /// * `lizenziert` - Lizensiertes Projekt
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum TranslationStatus
 {
 	Undefined,
@@ -406,7 +406,7 @@ impl fmt::Display for TranslationStatus
 ///	* `block` - Blockierte Konferenzen.
 ///	* `group` - Listet ausschließlich Gruppenkonferenzen auf.
 ///	* `default` - Listet unblockierte Konferenzen.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum ConferenceOption
 {
 	Favour,

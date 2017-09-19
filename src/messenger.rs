@@ -7,7 +7,7 @@ use ::models::*;
 /// Liefert Messengerkonstanten.
 /// Bitte höchstens beim erstmaligen Start einer Anwendung durchführen.
 /// Diese Werte werden sich höchstens alle paar Monate mal ändern.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Constants
 {
 	/// Maximalanzahl an Zeichen pro Nachricht.
@@ -28,7 +28,7 @@ pub struct Constants
 }
 
 /// Liefert eine Liste der aktuellen Konferenzen.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Conference
 {
 	/// Die Konferenz-ID
@@ -57,7 +57,7 @@ pub struct Conference
 }
 
 /// Informationen zu einer bestimmten Konferenz.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ConferenceInfo
 {
 	/// Allgemeine Infos zur Konferenz. Objekt enthält folgende Spalten:
@@ -66,7 +66,7 @@ pub struct ConferenceInfo
 	pub users: Vec<ConferenceInfoDataUsers>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ConferenceInfoDataConference
 {
 	/// Thema der Konferenz.
@@ -79,7 +79,7 @@ pub struct ConferenceInfoDataConference
 	pub leader: u64,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct ConferenceInfoDataUsers
 {
 	/// User-ID
@@ -94,7 +94,7 @@ pub struct ConferenceInfoDataUsers
 }
 
 /// Informationen zu einem bestimmten Benutzer.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct UserInfo
 {
 	/// Bild-ID des Avatars. Falls kein Avatar gesetzt ist, ist dieses Feld leer.
@@ -108,7 +108,7 @@ pub struct UserInfo
 }
 
 /// Gibt die letzten Nachrichten einer Konferenz/eines Benutzers zurück.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Messages
 {
 	/// conference_id=0 und message_id=0:

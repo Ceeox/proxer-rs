@@ -6,7 +6,7 @@ use ::models::*;
 
 /// Diese Funktion liefert ein Kapitel eines festgelegten Mangas.
 /// Um Mangapunkte für das Lesen zu erhalten muss ein User angemeldet sein.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Chapter
 {
 	/// Die ID des Kapitels

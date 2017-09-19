@@ -6,7 +6,7 @@ use ::models::*;
 
 /// Diese Funktion liefert einen zufälligen Header.
 /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct RandomHeader
 {
 	/// Die ID des Headers in der Gallerie
@@ -28,7 +28,7 @@ impl RandomHeader
 
 /// Diese Funktion liefert eine Liste aller aktuellen Header.
 /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct HeaderList
 {
 	/// Die ID des Headers in der Gallerie

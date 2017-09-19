@@ -8,7 +8,7 @@ use ::models::*;
 /// Der Bildlink einer News setzt sich zusammen aus: cdn.proxer.me/news/[News-ID]_[Image-ID].png
 /// Für Tumbnail: cdn.proxer.me/news/th/[News-ID]_[Image-ID].png
 /// Link zum Forumspost der News: proxer.me/forum/[catid]/[mid]
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct News
 {
 	/// Die ID der News
