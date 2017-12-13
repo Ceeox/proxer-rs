@@ -1,7 +1,7 @@
 [package]
 name = "proxer"
 version = "0.1.0"
-authors = ["souryo <dev.souryo@gmail.com>"]
+authors = ["souryo <ceox4510471@gmail.com>"]
 license = "MIT"
 
 [dependencies]
