@@ -51,20 +51,20 @@ impl Chapter
 /// und andere rein Manga-bezogene Aktionen durchzuführen.
 /// Der Zugriff auf diese Klasse ist stark beschränkt.
 #[derive(Debug)]
-pub struct Manga<'manga>
+pub struct Manga<'a>
 {
-    proxer: &'manga Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'manga> Manga<'manga>
+impl<'a> Manga<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'manga Proxer)
-    -> Manga<'manga>
+    pub fn new(proxer: &'a Proxer)
+    -> Manga<'a>
     {
         Manga
         {
-            proxer: p_proxer,
+            proxer: proxer,
         }
     }
 
@@ -76,13 +76,13 @@ impl<'manga> Manga<'manga>
     /// * `id` - Die id des Entrys
     /// * `episode` - Die Episodennummer des zu ladenden Kapitels
     /// * `language` - Die zu ladende Sprache (de,en)
-    pub fn get_chapter(&self, p_id: u64, p_episode: u64, p_language: &str)
+    pub fn get_chapter(&self, id: u64, episode: u64, language: &str)
     -> Result<Vec<Chapter>>
     {
         let url = url!("manga", "chapter");
-        let body = param_build!("id" => Some(p_id),
-            "episode" => Some(p_episode),
-            "language" => Some(p_language));
+        let body = param_build!("id" => Some(id),
+            "episode" => Some(episode),
+            "language" => Some(language));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Chapter>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

@@ -51,30 +51,30 @@ impl HeaderList
 /// Diese Klasse dient dazu, verschiedene Medien von Proxer zu erhalten.
 /// Dabei sind Animes und Mangas explizit ausgeschlossen, diese werden in eigenen Klassen behandelt.
 #[derive(Debug)]
-pub struct Media<'media>
+pub struct Media<'a>
 {
-    proxer: &'media Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'media> Media<'media>
+impl<'a> Media<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'media Proxer)
-    -> Media<'media>
+    pub fn new(proxer: &'a Proxer)
+    -> Media<'a>
     {
         Media
         {
-            proxer: p_proxer,
+            proxer: proxer,
         }
     }
 
     /// Diese Funktion liefert einen zufälligen Header.
     /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
-    pub fn get_randomheader(&self, p_style: Option<String>)
+    pub fn get_randomheader(&self, style: Option<String>)
     -> Result<Vec<RandomHeader>>
     {
         let url = url!("media", "randomheader");
-        let body = param_build!("style" => p_style);
+        let body = param_build!("style" => style);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<RandomHeader>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

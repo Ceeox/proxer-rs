@@ -187,20 +187,20 @@ pub struct IndustrysProject
 /// die wie die Erweiterte Suche auf Proxer funktioniert, sowie Auflistungs-Schnittstellen,
 /// die Animelisten nach bestimmten Schemata erstellen.
 #[derive(Debug)]
-pub struct List<'list>
+pub struct List<'a>
 {
-    proxer: &'list Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'list> List<'list>
+impl<'a> List<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'list Proxer)
-    -> List<'list>
+    pub fn new(proxer: &'a Proxer)
+    -> List<'a>
     {
         List
         {
-            proxer:		p_proxer,
+            proxer: proxer,
         }
     }
 
@@ -208,71 +208,71 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_name` - Ein zu suchender Entryname. Die Schnittstelle sucht sowohl nach exakten Matches
+    /// * `name` - Ein zu suchender Entryname. Die Schnittstelle sucht sowohl nach exakten Matches
     /// als auch nach Teil-Matches im Titel des Entrys (oder einem seiner Synonyme)
-    /// * `p_language` - Die zu suchende Sprache. Erlaubte Werte: "de","en". Default: Beide.
-    /// * `p_type` - Der zu suchende Typ. Erlaubte Werte:
-    /// 'p_animeseries', 'movie', 'ova', 'mangaseries', 'oneshot', 'doujin', 'hentai', 'hmanga',
-    /// 'p_all-anime'(kein H), 'all-manga'(kein H), 'all' (Default, kein H), 'all18'(H)
-    /// * `p_genre` - Genre, die der Entry enthalten soll. Als Leerzeichen (oder Plus "+")
+    /// * `language` - Die zu suchende Sprache. Erlaubte Werte: "de","en". Default: Beide.
+    /// * `type` - Der zu suchende Typ. Erlaubte Werte:
+    /// 'animeseries', 'movie', 'ova', 'mangaseries', 'oneshot', 'doujin', 'hentai', 'hmanga',
+    /// 'all-anime'(kein H), 'all-manga'(kein H), 'all' (Default, kein H), 'all18'(H)
+    /// * `genre` - Genre, die der Entry enthalten soll. Als Leerzeichen (oder Plus "+")
     /// separierter String, Genre-Namen wie in Suche. (Also ausgeschrieben, z.B. "Action") (Kein Effekt wenn leer)
-    /// * `p_nogenre` - Genre, die der Entry nicht enthalten darf. Angabe wie genre. (Kein Effekt wenn leer)
-    /// * `p_fsk` - Die zu suchenden Gefahrensymbole/Altersbeschränkungen. Erlaubte Werte:
+    /// * `nogenre` - Genre, die der Entry nicht enthalten darf. Angabe wie genre. (Kein Effekt wenn leer)
+    /// * `fsk` - Die zu suchenden Gefahrensymbole/Altersbeschränkungen. Erlaubte Werte:
     /// "fsk0", "fsk6", "fsk12", "fsk16", "fsk18", "bad_language", "violence", "fear", "sex".
     /// Anzugeben als Leerzeichen oder Plus ("+") separierter String. (Kein Effekt wenn leer)
-    /// * `p_sort` - Wie die Ergebnisse sortiert werden sollen. Erlaubte Werte:
+    /// * `sort` - Wie die Ergebnisse sortiert werden sollen. Erlaubte Werte:
     /// "relevance" (Qualität des Name-Matches, Default), "clicks", "rating"
     /// (Sortierung erst nach Anzahl und dann Wertung der Stimmen), "count" (Anzahl der Kapitel/Episoden),
     /// "name" (Alphabetisch)
-    /// * `p_length` - Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!),
+    /// * `length` - Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!),
     /// die ein Entry mindestens/höchstens haben darf. Zwischen 0 und 400 (exklusive). (Kein Effekt wenn leer)
-    /// * `p_length-limit` - Ob der Parameter "length" als Minimal- oder Maximalwert verwendet werden soll.
+    /// * `length-limit` - Ob der Parameter "length" als Minimal- oder Maximalwert verwendet werden soll.
     /// Erlaubte Werte: "up" (größer gleich), "down" (kleiner gleich, Default).
     /// Hat keinen Effekt wenn "length" nicht korrekt gesetzt ist.
-    /// * `p_tags` - Tags, die der Entry enthalten soll. Als Leerzeichen (oder Plus "+")
+    /// * `tags` - Tags, die der Entry enthalten soll. Als Leerzeichen (oder Plus "+")
     /// separierter String von Tag-Ids. (Kein Effekt wenn leer)
-    /// * `p_notags` - Tags, die der Entry nicht enthalten darf.
+    /// * `notags` - Tags, die der Entry nicht enthalten darf.
     /// Als Leerzeichen (oder Plus "+") separierter String von Tag-Ids. (Kein Effekt wenn leer)
-    /// * `p_tagratefilter` - Welche Art Tags berücksichtigt werden soll (negativ als auch positiv),
+    /// * `tagratefilter` - Welche Art Tags berücksichtigt werden soll (negativ als auch positiv),
     /// "rate_1" für nur eingetragene Tags (Default), "rate_10" für zusätzlich Unbestimmte Tags.
-    /// * `p_tagspoilerfilter` - Inwieweit Spoiler-Tags berücksichtigt werden sollen (negativ als auch positiv),
+    /// * `tagspoilerfilter` - Inwieweit Spoiler-Tags berücksichtigt werden sollen (negativ als auch positiv),
     /// "spoiler_0" für keine Spoiler (Default), "spoiler_10" für Spoiler und Nicht-Spoiler, "spoiler_1" für nur Spoiler.
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn entry_search(&self,
-        p_name: Option<String>,
-        p_language: Option<String>,
-        p_type: Option<Medium>,
-        p_genre: Option<String>,
-        p_nogenre: Option<String>,
-        p_fsk: Option<String>,
-        p_sort: Option<SearchSort>,
-        p_length: Option<u64>,
-        p_lengthlimit: Option<LengthLimit>,
-        p_tags: Option<String>,
-        p_notags: Option<String>,
-        p_tagratefilter: Option<String>,
-        p_tagspoilerfilter: Option<String>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>)
+        name: Option<String>,
+        language: Option<String>,
+        type: Option<Medium>,
+        genre: Option<String>,
+        nogenre: Option<String>,
+        fsk: Option<String>,
+        sort: Option<SearchSort>,
+        length: Option<u64>,
+        lengthlimit: Option<LengthLimit>,
+        tags: Option<String>,
+        notags: Option<String>,
+        tagratefilter: Option<String>,
+        tagspoilerfilter: Option<String>,
+        page: Option<u64>,
+        limit: Option<u64>)
     -> Result<Vec<EntrySearch>>
     {
         let url = url!("list", "entrysearch");
-        let body = param_build!("name" => p_name,
-            "language" => p_language,
-            "type" => p_type,
-            "genre" => p_genre,
-            "nogenre" => p_nogenre,
-            "fsk" => p_fsk,
-            "sort" => p_sort,
-            "length" => p_length,
-            "length-limit" => p_lengthlimit,
-            "tags" => p_tags,
-            "notags" => p_notags,
-            "tagratefilter" => p_tagratefilter,
-            "tagspoilerfilter" => p_tagspoilerfilter,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("name" => name,
+            "language" => language,
+            "type" => type,
+            "genre" => genre,
+            "nogenre" => nogenre,
+            "fsk" => fsk,
+            "sort" => sort,
+            "length" => length,
+            "length-limit" => lengthlimit,
+            "tags" => tags,
+            "notags" => notags,
+            "tagratefilter" => tagratefilter,
+            "tagspoilerfilter" => tagspoilerfilter,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<EntrySearch>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -282,33 +282,33 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_kat` - Die Kategorie des Entrys. Erlaubte Werte: "anime","manga". Default: "anime"
-    /// * `p_medium` - Welche Art medium geladen werden soll.
+    /// * `kat` - Die Kategorie des Entrys. Erlaubte Werte: "anime","manga". Default: "anime"
+    /// * `medium` - Welche Art medium geladen werden soll.
     /// Erlaubte Werte: "animeseries", "movie", "ova", "hentai", "mangaseries", "oneshot", "doujin", "hmanga".
     /// (Kein Effekt wenn leer)
-    /// * `p_is_h` - Ob die Liste Hentais enthalten soll. "true" für Hentai-Liste, sonst non-Hentai Liste (default).
+    /// * `is_h` - Ob die Liste Hentais enthalten soll. "true" für Hentai-Liste, sonst non-Hentai Liste (default).
     /// Dieser Parameter hat keinen Effekt wenn "medium" gesetzt ist
-    /// * `p_start` - Mit welchem String der Name der Entrys beginnen soll.
+    /// * `start` - Mit welchem String der Name der Entrys beginnen soll.
     /// Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
     /// Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, 'nonAlpha' angeben. (Kein Effekt wenn leer)
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_entrylist(&self,
-        p_kat: Option<Kategorie>,
-        p_medium: Option<Medium>,
-        p_is_h: Option<bool>,
-        p_start: Option<String>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>)
+        kat: Option<Kategorie>,
+        medium: Option<Medium>,
+        is_h: Option<bool>,
+        start: Option<String>,
+        page: Option<u64>,
+        limit: Option<u64>)
     -> Result<Vec<EntryList>>
     {
         let url = url!("list", "entrylist");
-        let body = param_build!("kat" => p_kat,
-            "medium" => p_medium,
-            "isH" => p_is_h,
-            "start" => p_start,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("kat" => kat,
+            "medium" => medium,
+            "isH" => is_h,
+            "start" => start,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<EntryList>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -324,11 +324,11 @@ impl<'list> List<'list>
     /// Es können nur Tags erkannt werden, vor und nach denen ein Leerzeichen bzw der Anfang/das Ende des Strings sind.
     /// Zudem darf vor einem Tag (Also nach dem Leerzeichen/Beginn des Strings vor dem Tag) ein Minus ("-") stehen.
     /// Solcherart gekennzeichnete Tags werden gesondert ausgegeben.
-    pub fn get_tag_ids(&self, p_search: String)
+    pub fn get_tag_ids(&self, search: String)
     -> Result<TagIDs>
     {
         let url = url!("list", "tagids");
-        let body = param_build!("search" => Some(p_search));
+        let body = param_build!("search" => Some(search));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<TagIDs> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -339,29 +339,29 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_search` - Ein beliebiger String. Nur Tags,
+    /// * `search` - Ein beliebiger String. Nur Tags,
     /// deren Name oder Beschreibung diesen String als Substring haben oder gleich ihm sind sind werden ausgegeben.
-    /// * `p_type` - Welcher Typ Tag angezeigt werden soll.
+    /// * `type` - Welcher Typ Tag angezeigt werden soll.
     /// Mögliche Werte: entry_genre (Genres, momentan nicht in Benutzung), entry_tag (normale Tags),
     /// entry_tag_h (H-tags), gallery (Gallerie Tags, momentan nicht in Benutzung). Default: Alles außer H-Tags.
-    /// * `p_sort` - Nach welchem Ausgabeparameter die Liste sortiert werden soll.
+    /// * `sort` - Nach welchem Ausgabeparameter die Liste sortiert werden soll.
     /// Erlaubte Werte: id, type, tag, description, blacklist, subtype. Default: tag
-    /// * `p_sort_type` - In welcher Reihenfolge die Sortierung ist. 'ASC' für aufsteigend,
+    /// * `sort_type` - In welcher Reihenfolge die Sortierung ist. 'ASC' für aufsteigend,
     /// 'DESC' für absteigend (Jeder andere Wert wird zu DESC). Default: ASC
-    /// * `p_subtype` - Die Kategorie des Tags
-    pub fn get_tags(&self, p_search: Option<String>,
-        p_type: Option<String>,
-        p_sort: Option<String>,
-        p_sort_type: Option<String>,
-        p_sub_type: Option<SubType>)
+    /// * `subtype` - Die Kategorie des Tags
+    pub fn get_tags(&self, search: Option<String>,
+        type: Option<String>,
+        sort: Option<String>,
+        sort_type: Option<String>,
+        sub_type: Option<SubType>)
     -> Result<Vec<Tag>>
     {
         let url = url!("list", "tags");
-        let body = param_build!("search" => p_search,
-            "type" => p_type,
-            "sort" => p_sort,
-            "p_sort_type" => p_sort_type,
-            "p_sub_type" => p_sub_type);
+        let body = param_build!("search" => search,
+            "type" => type,
+            "sort" => sort,
+            "sort_type" => sort_type,
+            "sub_type" => sub_type);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Tag>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -372,26 +372,26 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_start` - Mit welchem String der Name der Gruppen beginnen soll.
+    /// * `start` - Mit welchem String der Name der Gruppen beginnen soll.
     /// Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
     /// Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, 'nonAlpha' angeben. (Kein Effekt wenn leer)
-    /// * `p_contains` - Nur Gruppen, die diesen String als Substring ihres Namens haben, werden ausgegeben.
+    /// * `contains` - Nur Gruppen, die diesen String als Substring ihres Namens haben, werden ausgegeben.
     /// (Kein Effekt wenn leer)
     /// country (optional): Ermöglich, Gruppen nach Sprache zu filtern,
     /// erlaubte Werte: "de", "en", "misc". Default: Alle.
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_translatorgroups(&self, p_start: Option<String>,
-        p_contains: Option<String>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>)
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    pub fn get_translatorgroups(&self, start: Option<String>,
+        contains: Option<String>,
+        page: Option<u64>,
+        limit: Option<u64>)
     -> Result<Vec<TranslatorGroup>>
     {
         let url = url!("list", "translatorgroups");
-        let body = param_build!("start" => p_start,
-            "contains" => p_contains,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("start" => start,
+            "contains" => contains,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<TranslatorGroup>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -402,33 +402,33 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_start` - Mit welchem String der Name der Firma beginnen soll.
+    /// * `start` - Mit welchem String der Name der Firma beginnen soll.
     /// Nützlich, um z.B. nach Anfangsbuchstaben zu filtern.
     /// Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, 'nonAlpha' angeben.(Kein Effekt wenn leer)
-    /// * `p_contains` - Nur Firmen, die diesen String als Substring ihres Namens haben,
+    /// * `contains` - Nur Firmen, die diesen String als Substring ihres Namens haben,
     /// werden ausgegeben. (Kein Effekt wenn leer)
-    /// * `p_country` - Ermöglich, Firmen nach Sprache zu filtern,
+    /// * `country` - Ermöglich, Firmen nach Sprache zu filtern,
     /// erlaubte Werte: "de", "us", "jp", "misc". Default: Alle.
-    /// * `p_type` - Ermöglicht, Firmen nach Typ zu filtern,
+    /// * `type` - Ermöglicht, Firmen nach Typ zu filtern,
     ///  erlaubte Werte: 'publisher','studio','producer','record_label','talent_agent','streaming'. Default: Alle.
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_industrys(&self,
-        p_start: Option<String>,
-        p_contains: Option<String>,
-        p_country: Option<String>,
-        p_type: Option<Firma>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>,)
+        start: Option<String>,
+        contains: Option<String>,
+        country: Option<String>,
+        type: Option<Firma>,
+        page: Option<u64>,
+        limit: Option<u64>,)
     -> Result<Vec<Industry>>
     {
         let url = url!("list", "industrys");
-        let body = param_build!("start" => p_start,
-            "contains" => p_contains,
-            "country" => p_country,
-            "type" => p_type,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("start" => start,
+            "contains" => contains,
+            "country" => country,
+            "type" => type,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Industry>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -439,27 +439,27 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID der gewünschten Gruppe.
-    /// * `p_type` - Ein Integer. Wenn gesetzt werden nur Entrys des gegebenen Übersezungs-Status ausgegeben
+    /// * `id` - Die ID der gewünschten Gruppe.
+    /// * `type` - Ein Integer. Wenn gesetzt werden nur Entrys des gegebenen Übersezungs-Status ausgegeben
     /// (0=undefined, 1=abgeschlossen, 2=am laufen, 3=Geplant, 4=abgebrochen, 5=lizenziert). Default: Alle.
-    /// * `p_is_h` - Ein Integer. Steuert die Ausgabe von H-Inhalten. Werte:
+    /// * `is_h` - Ein Integer. Steuert die Ausgabe von H-Inhalten. Werte:
     /// -1 (kein H, Default), 0 (beides), 1 (nur H)
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_translatorgroups_projects(&self,
-        p_id: u64,
-        p_type: Option<TranslationStatus>,
-        p_is_h: Option<i8>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>,)
+        id: u64,
+        type: Option<TranslationStatus>,
+        is_h: Option<i8>,
+        page: Option<u64>,
+        limit: Option<u64>,)
     -> Result<Vec<TranslatorGroupProject>>
     {
         let url = url!("list", "translatorgroupprojects");
-        let body = param_build!("id" => Some(p_id),
-            "type" => p_type,
-            "isH" => p_is_h,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("id" => Some(id),
+            "type" => type,
+            "isH" => is_h,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<TranslatorGroupProject>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -470,28 +470,28 @@ impl<'list> List<'list>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID der gewünschten Firma.
-    /// * `p_type` - Ermöglicht, Entrys nach Typ der Firma zu filtern
+    /// * `id` - Die ID der gewünschten Firma.
+    /// * `type` - Ermöglicht, Entrys nach Typ der Firma zu filtern
     /// (eine Firma kann als verschiedene Typen auftreten),
     /// erlaubte Werte: 'publisher','studio','producer','record_label','talent_agent','streaming'. Default: Alle.
-    /// * `p_is_h` - Ein Integer. Steuert die Ausgabe von H-Inhalten.
+    /// * `is_h` - Ein Integer. Steuert die Ausgabe von H-Inhalten.
     /// Werte: -1 (kein H, Default), 0 (beides), 1 (nur H)
-    /// * `p_page` - Die zu ladende Seite, Beginn bei 0, Default 0.
-    /// * `p_limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
+    /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
+    /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_industry_projects(&self,
-        p_id: u64,
-        p_type: Option<Firma>,
-        p_is_h: Option<i8>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>)
+        id: u64,
+        type: Option<Firma>,
+        is_h: Option<i8>,
+        page: Option<u64>,
+        limit: Option<u64>)
     -> Result<Vec<IndustrysProject>>
     {
         let url = url!("list", "industryprojects");
-        let body = param_build!("id" => Some(p_id),
-            "type" => p_type,
-            "isH" => p_is_h,
-            "p" => p_page,
-            "limit" => p_limit);
+        let body = param_build!("id" => Some(id),
+            "type" => type,
+            "isH" => is_h,
+            "p" => page,
+            "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<IndustrysProject>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

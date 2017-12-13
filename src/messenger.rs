@@ -154,20 +154,20 @@ pub struct Messages
 /// Die aktuelle Schnittstelle basiert auf polling. Es ist eine zusätzliche Schnittstelle,
 /// die auf push-Nachrichten und Sockets basiert, geplant.
 #[derive(Debug)]
-pub struct Messenger<'messenger>
+pub struct Messenger<'a>
 {
-    proxer: &'messenger Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'messenger> Messenger<'messenger>
+impl<'a> Messenger<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'messenger Proxer)
-    -> Messenger<'messenger>
+    pub fn new(proxer: &'a Proxer)
+    -> Messenger<'a>
     {
         Messenger
         {
-            proxer: p_proxer,
+            proxer: proxer,
         }
     }
 
@@ -188,13 +188,13 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_type`- Gibt Konferenzen an, die eine bestimmte Markierung oder einen bestimmten Typ haben.
-    /// * `p_page`- Die Seite der Konferenzen. Default ist 0.
-    pub fn get_conferences(&self, p_type: Option<ConferenceOption>, p_page: Option<u64>)
+    /// * `type`- Gibt Konferenzen an, die eine bestimmte Markierung oder einen bestimmten Typ haben.
+    /// * `page`- Die Seite der Konferenzen. Default ist 0.
+    pub fn get_conferences(&self, type: Option<ConferenceOption>, page: Option<u64>)
     -> Result<Vec<Conference>>
     {
         let url = url!("messenger", "conferences");
-        let body = param_build!("type" => p_type, "p" => p_page);
+        let body = param_build!("type" => type, "p" => page);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Conference>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -205,12 +205,12 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_conference_id` - Die ID der Konferenz.
-    pub fn get_conference_info(&self, p_conference_id: u64)
+    /// * `conference_id` - Die ID der Konferenz.
+    pub fn get_conference_info(&self, conference_id: u64)
     -> Result<ConferenceInfo>
     {
         let url = url!("messenger", "conferenceinfo");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<ConferenceInfo> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -221,12 +221,12 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_user_id` - Die ID des betroffenen Benutzers.
-    pub fn get_user_info(&self, p_user_id: u64)
+    /// * `user_id` - Die ID des betroffenen Benutzers.
+    pub fn get_user_info(&self, user_id: u64)
     -> Result<UserInfo>
     {
         let url = url!("messenger", "userinfo");
-        let body = param_build!("user_id" => Some(p_user_id));
+        let body = param_build!("user_id" => Some(user_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<UserInfo> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -237,17 +237,17 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_conference_id` - Die Konferenz-ID.
-    /// * `p_message_id` - Die Nachrichten-ID.
-    /// * `p_read` - Ob eine Konferenz als gelesen markiert werden soll.
+    /// * `conference_id` - Die Konferenz-ID.
+    /// * `message_id` - Die Nachrichten-ID.
+    /// * `read` - Ob eine Konferenz als gelesen markiert werden soll.
     /// Mögliche String-Werte: "true" (default) oder "false".
-    pub fn get_messages(&self, p_conference_id: Option<u64>, p_message: Option<u64>, p_read: Option<bool>)
+    pub fn get_messages(&self, conference_id: Option<u64>, message: Option<u64>, read: Option<bool>)
     -> Result<Vec<Messages>>
     {
         let url = url!("messenger", "messages");
-        let body = param_build!("conference_id" => p_conference_id,
-            "message" => p_message,
-            "read" => p_read);
+        let body = param_build!("conference_id" => conference_id,
+            "message" => message,
+            "read" => read);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Messages>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -258,14 +258,14 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_text` Eine Eingabenachricht. Beim Erstellen von Konferenzen werden Befehlseingaben ignoriert.
-    /// * `p_username` Der Benutzername eines Proxer-Nutzers, an die eine Nachricht gesendet werden soll.
-    pub fn new_conference(&self, p_text: String, p_username: String)
+    /// * `text` Eine Eingabenachricht. Beim Erstellen von Konferenzen werden Befehlseingaben ignoriert.
+    /// * `username` Der Benutzername eines Proxer-Nutzers, an die eine Nachricht gesendet werden soll.
+    pub fn new_conference(&self, text: String, username: String)
     -> Result<u64>
     {
         let url = url!("messenger", "newconference");
-        let body = param_build!("text" => Some(p_text),
-            "username" => Some(p_username));
+        let body = param_build!("text" => Some(text),
+            "username" => Some(username));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<u64> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -276,18 +276,18 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_users` Ein Array aus Benutzernamen. Benutzer, die einer Konferenz hinzugefügt werden sollen.
+    /// * `users` Ein Array aus Benutzernamen. Benutzer, die einer Konferenz hinzugefügt werden sollen.
     /// Eingeschränkt durch die Konstante userLimit.
-    /// * `p_topic` Das Thema/der Name der Konferenz. Eingeschränkt durch die Konstante topicCount.
-    /// * `p_text` Die erste Nachricht der neu erstellten Konferenz.
+    /// * `topic` Das Thema/der Name der Konferenz. Eingeschränkt durch die Konstante topicCount.
+    /// * `text` Die erste Nachricht der neu erstellten Konferenz.
     /// Eingeschränkt durch die Konstante textCount. Beim Erstellen von Konferenzen werden Befehlseingaben ignoriert.
-    pub fn new_conferencegroup(&self, p_users: String, p_tropic: String, p_text: Option<String>)
+    pub fn new_conferencegroup(&self, users: String, tropic: String, text: Option<String>)
     -> Result<u64>
     {
         let url = url!("messenger", "newconferencegroup");
-        let body = param_build!("users" => Some(p_users),
-            "tropic" => Some(p_tropic),
-            "text" => p_text);
+        let body = param_build!("users" => Some(users),
+            "tropic" => Some(tropic),
+            "text" => text);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<u64> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -298,14 +298,14 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_text` - Ein kurzer Grund, weshalb die Konferenz gemeldet wird.
-    /// * `p_conference_id` ID der Konferenz, die gemeldet werden soll.
-    pub fn report(&self, p_text: String, p_conference_id: u64)
+    /// * `text` - Ein kurzer Grund, weshalb die Konferenz gemeldet wird.
+    /// * `conference_id` ID der Konferenz, die gemeldet werden soll.
+    pub fn report(&self, text: String, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "report");
-        let body = param_build!("text" => Some(p_text),
-            "conference_id" => Some(p_conference_id));
+        let body = param_build!("text" => Some(text),
+            "conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -316,18 +316,18 @@ impl<'messenger> Messenger<'messenger>
     ///
     /// # Arguments
     ///
-    /// * `p_conference_id` - Die Konferenz-ID.
-    /// * `p_text` - Eine Eingabenachricht. Die Nachricht ist eingeschränkt durch die Konstante textCount. Es gibt zwei Arten von Nachrichten:
+    /// * `conference_id` - Die Konferenz-ID.
+    /// * `text` - Eine Eingabenachricht. Die Nachricht ist eingeschränkt durch die Konstante textCount. Es gibt zwei Arten von Nachrichten:
     /// Normale Nachricht: Eine vom Benutzer abgesendete Nachricht.
     /// Eine Befehl: Ein Befehl fängt mit einem Schrägstrich an.
     /// Ein Beispiel für ein Befehl ist wie folgt: /addUser ProxerBot.
     /// Dieser Befehl würde den Benutzer ProxerBot zu der aktuellen Konferenz hinzufügen.
-    pub fn set_message(&self, p_conference_id: u64, p_text: String)
+    pub fn set_message(&self, conference_id: u64, text: String)
     -> Result<String>
     {
         let url = url!("messenger", "setmessage");
-        let body = param_build!("conference_id" => Some(p_conference_id),
-            "text" => Some(p_text));
+        let body = param_build!("conference_id" => Some(conference_id),
+            "text" => Some(text));
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<String> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -339,11 +339,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_read(&self, p_conference_id: u64)
+    pub fn set_read(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setread");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -355,11 +355,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unread(&self, p_conference_id: u64)
+    pub fn set_unread(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setunread");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -371,11 +371,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_block(&self, p_conference_id: u64)
+    pub fn set_block(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setblock");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -387,11 +387,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unblock(&self, p_conference_id: u64)
+    pub fn set_unblock(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setunblock");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -403,11 +403,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_favour(&self, p_conference_id: u64)
+    pub fn set_favour(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setfavour");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -419,11 +419,11 @@ impl<'messenger> Messenger<'messenger>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unfavour(&self, p_conference_id: u64)
+    pub fn set_unfavour(&self, conference_id: u64)
     -> Result<()>
     {
         let url = url!("messenger", "setunfavour");
-        let body = param_build!("conference_id" => Some(p_conference_id));
+        let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

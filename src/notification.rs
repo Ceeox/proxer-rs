@@ -45,20 +45,20 @@ pub struct News
 /// die mit Daten zu tun haben, die normalerweise auf Proxer oben rechts bei den Notifications zu sehen sind,
 /// insbesondere News und Benachrichtigungen.
 #[derive(Debug)]
-pub struct Notification<'notification>
+pub struct Notification<'a>
 {
-    proxer: &'notification Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'notification> Notification<'notification>
+impl<'a> Notification<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'notification Proxer)
-    -> Notification<'notification>
+    pub fn new(proxer: &'a Proxer)
+    -> Notification<'a>
     {
         Notification
         {
-            proxer: p_proxer,
+            proxer: proxer,
         }
     }
 
@@ -89,14 +89,14 @@ impl<'notification> Notification<'notification>
     ///
     /// # Arguments
     ///
-    /// * `p` - Die zu ladende Seite, beginnend ab 0 (Auf Seite 0 befinden sich die neuesten News,
+    /// * `page` - Die zu ladende Seite, beginnend ab 0 (Auf Seite 0 befinden sich die neuesten News,
     /// nach hinten werden die News älter). Wenn nicht gegeben, so wird die erste Seite geladen.
     /// * `limit` - Die Anzahl der zu ladenden News pro Seite. Default 15.
-    pub fn get_news_per_api(&self, p_page: Option<u64>, p_limit: Option<u64>)
+    pub fn get_news_per_api(&self, page: Option<u64>, limit: Option<u64>)
     -> Result<Vec<News>>
     {
         let url = url!("notifications", "news");
-        let body = param_build!("p" => p_page, "limit" => p_limit);
+        let body = param_build!("p" => page, "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<News>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -107,13 +107,13 @@ impl<'notification> Notification<'notification>
     ///
     /// # Arguments
     ///
-    /// * `p_nid` - Die ID der zu löschenden Notification.
+    /// * `nid` - Die ID der zu löschenden Notification.
     /// Wenn weggelassen oder 0, so werden alle als gelesen markierten Benachrichtigungen gelöscht.
-    pub fn delete_notification(&self, p_nid: Option<u64>)
+    pub fn delete_notification(&self, nid: Option<u64>)
     -> Result<()>
     {
         let url = url!("notifications", "delete");
-        let body = param_build!("nid" => p_nid);
+        let body = param_build!("nid" => nid);
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, 0, data.message);

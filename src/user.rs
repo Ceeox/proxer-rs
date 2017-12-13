@@ -151,7 +151,7 @@ pub struct LatestComment
 /// vornehmlich Login und Logout, aber auch die Möglichkeit,
 /// einen neuen User zu registrieren sowie die öffentlichen Daten eines jeden Users per ID oder Username abzufragen.
 #[derive(Debug)]
-pub struct User<'user>
+pub struct User<'a>
 {
     /// Die ID des eingeloggten Users.
     pub uid: u64,
@@ -162,22 +162,22 @@ pub struct User<'user>
     /// so kann man stattdessen bei jeder Anfrage die einen Login erfordert dieses Token senden.
     pub token: String,
 
-    proxer: &'user Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'user> User<'user>
+impl<'a> User<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'user Proxer, p_username: &str, p_password: &str)
-    -> Result<User<'user>>
+    pub fn new(proxer: &'a Proxer, username: &str, password: &str)
+    -> Result<User<'a>>
     {
-        let user: Login = User::login(&p_proxer, p_username, p_password)?;
+        let user: Login = User::login(&proxer, username, password)?;
         Ok(User
         {
             uid: user.uid,
             avatar: user.avatar,
             token: user.token,
-            proxer: p_proxer,
+            proxer: proxer,
         })
     }
 
@@ -185,16 +185,16 @@ impl<'user> User<'user>
     ///
     /// # Arguments
     ///
-    /// * `p_username` - Der Benutzername des zu einloggenden Benutzers.
-    /// * `p_password` - Das Passwort des zu einloggenden Benutzers
-    /// * `p_api_key` - API_KEY.
-    pub fn login(p_proxer: &Proxer, p_username: &str, p_password: &str)
+    /// * `username` - Der Benutzername des zu einloggenden Benutzers.
+    /// * `password` - Das Passwort des zu einloggenden Benutzers
+    /// * `api_key` - API_KEY.
+    pub fn login(proxer: &Proxer, username: &str, password: &str)
     -> Result<Login>
     {
         let url = url!("user", "login");
-        let body = param_build!("username" => Some(p_username),
-            "password" => Some(p_password));
-        let response = p_proxer.connect(&url, &body)?;
+        let body = param_build!("username" => Some(username),
+            "password" => Some(password));
+        let response = proxer.connect(&url, &body)?;
         let data: Response<Login> = serde_json::from_reader(response)?;
         check_data!(data.data)
     }
@@ -239,13 +239,13 @@ impl<'user> User<'user>
     ///
     /// # Arguments
     ///
-    /// * `p_uid` - User-ID, deren Daten abgefragt werden sollen
-    /// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    pub fn get_topten(&self, p_uid: u64, p_kat: Option<Kategorie>)
+    /// * `uid` - User-ID, deren Daten abgefragt werden sollen
+    /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
+    pub fn get_topten(&self, uid: u64, kat: Option<Kategorie>)
     -> Result<Vec<TopTen>>
     {
         let url = url!("user", "topten");
-        let body = param_build!("uid" => Some(p_uid), "kat" => p_kat);
+        let body = param_build!("uid" => Some(uid), "kat" => kat);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<TopTen>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -262,31 +262,31 @@ impl<'user> User<'user>
     ///
     /// # Arguments
     ///
-    /// * `p_uid` - User-ID, deren Daten abgefragt werden sollen
-    /// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    /// * `p_page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
-    /// * `p_limt` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 100.
-    /// * `p_search` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring ihres Namens haben. Dabei ist die Position im Namen egal.
-    /// * `p_search_start` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring zu Beginn ihres Namens haben.
-    /// * `p_sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll, erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)
+    /// * `uid` - User-ID, deren Daten abgefragt werden sollen
+    /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
+    /// * `page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
+    /// * `limt` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 100.
+    /// * `search` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring ihres Namens haben. Dabei ist die Position im Namen egal.
+    /// * `search_start` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring zu Beginn ihres Namens haben.
+    /// * `sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll, erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)
     pub fn get_list(&self,
-        p_uid:	u64,
-        p_kat: Option<Kategorie>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>,
-        p_search: Option<String>,
-        p_search_start: Option<String>,
-        p_sort: Option<Sort>)
+        uid:	u64,
+        kat: Option<Kategorie>,
+        page: Option<u64>,
+        limit: Option<u64>,
+        search: Option<String>,
+        search_start: Option<String>,
+        sort: Option<Sort>)
     -> Result<Vec<List>>
     {
         let url = url!("user", "list");
-        let body = param_build!("uid" => Some(p_uid),
-            "kat" => p_kat,
-            "p" => p_page,
-            "limit" => p_limit,
-            "search" => p_search,
-            "search_start" => p_search_start,
-            "sort" => p_sort);
+        let body = param_build!("uid" => Some(uid),
+            "kat" => kat,
+            "p" => page,
+            "limit" => limit,
+            "search" => search,
+            "search_start" => search_start,
+            "sort" => sort);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<List>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -302,23 +302,23 @@ impl<'user> User<'user>
     /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
     ///
     /// * `&self` - User-ID, deren Daten abgefragt werden solle.
-    /// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    /// * `p_page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
-    /// * `p_limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 25.
-    /// * `p_length` -  Dieser Parameter gibt die minimale Anzahl an Zeichen an, ab der ein Kommentar angezeigt werden soll. Default 300.
+    /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
+    /// * `page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
+    /// * `limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 25.
+    /// * `length` -  Dieser Parameter gibt die minimale Anzahl an Zeichen an, ab der ein Kommentar angezeigt werden soll. Default 300.
     pub fn get_latestcomments(&self,
-        p_kat: Option<Kategorie>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>,
-        p_length: Option<u64>)
+        kat: Option<Kategorie>,
+        page: Option<u64>,
+        limit: Option<u64>,
+        length: Option<u64>)
     -> Result<Vec<LatestComment>>
     {
         let url = url!("user", "comments");
         let body = param_build!("uid" => Some(self.uid),
-            "kat" => p_kat,
-            "p" => p_page,
-            "limit" => p_limit,
-            "length" => p_length);
+            "kat" => kat,
+            "p" => page,
+            "limit" => limit,
+            "length" => length);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<LatestComment>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

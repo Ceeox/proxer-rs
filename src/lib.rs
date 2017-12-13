@@ -196,8 +196,6 @@ impl NewsNotification
 {
     /// Der Link zum Bild ist folgendermaßen aufgebaut:
     /// http://cdn.proxer.me/news/{nid}_{image_id}.png
-    /// (Souryo: Sollte eigentlich nicht von belangen sein,
-    /// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
     /// Beachte, dass hier nur Thumbnails ausgegeben werden.
     /// Falls Zugriff auf die Originalbilder nötig ist,
     /// kann genesis(http://proxer.me/wiki/Benutzer:Genesis) hierzu angeschrieben werden.
@@ -210,8 +208,6 @@ impl NewsNotification
     /// Der Link zur News ist folgendermaßen aufgebaut:
     /// http://proxer.me/forum/{catid}/{thread}
     /// Alternativ kann an den Link der Anker #top angegeben werden.
-    /// (Souryo: Sollte eigentlich nicht von belangen sein,
-    /// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
     pub fn get_news_link(&self)
     -> String
     {
@@ -231,7 +227,7 @@ pub struct Proxer
 impl Proxer
 {
     /// Erstellt eine Proxer-Sitzung mit dem angegebenen API-Key.
-    pub fn new(p_api_key: &str)
+    pub fn new(api_key: &str)
     -> Result<Proxer>
     {
         println!("proxer-rs ist eine inoffiziell Bibliothek!");
@@ -241,7 +237,7 @@ impl Proxer
         header.set(UserAgent(USER_AGENT.to_owned()));
 
         header!{ (ProxerApiToken, "proxer-api-token") => [String] };
-        header.set(ProxerApiToken(p_api_key.to_owned()));
+        header.set(ProxerApiToken(api_key.to_owned()));
         // TODO remove unwrap()
         let ssl = NativeTlsClient::new().unwrap();
         let connector = HttpsConnector::new(ssl);

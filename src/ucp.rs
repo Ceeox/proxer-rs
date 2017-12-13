@@ -100,20 +100,20 @@ pub struct Reminder
 /// Diese Klasse dient der Verwaltung sämtlicher Daten, die normalerweise über das UCP Abrufbar/Veränderbar sind.
 /// Logischerweise erfordern alle diese Funktionen, dass der User eingeloggt ist.
 #[derive(Debug)]
-pub struct Ucp<'ucp>
+pub struct Ucp<'a>
 {
-    proxer: &'ucp Proxer,
+    proxer: &'a Proxer,
 }
 
-impl<'ucp> Ucp<'ucp>
+impl<'a> Ucp<'a>
 {
     #[doc(hidden)]
-    pub fn new(p_proxer: &'ucp Proxer)
-    -> Ucp<'ucp>
+    pub fn new(proxer: &'a Proxer)
+    -> Ucp<'a>
     {
         Ucp
         {
-            proxer: p_proxer,
+            proxer: proxer,
         }
     }
 
@@ -121,31 +121,31 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    /// * `p_page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
-    /// * `p_limt` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 100.
-    /// * `p_search` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
+    /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
+    /// * `page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
+    /// * `limt` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 100.
+    /// * `search` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
     /// die den angegeben Wert als Substring ihres Namens haben. Dabei ist die Position im Namen egal.
-    /// * `p_search_start` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
+    /// * `search_start` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt,
     /// die den angegeben Wert als Substring zu Beginn ihres Namens haben.
-    /// * `p_sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll,
+    /// * `sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll,
     /// erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)
     pub fn get_list(&self,
-        p_kat: Option<Kategorie>,
-        p_page: Option<u64>,
-        p_limit: Option<u64>,
-        p_search: Option<String>,
-        p_search_start: Option<String>,
-        p_sort: Option<Sort>)
+        kat: Option<Kategorie>,
+        page: Option<u64>,
+        limit: Option<u64>,
+        search: Option<String>,
+        search_start: Option<String>,
+        sort: Option<Sort>)
     -> Result<Vec<List>>
     {
         let url = url!("ucp", "list");
-        let body = param_build!("kat" => p_kat,
-            "p" => p_page,
-            "limit" => p_limit,
-            "search" => p_search,
-            "search_start" => p_search_start,
-            "sort" => p_sort);
+        let body = param_build!("kat" => kat,
+            "p" => page,
+            "limit" => limit,
+            "search" => search,
+            "search_start" => search_start,
+            "sort" => sort);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<List>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -155,12 +155,12 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    pub fn get_listsum(&self, p_kat: Option<Kategorie>)
+    /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
+    pub fn get_listsum(&self, kat: Option<Kategorie>)
     -> Result<String>
     {
         let url = url!("ucp", "listsum");
-        let body = param_build!("kat" => p_kat);
+        let body = param_build!("kat" => kat);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<String> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -183,13 +183,13 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite der Chronik haben soll. Default Wert 50.
-    /// * `p_page` - Dieser Parameter gibt an, welche Seite der Chronik geladen werden soll. Start bei 0, Default Wert 0.
-    pub fn get_history(&self, p_limit: Option<u64>, p_page: Option<u64>)
+    /// * `limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite der Chronik haben soll. Default Wert 50.
+    /// * `page` - Dieser Parameter gibt an, welche Seite der Chronik geladen werden soll. Start bei 0, Default Wert 0.
+    pub fn get_history(&self, limit: Option<u64>, page: Option<u64>)
     -> Result<Vec<History>>
     {
         let url = url!("ucp", "history");
-        let body = param_build!("limit" => p_limit, "p" => p_page);
+        let body = param_build!("limit" => limit, "p" => page);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<History>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -212,15 +212,15 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_kat` - Dieser Parameter gibt an, welche Kategorie geladen werden soll.
+    /// * `kat` - Dieser Parameter gibt an, welche Kategorie geladen werden soll.
     /// Wenn weggelassen werden beide Kategorien geladen. Erlaubte Werte: "anime","manga"
-    /// * `p_page` - Die zu ladende Seite, Start bei 0. Default 0
-    /// * `p_limit` - Die zu ladenden Einträge pro Seite. Default 100
-    pub fn get_reminder(&self, p_kat: Option<Kategorie>, p_page: Option<u64>, p_limit: Option<u64>)
+    /// * `page` - Die zu ladende Seite, Start bei 0. Default 0
+    /// * `limit` - Die zu ladenden Einträge pro Seite. Default 100
+    pub fn get_reminder(&self, kat: Option<Kategorie>, page: Option<u64>, limit: Option<u64>)
     -> Result<Vec<Reminder>>
     {
         let url = url!("ucp", "reminder");
-        let body = param_build!("kat" => p_kat, "p" => p_page, "limit" => p_limit);
+        let body = param_build!("kat" => kat, "p" => page, "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Reminder>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -231,12 +231,12 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID des zu löschenden Lesezeichens (erhältlich über die "Reminder" Funktion)
-    pub fn delete_reminder(&self, p_id: u64)
+    /// * `id` - Die ID des zu löschenden Lesezeichens (erhältlich über die "Reminder" Funktion)
+    pub fn delete_reminder(&self, id: u64)
     -> Result<()>
     {
         let url = url!("ucp", "deletereminder");
-        let body = param_build!("id" => Some(p_id));
+        let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -247,12 +247,12 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID des zu löschenden Eintrags (erhältlich über die "Favorite" Funktion)
-    pub fn delte_favorite(&self, p_id: u64)
+    /// * `id` - Die ID des zu löschenden Eintrags (erhältlich über die "Favorite" Funktion)
+    pub fn delte_favorite(&self, id: u64)
     -> Result<()>
     {
         let url = url!("ucp", "deletefavorite");
-        let body = param_build!("id" => Some(p_id));
+        let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -263,12 +263,12 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID des zu löschenden Eintrags (erhältlich über die "Vote" Funktion)
-    pub fn delte_vote(&self, p_id: u64)
+    /// * `id` - Die ID des zu löschenden Eintrags (erhältlich über die "Vote" Funktion)
+    pub fn delte_vote(&self, id: u64)
     -> Result<()>
     {
         let url = url!("ucp", "deletevote");
-        let body = param_build!("id" => Some(p_id));
+        let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -282,13 +282,13 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die ID des zu bearbeitenden Eintrags (erhältlich über die "List" Funktion)
-    /// * `p_value` - Der zu setzende Wert
-    pub fn set_commentstate(&self, p_id: u64, p_value: u64)
+    /// * `id` - Die ID des zu bearbeitenden Eintrags (erhältlich über die "List" Funktion)
+    /// * `value` - Der zu setzende Wert
+    pub fn set_commentstate(&self, id: u64, value: u64)
     -> Result<()>
     {
         let url = url!("ucp", "setcommentstate");
-        let body = param_build!("id" => Some(p_id), "value" => Some(p_value));
+        let body = param_build!("id" => Some(id), "value" => Some(value));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
@@ -299,15 +299,15 @@ impl<'ucp> Ucp<'ucp>
     ///
     /// # Arguments
     ///
-    /// * `p_id` - Die id des Entrys
-    /// * `p_episode` - Die Episodennummer, auf die das Lesezeichen gesetzt werden soll.
-    /// * `p_language` - Die zu ladende Sprache. (Für Animes: gersub,gerdub,engsub,engdub; Für Mangas: de,en)
-    /// * `p_kat` - Die Kategorie des Entrys (manga oder anime)
-    pub fn set_reminder(&self, p_id: u64, p_value: u64)
+    /// * `id` - Die id des Entrys
+    /// * `episode` - Die Episodennummer, auf die das Lesezeichen gesetzt werden soll.
+    /// * `language` - Die zu ladende Sprache. (Für Animes: gersub,gerdub,engsub,engdub; Für Mangas: de,en)
+    /// * `kat` - Die Kategorie des Entrys (manga oder anime)
+    pub fn set_reminder(&self, id: u64, value: u64)
     -> Result<()>
     {
         let url = url!("ucp", "setreminder");
-        let body = param_build!("id" => Some(p_id), "value" => Some(p_value));
+        let body = param_build!("id" => Some(id), "value" => Some(value));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);
