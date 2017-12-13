@@ -123,7 +123,7 @@ use ::error::*;
 static BASE_URL: &'static str = "https://proxer.me/api";
 static API_VERSION: &'static str = "v1";
 static USER_AGENT: &'static str = concat!("proxer-rs (https://github.com/souryo/proxer-rs, ",
-	env!("CARGO_PKG_VERSION"), ")");
+    env!("CARGO_PKG_VERSION"), ")");
 
 static NEWS_URL: &'static str = "http://proxer.me/notifications?format=json&s=news&p=1";
 
@@ -131,12 +131,12 @@ static NEWS_URL: &'static str = "http://proxer.me/notifications?format=json&s=ne
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ProxerNews
 {
-	/// 0 (erfolgreich) oder 1.
-	pub error: u64,
-	/// Eine Meldung im Falle eines Fehlers.
-	pub message: Option<String>,
-	/// Ein Array aus den Nachrichten-Objekten, im Falle einer erfolgreichen Ausgabe.
-	pub notifications: Option<Vec<NewsNotification>>,
+    /// 0 (erfolgreich) oder 1.
+    pub error: u64,
+    /// Eine Meldung im Falle eines Fehlers.
+    pub message: Option<String>,
+    /// Ein Array aus den Nachrichten-Objekten, im Falle einer erfolgreichen Ausgabe.
+    pub notifications: Option<Vec<NewsNotification>>,
 }
 
 /// Beinhaltet eine einzelene News bzw. Notification (Benutzt die alte api Schnittstelle?).
@@ -165,115 +165,115 @@ pub struct ProxerNews
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct NewsNotification
 {
-	/// News id
-	pub nid: u64,
-	/// Time als Unix-Timestamp
-	pub time: i64,
-	/// Die Beschreibung
-	pub description: String,
-	/// Die Bild id
-	pub image_id: u64,
-	/// Bildstyles
-	pub image_style: String,
-	pub subject: String,
-	/// Aufrufe der Notification
-	pub hits: u64,
-	/// thread id
-	pub thread: u64,
-	/// Die Benutzer-ID des Autors.
-	pub uid: u64,
-	/// Der Benutzername des Autors.
-	pub uname: String,
-	/// Anzahl der Antworten/Kommentare auf die News.
-	pub posts: u64,
-	/// Die Kategorie-ID der Kategorie, in der sich die News befindet.
-	pub catid: u64,
-	/// Der Name der Kategorie, in der sich die News befindet.
-	pub catname: String,
+    /// News id
+    pub nid: u64,
+    /// Time als Unix-Timestamp
+    pub time: i64,
+    /// Die Beschreibung
+    pub description: String,
+    /// Die Bild id
+    pub image_id: u64,
+    /// Bildstyles
+    pub image_style: String,
+    pub subject: String,
+    /// Aufrufe der Notification
+    pub hits: u64,
+    /// thread id
+    pub thread: u64,
+    /// Die Benutzer-ID des Autors.
+    pub uid: u64,
+    /// Der Benutzername des Autors.
+    pub uname: String,
+    /// Anzahl der Antworten/Kommentare auf die News.
+    pub posts: u64,
+    /// Die Kategorie-ID der Kategorie, in der sich die News befindet.
+    pub catid: u64,
+    /// Der Name der Kategorie, in der sich die News befindet.
+    pub catname: String,
 }
 
 impl NewsNotification
 {
-	/// Der Link zum Bild ist folgendermaßen aufgebaut:
-	/// http://cdn.proxer.me/news/{nid}_{image_id}.png
-	/// (Souryo: Sollte eigentlich nicht von belangen sein,
-	/// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
-	/// Beachte, dass hier nur Thumbnails ausgegeben werden.
-	/// Falls Zugriff auf die Originalbilder nötig ist,
-	/// kann genesis(http://proxer.me/wiki/Benutzer:Genesis) hierzu angeschrieben werden.
-	pub fn get_image(&self)
-	-> String
-	{
-		format!("http://cdn.proxer.me/news/{}_{}.png", self.nid, self.image_id)
-	}
+    /// Der Link zum Bild ist folgendermaßen aufgebaut:
+    /// http://cdn.proxer.me/news/{nid}_{image_id}.png
+    /// (Souryo: Sollte eigentlich nicht von belangen sein,
+    /// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
+    /// Beachte, dass hier nur Thumbnails ausgegeben werden.
+    /// Falls Zugriff auf die Originalbilder nötig ist,
+    /// kann genesis(http://proxer.me/wiki/Benutzer:Genesis) hierzu angeschrieben werden.
+    pub fn get_image(&self)
+    -> String
+    {
+        format!("http://cdn.proxer.me/news/{}_{}.png", self.nid, self.image_id)
+    }
 
-	/// Der Link zur News ist folgendermaßen aufgebaut:
-	/// http://proxer.me/forum/{catid}/{thread}
-	/// Alternativ kann an den Link der Anker #top angegeben werden.
-	/// (Souryo: Sollte eigentlich nicht von belangen sein,
-	/// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
-	pub fn get_news_link(&self)
-	-> String
-	{
-		format!("http://proxer.me/forum/{}/{}", self.catid, self.thread)
-	}
+    /// Der Link zur News ist folgendermaßen aufgebaut:
+    /// http://proxer.me/forum/{catid}/{thread}
+    /// Alternativ kann an den Link der Anker #top angegeben werden.
+    /// (Souryo: Sollte eigentlich nicht von belangen sein,
+    /// dennoch hab ich es der Vollständigkeits halber mit dazu genommen)
+    pub fn get_news_link(&self)
+    -> String
+    {
+        format!("http://proxer.me/forum/{}/{}", self.catid, self.thread)
+    }
 }
 
 /// Klasse um die http/s Verbindungen aufzubauen und die API-Daten zu verwalten.
 #[derive(Debug)]
 pub struct Proxer
 {
-	client: hyper::Client,
-	header: hyper::header::Headers,
+    client: hyper::Client,
+    header: hyper::header::Headers,
 }
 
 // TODO use ssl/tls
 impl Proxer
 {
-	/// Erstellt eine Proxer-Sitzung mit dem angegebenen API-Key.
-	pub fn new(p_api_key: &str)
-	-> Result<Proxer>
-	{
-		println!("proxer-rs ist eine inoffiziell Bibliothek!");
+    /// Erstellt eine Proxer-Sitzung mit dem angegebenen API-Key.
+    pub fn new(p_api_key: &str)
+    -> Result<Proxer>
+    {
+        println!("proxer-rs ist eine inoffiziell Bibliothek!");
 
-		let mut header = Headers::new();
-		header.set(ContentType::form_url_encoded());
-		header.set(UserAgent(USER_AGENT.to_owned()));
+        let mut header = Headers::new();
+        header.set(ContentType::form_url_encoded());
+        header.set(UserAgent(USER_AGENT.to_owned()));
 
-		header!{ (ProxerApiToken, "proxer-api-token") => [String] };
-		header.set(ProxerApiToken(p_api_key.to_owned()));
-		// TODO remove unwrap()
-		let ssl = NativeTlsClient::new().unwrap();
-		let connector = HttpsConnector::new(ssl);
-		let client = Client::with_connector(connector);
+        header!{ (ProxerApiToken, "proxer-api-token") => [String] };
+        header.set(ProxerApiToken(p_api_key.to_owned()));
+        // TODO remove unwrap()
+        let ssl = NativeTlsClient::new().unwrap();
+        let connector = HttpsConnector::new(ssl);
+        let client = Client::with_connector(connector);
 
-		let proxer = Proxer
-		{
-			client: client,
-			header: header,
-		};
-		Ok(proxer)
-	}
+        let proxer = Proxer
+        {
+            client: client,
+            header: header,
+        };
+        Ok(proxer)
+    }
 
-	/// Funktion um, über die alte? News API, News abzurufen.
-	/// Die ausgegebenen News stammen aus dem News-Feed der Startseite.
-	pub fn get_news(&self)
-	-> Result<Vec<NewsNotification>>
-	{
-		let url = NEWS_URL;
-		let result = self.connect(&url, "")?;
-		let data: ProxerNews = serde_json::from_reader(result)?;
-		check_error!(data.error, 0, data.message.unwrap_or_default());
-		check_data!(data.notifications)
-	}
+    /// Funktion um, über die alte? News API, News abzurufen.
+    /// Die ausgegebenen News stammen aus dem News-Feed der Startseite.
+    pub fn get_news(&self)
+    -> Result<Vec<NewsNotification>>
+    {
+        let url = NEWS_URL;
+        let result = self.connect(&url, "")?;
+        let data: ProxerNews = serde_json::from_reader(result)?;
+        check_error!(data.error, 0, data.message.unwrap_or_default());
+        check_data!(data.notifications)
+    }
 
-	// TODO try to remove clone() call, if possible
-	fn connect(&self, url: &str, body: &str)
-	-> Result<hyper::client::Response>
-	{
-		Ok(self.client.post(url)
-			.headers(self.header.clone())
-			.body(body)
-			.send()?)
-	}
+    // TODO try to remove clone() call, if possible
+    fn connect(&self, url: &str, body: &str)
+    -> Result<hyper::client::Response>
+    {
+        Ok(self.client.post(url)
+            .headers(self.header.clone())
+            .body(body)
+            .send()?)
+    }
 }

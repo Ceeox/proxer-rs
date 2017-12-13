@@ -3,18 +3,18 @@ use std::fmt;
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Response<T>
 {
-	pub error: u8,
-	pub message: String,
-	pub code: Option<u16>,
-	pub data: Option<T>
+    pub error: u8,
+    pub message: String,
+    pub code: Option<u16>,
+    pub data: Option<T>
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct EmptyResponse
 {
-	pub error: u8,
-	pub message: String,
-	pub code: Option<u16>,
+    pub error: u8,
+    pub message: String,
+    pub code: Option<u16>,
 }
 
 /// Die Kategorie ist eine simple Unterscheidung zwischen Anime und Manga.
@@ -26,23 +26,23 @@ pub struct EmptyResponse
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Kategorie
 {
-	#[serde(rename="anime")]
-	Anime,
-	Manga,
+    #[serde(rename="anime")]
+    Anime,
+    Manga,
 }
 
 impl fmt::Display for Kategorie
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			Kategorie::Anime => "anime",
-			Kategorie::Manga => "manga",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            Kategorie::Anime => "anime",
+            Kategorie::Manga => "manga",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Gibt an um was für eine Medienquelle es sich handelt.
@@ -60,34 +60,34 @@ impl fmt::Display for Kategorie
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Medium
 {
-	Animeseries,
-	Movie,
-	OVA,
-	Hentai,
-	Mangaseries,
-	Oneshot,
-	Doujin,
-	Hmanga
+    Animeseries,
+    Movie,
+    OVA,
+    Hentai,
+    Mangaseries,
+    Oneshot,
+    Doujin,
+    Hmanga
 }
 
 impl fmt::Display for Medium
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			Medium::Animeseries => "animeseries",
-			Medium::Movie => "movie",
-			Medium::OVA => "ova",
-			Medium::Hentai => "hentai",
-			Medium::Mangaseries => "mangaseries",
-			Medium::Oneshot => "onshot",
-			Medium::Doujin => "doujin",
-			Medium::Hmanga => "hmanga"
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            Medium::Animeseries => "animeseries",
+            Medium::Movie => "movie",
+            Medium::OVA => "ova",
+            Medium::Hentai => "hentai",
+            Medium::Mangaseries => "mangaseries",
+            Medium::Oneshot => "onshot",
+            Medium::Doujin => "doujin",
+            Medium::Hmanga => "hmanga"
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 ///	Nach was die angefragte List sortiert werden soll.
@@ -108,34 +108,34 @@ impl fmt::Display for Medium
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Sort
 {
-	NameASC,
-	NameDESC,
-	StateNameASC,
-	StateNameDESC,
-	ChangeDateASC,
-	ChangeDateDESC,
-	StateChangeDateASC,
-	StateChangeDateDESC,
+    NameASC,
+    NameDESC,
+    StateNameASC,
+    StateNameDESC,
+    ChangeDateASC,
+    ChangeDateDESC,
+    StateChangeDateASC,
+    StateChangeDateDESC,
 }
 
 impl fmt::Display for Sort
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			Sort::NameASC => "nameASC",
-			Sort::NameDESC => "nameDESC",
-			Sort::StateNameASC => "stateNameASC",
-			Sort::StateNameDESC => "stateNameDESC",
-			Sort::ChangeDateASC => "changeDateASC",
-			Sort::ChangeDateDESC => "changeDateDESC",
-			Sort::StateChangeDateASC => "stateChangeDateASC",
-			Sort::StateChangeDateDESC => "stateChangeDateDESC"
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            Sort::NameASC => "nameASC",
+            Sort::NameDESC => "nameDESC",
+            Sort::StateNameASC => "stateNameASC",
+            Sort::StateNameDESC => "stateNameDESC",
+            Sort::ChangeDateASC => "changeDateASC",
+            Sort::ChangeDateDESC => "changeDateDESC",
+            Sort::StateChangeDateASC => "stateChangeDateASC",
+            Sort::StateChangeDateDESC => "stateChangeDateDESC"
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Gibt an durch welche Firma der Anime, Managa oder etc. veröffenlicht wurde.
@@ -153,30 +153,30 @@ impl fmt::Display for Sort
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Firma
 {
-	Publisher,
-	Studio,
-	Producer,
-	RecordLabel,
-	TalentAgent,
-	Streaming
+    Publisher,
+    Studio,
+    Producer,
+    RecordLabel,
+    TalentAgent,
+    Streaming
 }
 
 impl fmt::Display for Firma
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			Firma::Publisher => "publisher",
-			Firma::Studio => "studio",
-			Firma::Producer => "producer",
-			Firma::RecordLabel => "record_label",
-			Firma::TalentAgent => "talent_agent",
-			Firma::Streaming => "streaming",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            Firma::Publisher => "publisher",
+            Firma::Studio => "studio",
+            Firma::Producer => "producer",
+            Firma::RecordLabel => "record_label",
+            Firma::TalentAgent => "talent_agent",
+            Firma::Streaming => "streaming",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Gibt die Sprache und die Übermittlung der Sprache an.
@@ -191,26 +191,26 @@ impl fmt::Display for Firma
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum Language
 {
-	GerSub,
-	GerDub,
-	EngSub,
-	EngDub,
+    GerSub,
+    GerDub,
+    EngSub,
+    EngDub,
 }
 
 impl fmt::Display for Language
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			Language::GerSub => "gersub",
-			Language::GerDub => "gerdub",
-			Language::EngSub => "engsub",
-			Language::EngDub => "engdub",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            Language::GerSub => "gersub",
+            Language::GerDub => "gerdub",
+            Language::EngSub => "engsub",
+            Language::EngDub => "engdub",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Beschreibt ob das Medium noch geschaut wird, Favoriesiert ist oder Abgeschlossen ist.
@@ -223,24 +223,24 @@ impl fmt::Display for Language
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum WatchType
 {
-	Note,
-	Favor,
-	Finish,
+    Note,
+    Favor,
+    Finish,
 }
 
 impl fmt::Display for WatchType
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			WatchType::Note => "note",
-			WatchType::Favor => "favor",
-			WatchType::Finish => "finish",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            WatchType::Note => "note",
+            WatchType::Favor => "favor",
+            WatchType::Finish => "finish",
+        };
+        write!(f, "{}", printable)
+    }
 }
 /// Nach welchem Parameter bei der Suche sotiert werden soll.
 ///
@@ -256,26 +256,26 @@ impl fmt::Display for WatchType
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum SearchSort
 {
-	Relevance,
-	Clicks,
-	Count,
-	Name,
+    Relevance,
+    Clicks,
+    Count,
+    Name,
 }
 
 impl fmt::Display for SearchSort
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			SearchSort::Relevance => "relevance",
-			SearchSort::Clicks => "clicks",
-			SearchSort::Count => "count",
-			SearchSort::Name => "name",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            SearchSort::Relevance => "relevance",
+            SearchSort::Clicks => "clicks",
+            SearchSort::Count => "count",
+            SearchSort::Name => "name",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Ob der Parameter "length" als Minimal- oder Maximalwert verwendet werden soll.
@@ -289,22 +289,22 @@ impl fmt::Display for SearchSort
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum LengthLimit
 {
-	Up,
-	Down,
+    Up,
+    Down,
 }
 
 impl fmt::Display for LengthLimit
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			LengthLimit::Up => "up",
-			LengthLimit::Down => "down",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            LengthLimit::Up => "up",
+            LengthLimit::Down => "down",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// (Betrifft nur Tags vom Typ entry_tag, alle anderen Typen haben immer Kategorie "Sonstige").
@@ -325,38 +325,38 @@ impl fmt::Display for LengthLimit
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum SubType
 {
-	Misc,
-	Persoenlichkeiten,
-	Gefuehle,
-	Zeichungen,
-	Uebernatuerliches,
-	Sport,
-	Menschen,
-	Zukunft,
-	Story,
-	Protagonist,
+    Misc,
+    Persoenlichkeiten,
+    Gefuehle,
+    Zeichungen,
+    Uebernatuerliches,
+    Sport,
+    Menschen,
+    Zukunft,
+    Story,
+    Protagonist,
 }
 
 impl fmt::Display for SubType
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			SubType::Misc => "misc",
-			SubType::Persoenlichkeiten => "persoenlichkeiten",
-			SubType::Gefuehle => "gefuehle",
-			SubType::Zeichungen => "zeichnung",
-			SubType::Uebernatuerliches => "uebernatuerliches",
-			SubType::Sport => "sport",
-			SubType::Menschen => "menschen",
-			SubType::Zukunft => "zukunft",
-			SubType::Story => "story",
-			SubType::Protagonist => "prota",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            SubType::Misc => "misc",
+            SubType::Persoenlichkeiten => "persoenlichkeiten",
+            SubType::Gefuehle => "gefuehle",
+            SubType::Zeichungen => "zeichnung",
+            SubType::Uebernatuerliches => "uebernatuerliches",
+            SubType::Sport => "sport",
+            SubType::Menschen => "menschen",
+            SubType::Zukunft => "zukunft",
+            SubType::Story => "story",
+            SubType::Protagonist => "prota",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Gibt den Stand der Übersetzung an.
@@ -372,30 +372,30 @@ impl fmt::Display for SubType
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum TranslationStatus
 {
-	Undefined,
-	Abgeschlossen,
-	AmLaufen,
-	Geplant,
-	Abgebrochen,
-	Lizensiert,
+    Undefined,
+    Abgeschlossen,
+    AmLaufen,
+    Geplant,
+    Abgebrochen,
+    Lizensiert,
 }
 
 impl fmt::Display for TranslationStatus
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			TranslationStatus::Undefined => "0",
-			TranslationStatus::Abgeschlossen => "1",
-			TranslationStatus::AmLaufen => "2",
-			TranslationStatus::Geplant => "3",
-			TranslationStatus::Abgebrochen => "4",
-			TranslationStatus::Lizensiert => "5",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            TranslationStatus::Undefined => "0",
+            TranslationStatus::Abgeschlossen => "1",
+            TranslationStatus::AmLaufen => "2",
+            TranslationStatus::Geplant => "3",
+            TranslationStatus::Abgebrochen => "4",
+            TranslationStatus::Lizensiert => "5",
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 /// Beschreibt die Konferenz genauer.
@@ -409,24 +409,24 @@ impl fmt::Display for TranslationStatus
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 pub enum ConferenceOption
 {
-	Favour,
-	Block,
-	Group,
-	Default,
+    Favour,
+    Block,
+    Group,
+    Default,
 }
 
 impl fmt::Display for ConferenceOption
 {
-	fn fmt(&self, f: &mut fmt::Formatter)
-	-> fmt::Result
-	{
-		let printable = match *self
-		{
-			ConferenceOption::Favour => "favor",
-			ConferenceOption::Block => "block",
-			ConferenceOption::Group => "group",
-			ConferenceOption::Default => "default",
-		};
-		write!(f, "{}", printable)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter)
+    -> fmt::Result
+    {
+        let printable = match *self
+        {
+            ConferenceOption::Favour => "favor",
+            ConferenceOption::Block => "block",
+            ConferenceOption::Group => "group",
+            ConferenceOption::Default => "default",
+        };
+        write!(f, "{}", printable)
+    }
 }
