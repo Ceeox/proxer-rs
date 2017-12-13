@@ -651,11 +651,11 @@ impl<'a> Info<'a>
     /// * `id` - Die ID des gewünschten Animes/Mangas.
     /// * `type` - Die Liste, zu der der Anime hinzugefügt werden soll.
     /// Erlaubt: "note" (Wird noch geschaut), "favor" (Favoriten), "finish" (Abgeschlossen)
-    pub fn set_userinfo(&self, id: u64, type: WatchType)
+    pub fn set_userinfo(&self, id: u64, watch_type: WatchType)
     -> Result<()>
     {
         let url = url!("info", "setuserinfo");
-        let body = param_build!("id" => Some(id), "type" => Some(type));
+        let body = param_build!("id" => Some(id), "type" => Some(watch_type));
         let response = self.proxer.connect(&url, &body)?;
         let data: EmptyResponse = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

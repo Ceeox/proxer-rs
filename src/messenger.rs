@@ -190,11 +190,11 @@ impl<'a> Messenger<'a>
     ///
     /// * `type`- Gibt Konferenzen an, die eine bestimmte Markierung oder einen bestimmten Typ haben.
     /// * `page`- Die Seite der Konferenzen. Default ist 0.
-    pub fn get_conferences(&self, type: Option<ConferenceOption>, page: Option<u64>)
+    pub fn get_conferences(&self, conference_type: Option<ConferenceOption>, page: Option<u64>)
     -> Result<Vec<Conference>>
     {
         let url = url!("messenger", "conferences");
-        let body = param_build!("type" => type, "p" => page);
+        let body = param_build!("type" => conference_type, "p" => page);
         let response = self.proxer.connect(&url, &body)?;
         let data: Response<Vec<Conference>> = serde_json::from_reader(response)?;
         check_error!(data.error, data.code.unwrap_or_default(), data.message);

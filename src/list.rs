@@ -242,7 +242,7 @@ impl<'a> List<'a>
     pub fn entry_search(&self,
         name: Option<String>,
         language: Option<String>,
-        type: Option<Medium>,
+        medium_type: Option<Medium>,
         genre: Option<String>,
         nogenre: Option<String>,
         fsk: Option<String>,
@@ -260,7 +260,7 @@ impl<'a> List<'a>
         let url = url!("list", "entrysearch");
         let body = param_build!("name" => name,
             "language" => language,
-            "type" => type,
+            "type" => medium_type,
             "genre" => genre,
             "nogenre" => nogenre,
             "fsk" => fsk,
@@ -350,7 +350,7 @@ impl<'a> List<'a>
     /// 'DESC' für absteigend (Jeder andere Wert wird zu DESC). Default: ASC
     /// * `subtype` - Die Kategorie des Tags
     pub fn get_tags(&self, search: Option<String>,
-        type: Option<String>,
+        tag_type: Option<String>,
         sort: Option<String>,
         sort_type: Option<String>,
         sub_type: Option<SubType>)
@@ -358,7 +358,7 @@ impl<'a> List<'a>
     {
         let url = url!("list", "tags");
         let body = param_build!("search" => search,
-            "type" => type,
+            "type" => tag_type,
             "sort" => sort,
             "sort_type" => sort_type,
             "sub_type" => sub_type);
@@ -417,7 +417,7 @@ impl<'a> List<'a>
         start: Option<String>,
         contains: Option<String>,
         country: Option<String>,
-        type: Option<Firma>,
+        firma_type: Option<Firma>,
         page: Option<u64>,
         limit: Option<u64>,)
     -> Result<Vec<Industry>>
@@ -426,7 +426,7 @@ impl<'a> List<'a>
         let body = param_build!("start" => start,
             "contains" => contains,
             "country" => country,
-            "type" => type,
+            "type" => firma_type,
             "p" => page,
             "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
@@ -448,7 +448,7 @@ impl<'a> List<'a>
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_translatorgroups_projects(&self,
         id: u64,
-        type: Option<TranslationStatus>,
+        status_type: Option<TranslationStatus>,
         is_h: Option<i8>,
         page: Option<u64>,
         limit: Option<u64>,)
@@ -456,7 +456,7 @@ impl<'a> List<'a>
     {
         let url = url!("list", "translatorgroupprojects");
         let body = param_build!("id" => Some(id),
-            "type" => type,
+            "type" => status_type,
             "isH" => is_h,
             "p" => page,
             "limit" => limit);
@@ -480,7 +480,7 @@ impl<'a> List<'a>
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
     pub fn get_industry_projects(&self,
         id: u64,
-        type: Option<Firma>,
+        firma_type: Option<Firma>,
         is_h: Option<i8>,
         page: Option<u64>,
         limit: Option<u64>)
@@ -488,7 +488,7 @@ impl<'a> List<'a>
     {
         let url = url!("list", "industryprojects");
         let body = param_build!("id" => Some(id),
-            "type" => type,
+            "type" => firma_type,
             "isH" => is_h,
             "p" => page,
             "limit" => limit);
