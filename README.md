@@ -1,11 +1,11 @@
 # Proxer-rs
 
-Unofficial proxer-api Library written in Rust.
+Inoffizielle Bibliothek zur proxer-api in rust.
 
-## TODO-List
-- [ ] Update API which was not updated since 20.01.2017
-- [ ] Add Tests
-- [ ] Add Examples
-- [ ] Update hyper (or switch to reqwest) and add async support
+Die meisten Dokumentationen sind aus dem Proxer-API wiki.
+Sollte etwas in der crate fehlen, oder anderweitig nicht stimmen, bitte melden.
+
+Benötigte Rust Version >= 1.15.
+Außer die OldNotification Class wurde noch keine Class auf ihre Funktionalität geprüft. (noch kein api-key)
 
 ## [Documentation](https://souryo.github.io/proxer-rs/proxer/index.html)
