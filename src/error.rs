@@ -5,8 +5,7 @@ use serde_json::error as serde;
 pub type Result<T> = ::std::result::Result<T, Error>;
 
 #[derive(Debug)]
-pub enum Error
-{
+pub enum Error {
     Hyper(HyperError),
     SerdeError(serde::Error),
     Io(IoError),
@@ -14,52 +13,41 @@ pub enum Error
     Other(String),
 }
 
-impl From<HyperError> for Error
-{
-    fn from(err: HyperError)
-    -> Error
-    {
+impl From<HyperError> for Error {
+    fn from(err: HyperError) -> Error {
         error!("HyperError with: {:?}", err);
         Error::Hyper(err)
     }
 }
 
-impl From<serde::Error> for Error
-{
-    fn from(err: serde::Error)
-    -> Error
-    {
+impl From<serde::Error> for Error {
+    fn from(err: serde::Error) -> Error {
         error!("SerdeError with: {:?}", err);
         Error::SerdeError(err)
     }
 }
 
-impl From<IoError> for Error
-{
-    fn from(err: IoError)
-    -> Error
-    {
+impl From<IoError> for Error {
+    fn from(err: IoError) -> Error {
         error!("IoError with: {:?}", err);
         Error::Io(err)
     }
 }
 
-impl From<(u16, String)> for Error
-{
-    fn from((code, message): (u16, String))
-    -> Error
-    {
-        error!("ProxerError with: message:{:?}, code:{}({:?})",
-            message, code, DecodeErrorCode::decode(code));
+impl From<(u16, String)> for Error {
+    fn from((code, message): (u16, String)) -> Error {
+        error!(
+            "ProxerError with: message:{:?}, code:{}({:?})",
+            message,
+            code,
+            DecodeErrorCode::decode(code)
+        );
         Error::ProxerError(code, message)
     }
 }
 
-impl From<String> for Error
-{
-    fn from(err: String)
-    -> Error
-    {
+impl From<String> for Error {
+    fn from(err: String) -> Error {
         error!("OtherError with {:?}", err);
         Error::Other(err)
     }
@@ -67,11 +55,8 @@ impl From<String> for Error
 
 pub struct DecodeErrorCode;
 
-impl DecodeErrorCode
-{
-    pub fn decode(code: u16)
-    -> String
-    {
+impl DecodeErrorCode {
+    pub fn decode(code: u16) -> String {
         match code
         {
             1000 =>	format!("API-Version existiert nicht."),

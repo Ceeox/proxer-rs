@@ -1,36 +1,34 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Liefert Messengerkonstanten.
 /// Bitte höchstens beim erstmaligen Start einer Anwendung durchführen.
 /// Diese Werte werden sich höchstens alle paar Monate mal ändern.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Constants
-{
+pub struct Constants {
     /// Maximalanzahl an Zeichen pro Nachricht.
-    #[serde(rename="textCount")]
+    #[serde(rename = "textCount")]
     pub text_count: u64,
     /// Anzahl der Elemente, die "Get Conferences" maximal pro Aufruf/pro Seite liefert.
-    #[serde(rename="conferenceLimit")]
+    #[serde(rename = "conferenceLimit")]
     pub conference_limit: u64,
     /// Anzahl der Elemente, die "Get Messages" maximal pro Aufruf/pro Seite liefert.
-    #[serde(rename="messagesLimit")]
+    #[serde(rename = "messagesLimit")]
     pub messages_limit: u64,
     /// Maximalanzahl an Benutzern pro Gruppenkonferenz.
-    #[serde(rename="userLimit")]
+    #[serde(rename = "userLimit")]
     pub user_limit: u64,
     /// Maximalanzahl an Zeichen für Konferenzthema.
-    #[serde(rename="tropicCount")]
+    #[serde(rename = "tropicCount")]
     pub topic_count: u64,
 }
 
 /// Liefert eine Liste der aktuellen Konferenzen.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Conference
-{
+pub struct Conference {
     /// Die Konferenz-ID
     pub id: u64,
     /// Der Titel einer Konferenz.
@@ -58,8 +56,7 @@ pub struct Conference
 
 /// Informationen zu einer bestimmten Konferenz.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ConferenceInfo
-{
+pub struct ConferenceInfo {
     /// Allgemeine Infos zur Konferenz. Objekt enthält folgende Spalten:
     pub conference: ConferenceInfoDataConference,
     /// Informationen zu Konferenzteilnehmern. Array enthält folgende Spalten:
@@ -67,8 +64,7 @@ pub struct ConferenceInfo
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ConferenceInfoDataConference
-{
+pub struct ConferenceInfoDataConference {
     /// Thema der Konferenz.
     pub topic: String,
     /// Anzahl der Konferenzteilnehmer.
@@ -80,8 +76,7 @@ pub struct ConferenceInfoDataConference
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ConferenceInfoDataUsers
-{
+pub struct ConferenceInfoDataUsers {
     /// User-ID
     pub uid: u64,
     /// Bild-ID des Avatars.
@@ -95,8 +90,7 @@ pub struct ConferenceInfoDataUsers
 
 /// Informationen zu einem bestimmten Benutzer.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct UserInfo
-{
+pub struct UserInfo {
     /// Bild-ID des Avatars. Falls kein Avatar gesetzt ist, ist dieses Feld leer.
     /// Beispiel für Bild-ID: "62_yF5zd7.jpg".
     /// Avatare haben den folgenden Link: http://cdn.proxer.me/avatar/tn/[Bild-ID]
@@ -109,8 +103,7 @@ pub struct UserInfo
 
 /// Gibt die letzten Nachrichten einer Konferenz/eines Benutzers zurück.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Messages
-{
+pub struct Messages {
     /// conference_id=0 und message_id=0:
     /// 	Gibt die letzten Nachrichten des Benutzers zurück.
     /// 	Die letzte Nachricht dieser Ausgabe kann verwendet werden.
@@ -154,28 +147,19 @@ pub struct Messages
 /// Die aktuelle Schnittstelle basiert auf polling. Es ist eine zusätzliche Schnittstelle,
 /// die auf push-Nachrichten und Sockets basiert, geplant.
 #[derive(Debug)]
-pub struct Messenger<'a>
-{
+pub struct Messenger<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Messenger<'a>
-{
+impl<'a> Messenger<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Messenger<'a>
-    {
-        Messenger
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Messenger<'a> {
+        Messenger { proxer: proxer }
     }
 
     /// Liefert Messengerkonstanten. Bitte höchstens beim erstmaligen Start einer Anwendung durchführen.
     /// Diese Werte werden sich höchstens alle paar Monate mal ändern.
-    pub fn get_constants(&self)
-    -> Result<Vec<Constants>>
-    {
+    pub fn get_constants(&self) -> Result<Vec<Constants>> {
         let url = url!("messenger", "constants");
         let body = String::new();
         let response = self.proxer.connect(&url, &body)?;
@@ -190,9 +174,11 @@ impl<'a> Messenger<'a>
     ///
     /// * `type`- Gibt Konferenzen an, die eine bestimmte Markierung oder einen bestimmten Typ haben.
     /// * `page`- Die Seite der Konferenzen. Default ist 0.
-    pub fn get_conferences(&self, conference_type: Option<ConferenceOption>, page: Option<u64>)
-    -> Result<Vec<Conference>>
-    {
+    pub fn get_conferences(
+        &self,
+        conference_type: Option<ConferenceOption>,
+        page: Option<u64>,
+    ) -> Result<Vec<Conference>> {
         let url = url!("messenger", "conferences");
         let body = param_build!("type" => conference_type, "p" => page);
         let response = self.proxer.connect(&url, &body)?;
@@ -206,9 +192,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die ID der Konferenz.
-    pub fn get_conference_info(&self, conference_id: u64)
-    -> Result<ConferenceInfo>
-    {
+    pub fn get_conference_info(&self, conference_id: u64) -> Result<ConferenceInfo> {
         let url = url!("messenger", "conferenceinfo");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -222,9 +206,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `user_id` - Die ID des betroffenen Benutzers.
-    pub fn get_user_info(&self, user_id: u64)
-    -> Result<UserInfo>
-    {
+    pub fn get_user_info(&self, user_id: u64) -> Result<UserInfo> {
         let url = url!("messenger", "userinfo");
         let body = param_build!("user_id" => Some(user_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -241,9 +223,12 @@ impl<'a> Messenger<'a>
     /// * `message_id` - Die Nachrichten-ID.
     /// * `read` - Ob eine Konferenz als gelesen markiert werden soll.
     /// Mögliche String-Werte: "true" (default) oder "false".
-    pub fn get_messages(&self, conference_id: Option<u64>, message: Option<u64>, read: Option<bool>)
-    -> Result<Vec<Messages>>
-    {
+    pub fn get_messages(
+        &self,
+        conference_id: Option<u64>,
+        message: Option<u64>,
+        read: Option<bool>,
+    ) -> Result<Vec<Messages>> {
         let url = url!("messenger", "messages");
         let body = param_build!("conference_id" => conference_id,
             "message" => message,
@@ -260,9 +245,7 @@ impl<'a> Messenger<'a>
     ///
     /// * `text` Eine Eingabenachricht. Beim Erstellen von Konferenzen werden Befehlseingaben ignoriert.
     /// * `username` Der Benutzername eines Proxer-Nutzers, an die eine Nachricht gesendet werden soll.
-    pub fn new_conference(&self, text: String, username: String)
-    -> Result<u64>
-    {
+    pub fn new_conference(&self, text: String, username: String) -> Result<u64> {
         let url = url!("messenger", "newconference");
         let body = param_build!("text" => Some(text),
             "username" => Some(username));
@@ -281,9 +264,12 @@ impl<'a> Messenger<'a>
     /// * `topic` Das Thema/der Name der Konferenz. Eingeschränkt durch die Konstante topicCount.
     /// * `text` Die erste Nachricht der neu erstellten Konferenz.
     /// Eingeschränkt durch die Konstante textCount. Beim Erstellen von Konferenzen werden Befehlseingaben ignoriert.
-    pub fn new_conferencegroup(&self, users: String, tropic: String, text: Option<String>)
-    -> Result<u64>
-    {
+    pub fn new_conferencegroup(
+        &self,
+        users: String,
+        tropic: String,
+        text: Option<String>,
+    ) -> Result<u64> {
         let url = url!("messenger", "newconferencegroup");
         let body = param_build!("users" => Some(users),
             "tropic" => Some(tropic),
@@ -300,9 +286,7 @@ impl<'a> Messenger<'a>
     ///
     /// * `text` - Ein kurzer Grund, weshalb die Konferenz gemeldet wird.
     /// * `conference_id` ID der Konferenz, die gemeldet werden soll.
-    pub fn report(&self, text: String, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn report(&self, text: String, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "report");
         let body = param_build!("text" => Some(text),
             "conference_id" => Some(conference_id));
@@ -322,9 +306,7 @@ impl<'a> Messenger<'a>
     /// Eine Befehl: Ein Befehl fängt mit einem Schrägstrich an.
     /// Ein Beispiel für ein Befehl ist wie folgt: /addUser ProxerBot.
     /// Dieser Befehl würde den Benutzer ProxerBot zu der aktuellen Konferenz hinzufügen.
-    pub fn set_message(&self, conference_id: u64, text: String)
-    -> Result<String>
-    {
+    pub fn set_message(&self, conference_id: u64, text: String) -> Result<String> {
         let url = url!("messenger", "setmessage");
         let body = param_build!("conference_id" => Some(conference_id),
             "text" => Some(text));
@@ -339,9 +321,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_read(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_read(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setread");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -355,9 +335,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unread(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_unread(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setunread");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -371,9 +349,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_block(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_block(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setblock");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -387,9 +363,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unblock(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_unblock(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setunblock");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -403,9 +377,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_favour(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_favour(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setfavour");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;
@@ -419,9 +391,7 @@ impl<'a> Messenger<'a>
     /// # Arguments
     ///
     /// * `conference_id` - Die Konferenz-ID.
-    pub fn set_unfavour(&self, conference_id: u64)
-    -> Result<()>
-    {
+    pub fn set_unfavour(&self, conference_id: u64) -> Result<()> {
         let url = url!("messenger", "setunfavour");
         let body = param_build!("conference_id" => Some(conference_id));
         let response = self.proxer.connect(&url, &body)?;

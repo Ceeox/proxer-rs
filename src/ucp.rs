@@ -1,13 +1,12 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Diese Funktion liefert die Liste aller Animes/Mangas, zu denen der User einen Eintrag im UCP hat.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct List
-{
+pub struct List {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Name des Entrys
@@ -34,8 +33,7 @@ pub struct List
 
 /// Diese Funktion liefert die Chronik des Users.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct History
-{
+pub struct History {
     /// Die ID des Entrys
     pub eid: u64,
     /// Der Name des Entrys
@@ -54,8 +52,7 @@ pub struct History
 
 /// Diese Funktion liefert die Kommentarvotes des Users.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Vote
-{
+pub struct Vote {
     /// Die ID des Kommentarvotes
     pub id: u64,
     /// Der Name des gevoteten Entrys
@@ -71,14 +68,13 @@ pub struct Vote
     /// Die Bewertung des Kommentars
     pub rating: String,
     /// Der Typ des Votes
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub vote_type: String,
 }
 
 /// Diese Funktion liefert eine Liste aller Lesezeichen des Users.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Reminder
-{
+pub struct Reminder {
     /// Die ID des Entrys
     pub eid: u64,
     /// Die Kategorie des Entrys (anime,manga)
@@ -100,21 +96,14 @@ pub struct Reminder
 /// Diese Klasse dient der Verwaltung sämtlicher Daten, die normalerweise über das UCP Abrufbar/Veränderbar sind.
 /// Logischerweise erfordern alle diese Funktionen, dass der User eingeloggt ist.
 #[derive(Debug)]
-pub struct Ucp<'a>
-{
+pub struct Ucp<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Ucp<'a>
-{
+impl<'a> Ucp<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Ucp<'a>
-    {
-        Ucp
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Ucp<'a> {
+        Ucp { proxer: proxer }
     }
 
     /// Diese Funktion liefert die Liste aller Animes/Mangas, zu denen der User einen Eintrag im UCP hat.
@@ -130,15 +119,15 @@ impl<'a> Ucp<'a>
     /// die den angegeben Wert als Substring zu Beginn ihres Namens haben.
     /// * `sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll,
     /// erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)
-    pub fn get_list(&self,
+    pub fn get_list(
+        &self,
         kat: Option<Kategorie>,
         page: Option<u64>,
         limit: Option<u64>,
         search: Option<String>,
         search_start: Option<String>,
-        sort: Option<Sort>)
-    -> Result<Vec<List>>
-    {
+        sort: Option<Sort>,
+    ) -> Result<Vec<List>> {
         let url = url!("ucp", "list");
         let body = param_build!("kat" => kat,
             "p" => page,
@@ -156,9 +145,7 @@ impl<'a> Ucp<'a>
     /// # Arguments
     ///
     /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    pub fn get_listsum(&self, kat: Option<Kategorie>)
-    -> Result<String>
-    {
+    pub fn get_listsum(&self, kat: Option<Kategorie>) -> Result<String> {
         let url = url!("ucp", "listsum");
         let body = param_build!("kat" => kat);
         let response = self.proxer.connect(&url, &body)?;
@@ -168,9 +155,7 @@ impl<'a> Ucp<'a>
     }
 
     /// Diese Funktion liefert die Top-Ten des Users. (Anime und Manga)
-    pub fn get_topten(&self)
-    -> Result<String>
-    {
+    pub fn get_topten(&self) -> Result<String> {
         let url = url!("ucp", "topten");
         let body = String::new();
         let response = self.proxer.connect(&url, &body)?;
@@ -185,9 +170,7 @@ impl<'a> Ucp<'a>
     ///
     /// * `limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite der Chronik haben soll. Default Wert 50.
     /// * `page` - Dieser Parameter gibt an, welche Seite der Chronik geladen werden soll. Start bei 0, Default Wert 0.
-    pub fn get_history(&self, limit: Option<u64>, page: Option<u64>)
-    -> Result<Vec<History>>
-    {
+    pub fn get_history(&self, limit: Option<u64>, page: Option<u64>) -> Result<Vec<History>> {
         let url = url!("ucp", "history");
         let body = param_build!("limit" => limit, "p" => page);
         let response = self.proxer.connect(&url, &body)?;
@@ -197,9 +180,7 @@ impl<'a> Ucp<'a>
     }
 
     /// Diese Funktion liefert die Kommentarvotes des Users.
-    pub fn get_votes(&self)
-    -> Result<Vec<Vote>>
-    {
+    pub fn get_votes(&self) -> Result<Vec<Vote>> {
         let url = url!("ucp", "votes");
         let body = String::new();
         let response = self.proxer.connect(&url, &body)?;
@@ -216,9 +197,12 @@ impl<'a> Ucp<'a>
     /// Wenn weggelassen werden beide Kategorien geladen. Erlaubte Werte: "anime","manga"
     /// * `page` - Die zu ladende Seite, Start bei 0. Default 0
     /// * `limit` - Die zu ladenden Einträge pro Seite. Default 100
-    pub fn get_reminder(&self, kat: Option<Kategorie>, page: Option<u64>, limit: Option<u64>)
-    -> Result<Vec<Reminder>>
-    {
+    pub fn get_reminder(
+        &self,
+        kat: Option<Kategorie>,
+        page: Option<u64>,
+        limit: Option<u64>,
+    ) -> Result<Vec<Reminder>> {
         let url = url!("ucp", "reminder");
         let body = param_build!("kat" => kat, "p" => page, "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
@@ -232,9 +216,7 @@ impl<'a> Ucp<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des zu löschenden Lesezeichens (erhältlich über die "Reminder" Funktion)
-    pub fn delete_reminder(&self, id: u64)
-    -> Result<()>
-    {
+    pub fn delete_reminder(&self, id: u64) -> Result<()> {
         let url = url!("ucp", "deletereminder");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -248,9 +230,7 @@ impl<'a> Ucp<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des zu löschenden Eintrags (erhältlich über die "Favorite" Funktion)
-    pub fn delte_favorite(&self, id: u64)
-    -> Result<()>
-    {
+    pub fn delte_favorite(&self, id: u64) -> Result<()> {
         let url = url!("ucp", "deletefavorite");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -264,9 +244,7 @@ impl<'a> Ucp<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des zu löschenden Eintrags (erhältlich über die "Vote" Funktion)
-    pub fn delte_vote(&self, id: u64)
-    -> Result<()>
-    {
+    pub fn delte_vote(&self, id: u64) -> Result<()> {
         let url = url!("ucp", "deletevote");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -284,9 +262,7 @@ impl<'a> Ucp<'a>
     ///
     /// * `id` - Die ID des zu bearbeitenden Eintrags (erhältlich über die "List" Funktion)
     /// * `value` - Der zu setzende Wert
-    pub fn set_commentstate(&self, id: u64, value: u64)
-    -> Result<()>
-    {
+    pub fn set_commentstate(&self, id: u64, value: u64) -> Result<()> {
         let url = url!("ucp", "setcommentstate");
         let body = param_build!("id" => Some(id), "value" => Some(value));
         let response = self.proxer.connect(&url, &body)?;
@@ -303,9 +279,7 @@ impl<'a> Ucp<'a>
     /// * `episode` - Die Episodennummer, auf die das Lesezeichen gesetzt werden soll.
     /// * `language` - Die zu ladende Sprache. (Für Animes: gersub,gerdub,engsub,engdub; Für Mangas: de,en)
     /// * `kat` - Die Kategorie des Entrys (manga oder anime)
-    pub fn set_reminder(&self, id: u64, value: u64)
-    -> Result<()>
-    {
+    pub fn set_reminder(&self, id: u64, value: u64) -> Result<()> {
         let url = url!("ucp", "setreminder");
         let body = param_build!("id" => Some(id), "value" => Some(value));
         let response = self.proxer.connect(&url, &body)?;

@@ -1,17 +1,15 @@
 use std::fmt;
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Response<T>
-{
+pub struct Response<T> {
     pub error: u8,
     pub message: String,
     pub code: Option<u16>,
-    pub data: Option<T>
+    pub data: Option<T>,
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct EmptyResponse
-{
+pub struct EmptyResponse {
     pub error: u8,
     pub message: String,
     pub code: Option<u16>,
@@ -24,20 +22,14 @@ pub struct EmptyResponse
 /// * `Anime` - Ist ein Anime
 /// * `Manga` - Ist ein Managa
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum Kategorie
-{
-    #[serde(rename="anime")]
-    Anime,
+pub enum Kategorie {
+    #[serde(rename = "anime")] Anime,
     Manga,
 }
 
-impl fmt::Display for Kategorie
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for Kategorie {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             Kategorie::Anime => "anime",
             Kategorie::Manga => "manga",
         };
@@ -58,8 +50,7 @@ impl fmt::Display for Kategorie
 /// * `Doujin` - Das Medium ist ein Doujin
 /// * `Hmanga` - Das Medium ist ein Hmanaga
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum Medium
-{
+pub enum Medium {
     Animeseries,
     Movie,
     OVA,
@@ -67,16 +58,12 @@ pub enum Medium
     Mangaseries,
     Oneshot,
     Doujin,
-    Hmanga
+    Hmanga,
 }
 
-impl fmt::Display for Medium
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for Medium {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             Medium::Animeseries => "animeseries",
             Medium::Movie => "movie",
             Medium::OVA => "ova",
@@ -84,7 +71,7 @@ impl fmt::Display for Medium
             Medium::Mangaseries => "mangaseries",
             Medium::Oneshot => "onshot",
             Medium::Doujin => "doujin",
-            Medium::Hmanga => "hmanga"
+            Medium::Hmanga => "hmanga",
         };
         write!(f, "{}", printable)
     }
@@ -106,8 +93,7 @@ impl fmt::Display for Medium
 /// * `stateChangeDateASC` - Sortierung nach Status des Entrys, dann letzter Änderung Aufsteigend
 /// * `stateChangeDateDESC` - Sortierung nach Status des Entrys, dann letzter Änderung Absteigend
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum Sort
-{
+pub enum Sort {
     NameASC,
     NameDESC,
     StateNameASC,
@@ -118,13 +104,9 @@ pub enum Sort
     StateChangeDateDESC,
 }
 
-impl fmt::Display for Sort
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for Sort {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             Sort::NameASC => "nameASC",
             Sort::NameDESC => "nameDESC",
             Sort::StateNameASC => "stateNameASC",
@@ -132,7 +114,7 @@ impl fmt::Display for Sort
             Sort::ChangeDateASC => "changeDateASC",
             Sort::ChangeDateDESC => "changeDateDESC",
             Sort::StateChangeDateASC => "stateChangeDateASC",
-            Sort::StateChangeDateDESC => "stateChangeDateDESC"
+            Sort::StateChangeDateDESC => "stateChangeDateDESC",
         };
         write!(f, "{}", printable)
     }
@@ -151,23 +133,18 @@ impl fmt::Display for Sort
 /// * `TalentAgent` -  Eine TalentAgent
 /// * `Streaming` -  Eine Streaming Seite eins Animes/Mangas
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum Firma
-{
+pub enum Firma {
     Publisher,
     Studio,
     Producer,
     RecordLabel,
     TalentAgent,
-    Streaming
+    Streaming,
 }
 
-impl fmt::Display for Firma
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for Firma {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             Firma::Publisher => "publisher",
             Firma::Studio => "studio",
             Firma::Producer => "producer",
@@ -189,21 +166,16 @@ impl fmt::Display for Firma
 /// * `EngSub` - English Subtitles
 /// * `EngDub` - English Synchronized
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum Language
-{
+pub enum Language {
     GerSub,
     GerDub,
     EngSub,
     EngDub,
 }
 
-impl fmt::Display for Language
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for Language {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             Language::GerSub => "gersub",
             Language::GerDub => "gerdub",
             Language::EngSub => "engsub",
@@ -221,20 +193,15 @@ impl fmt::Display for Language
 /// * `Favor` - Favoriten (Favorisiert)
 /// * `Finish` - Abgeschlossen
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum WatchType
-{
+pub enum WatchType {
     Note,
     Favor,
     Finish,
 }
 
-impl fmt::Display for WatchType
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for WatchType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             WatchType::Note => "note",
             WatchType::Favor => "favor",
             WatchType::Finish => "finish",
@@ -254,21 +221,16 @@ impl fmt::Display for WatchType
 /// * `count` - Anzahl der Kapitel/Episoden
 /// * `name` - Alphabetisch
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum SearchSort
-{
+pub enum SearchSort {
     Relevance,
     Clicks,
     Count,
     Name,
 }
 
-impl fmt::Display for SearchSort
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for SearchSort {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             SearchSort::Relevance => "relevance",
             SearchSort::Clicks => "clicks",
             SearchSort::Count => "count",
@@ -287,19 +249,14 @@ impl fmt::Display for SearchSort
 /// * `up` - größer gleich
 /// * `down` - kleiner gleich, Default
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum LengthLimit
-{
+pub enum LengthLimit {
     Up,
     Down,
 }
 
-impl fmt::Display for LengthLimit
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for LengthLimit {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             LengthLimit::Up => "up",
             LengthLimit::Down => "down",
         };
@@ -323,8 +280,7 @@ impl fmt::Display for LengthLimit
 /// * `story` - Story-Inhalte
 /// * `prota` - Protagonist
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum SubType
-{
+pub enum SubType {
     Misc,
     Persoenlichkeiten,
     Gefuehle,
@@ -337,13 +293,9 @@ pub enum SubType
     Protagonist,
 }
 
-impl fmt::Display for SubType
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for SubType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             SubType::Misc => "misc",
             SubType::Persoenlichkeiten => "persoenlichkeiten",
             SubType::Gefuehle => "gefuehle",
@@ -370,8 +322,7 @@ impl fmt::Display for SubType
 /// * `abgebrochen` - Abgebrochenes Projekt
 /// * `lizenziert` - Lizensiertes Projekt
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum TranslationStatus
-{
+pub enum TranslationStatus {
     Undefined,
     Abgeschlossen,
     AmLaufen,
@@ -380,13 +331,9 @@ pub enum TranslationStatus
     Lizensiert,
 }
 
-impl fmt::Display for TranslationStatus
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for TranslationStatus {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             TranslationStatus::Undefined => "0",
             TranslationStatus::Abgeschlossen => "1",
             TranslationStatus::AmLaufen => "2",
@@ -407,21 +354,16 @@ impl fmt::Display for TranslationStatus
 ///	* `group` - Listet ausschließlich Gruppenkonferenzen auf.
 ///	* `default` - Listet unblockierte Konferenzen.
 #[derive(Deserialize, Clone, Debug, PartialEq)]
-pub enum ConferenceOption
-{
+pub enum ConferenceOption {
     Favour,
     Block,
     Group,
     Default,
 }
 
-impl fmt::Display for ConferenceOption
-{
-    fn fmt(&self, f: &mut fmt::Formatter)
-    -> fmt::Result
-    {
-        let printable = match *self
-        {
+impl fmt::Display for ConferenceOption {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let printable = match *self {
             ConferenceOption::Favour => "favor",
             ConferenceOption::Block => "block",
             ConferenceOption::Group => "group",

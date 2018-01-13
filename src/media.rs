@@ -1,14 +1,13 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Diese Funktion liefert einen zufälligen Header.
 /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct RandomHeader
-{
+pub struct RandomHeader {
     /// Die ID des Headers in der Gallerie
     pub gid: u64,
     /// Der Pfad zum Bild
@@ -17,20 +16,19 @@ pub struct RandomHeader
     pub imgfilename: String,
 }
 
-impl RandomHeader
-{
-    pub fn get_picture_link(&self)
-    -> String
-    {
-        format!("https://cdn.proxer.me/gallery/originals/{}/{}", self.catpath, self.imgfilename)
+impl RandomHeader {
+    pub fn get_picture_link(&self) -> String {
+        format!(
+            "https://cdn.proxer.me/gallery/originals/{}/{}",
+            self.catpath, self.imgfilename
+        )
     }
 }
 
 /// Diese Funktion liefert eine Liste aller aktuellen Header.
 /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct HeaderList
-{
+pub struct HeaderList {
     /// Die ID des Headers in der Gallerie
     pub gid: u64,
     /// Der Pfad zum Bild
@@ -39,40 +37,31 @@ pub struct HeaderList
     pub imgfilename: String,
 }
 
-impl HeaderList
-{
-    pub fn get_picture_link(&self)
-    -> String
-    {
-        format!("https://cdn.proxer.me/gallery/originals/{}/{}", self.catpath, self.imgfilename)
+impl HeaderList {
+    pub fn get_picture_link(&self) -> String {
+        format!(
+            "https://cdn.proxer.me/gallery/originals/{}/{}",
+            self.catpath, self.imgfilename
+        )
     }
 }
 
 /// Diese Klasse dient dazu, verschiedene Medien von Proxer zu erhalten.
 /// Dabei sind Animes und Mangas explizit ausgeschlossen, diese werden in eigenen Klassen behandelt.
 #[derive(Debug)]
-pub struct Media<'a>
-{
+pub struct Media<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Media<'a>
-{
+impl<'a> Media<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Media<'a>
-    {
-        Media
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Media<'a> {
+        Media { proxer: proxer }
     }
 
     /// Diese Funktion liefert einen zufälligen Header.
     /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
-    pub fn get_randomheader(&self, style: Option<String>)
-    -> Result<Vec<RandomHeader>>
-    {
+    pub fn get_randomheader(&self, style: Option<String>) -> Result<Vec<RandomHeader>> {
         let url = url!("media", "randomheader");
         let body = param_build!("style" => style);
         let response = self.proxer.connect(&url, &body)?;
@@ -83,9 +72,7 @@ impl<'a> Media<'a>
 
     /// Diese Funktion liefert eine Liste aller aktuellen Header.
     /// Bildpfad: //cdn.proxer.me/gallery/originals/<catpath>/<imgfilename>
-    pub fn get_headerlist(&self)
-    -> Result<Vec<HeaderList>>
-    {
+    pub fn get_headerlist(&self) -> Result<Vec<HeaderList>> {
         let url = url!("media", "headerlist");
         let body = String::new();
         let response = self.proxer.connect(&url, &body)?;

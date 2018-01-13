@@ -1,5 +1,3 @@
-//! proxer-rs (proxer-api <-> proxer-rs <-> your_rust_application)
-//!
 //! Inoffizielle Bibliothek zur proxer-api in rust.
 //!
 //! Die meisten Dokumentationen sind aus dem Proxer-API wiki.
@@ -228,7 +226,7 @@ impl Proxer
 {
     /// Erstellt eine Proxer-Sitzung mit dem angegebenen API-Key.
     pub fn new(api_key: &str)
-    -> Result<Proxer>
+    -> Result<Self>
     {
         println!("proxer-rs ist eine inoffiziell Bibliothek!");
 

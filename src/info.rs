@@ -1,12 +1,11 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct FullEntry
-{
+pub struct FullEntry {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Originaltitel des Entrys
@@ -16,7 +15,7 @@ pub struct FullEntry
     /// Die Gefahrensymbole des Entrys (Ein durch Leerzeichen getrennter String, jedes Wort ist ein Eintrag)
     pub fsk: String,
     /// Die Beschreibung des Entrys
-    pub description:String,
+    pub description: String,
     /// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
     pub medium: Medium,
     /// Die Anzahl der Kapitel/Episoden (Müssen nicht hochgeladen sein!)
@@ -46,16 +45,15 @@ pub struct FullEntry
     /// Die Industrie-Einträge (Array von Objekten)
     pub publisher: Vec<FullEntryDataPublisher>,
     /// Die Tags (Array von Objekten)
-    pub tags: Vec<FullEntryDataTags>
+    pub tags: Vec<FullEntryDataTags>,
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct FullEntryDataSeasons
-{
+pub struct FullEntryDataSeasons {
     /// Die ID des Eintrags
     pub id: u64,
     /// ... (Nicht näher definiert)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub entry_type: String,
     /// Das Jahr der Season
     pub year: i32,
@@ -64,8 +62,7 @@ pub struct FullEntryDataSeasons
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct FullEntryDataGroups
-{
+pub struct FullEntryDataGroups {
     /// Die ID der Gruppe
     pub id: u64,
     /// Der Name der Gruppe
@@ -75,22 +72,20 @@ pub struct FullEntryDataGroups
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct FullEntryDataPublisher
-{
+pub struct FullEntryDataPublisher {
     /// Die ID des Publishers
     pub id: u64,
     /// Der Name des Publishers
     pub name: String,
     /// Der Typ des Publishers
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub entry_type: String,
     /// Die Sprache des Publishers
     pub country: String,
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct FullEntryDataTags
-{
+pub struct FullEntryDataTags {
     /// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
     pub id: u64,
     /// Die ID des Tags
@@ -114,8 +109,7 @@ pub struct FullEntryDataTags
 /// Diese Funktion liefert die Daten eines Animes/Mangas anhand seiner ID (Dies bezieht sich NUR auf die Kerndaten des Anime,
 /// nicht die Daten, die über die folgenden Funktionen abgefragt werden können)
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Entry
-{
+pub struct Entry {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Originaltitel des Entrys
@@ -146,14 +140,13 @@ pub struct Entry
 
 /// Diese Funktion liefert die unterschiedlichen Synonyme eines Animes/Mangas anhand seiner ID
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Name
-{
+pub struct Name {
     /// Die ID des Namens
     pub id: u64,
     /// Die ID des Entrys
     pub eid: u64,
     /// Der Typ des Namens (...)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub name_type: String,
     /// Der Name.
     pub name: String,
@@ -161,14 +154,13 @@ pub struct Name
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Seasons.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Season
-{
+pub struct Season {
     /// Die ID des Eintrags
     pub id: u64,
     /// Die ID des Entrys
     pub eid: u64,
     /// ...
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub season_type: String,
     /// Das Jahr der Season
     pub year: i32, // time crate saves years, min etc as i32,
@@ -178,8 +170,7 @@ pub struct Season
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Übersetzergruppen.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Group
-{
+pub struct Group {
     /// Die ID der Gruppe
     pub id: u64,
     /// Der Name der Gruppe
@@ -190,14 +181,13 @@ pub struct Group
 
 /// Diese Funktion liefert die für einen Anime/Manga Eingetragenen Publisher.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Publisher
-{
+pub struct Publisher {
     /// Die ID des Publishers
     pub id: u64,
     /// Der Name des Publishers
     pub name: String,
     /// Der Typ des Publishers
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub publisher_type: String,
     /// Die Sprache des Publishers
     pub country: String,
@@ -205,8 +195,7 @@ pub struct Publisher
 
 /// Diese Funktion liefert eine Liste aller Episoden/Kapitel eines Entrys anhand dessen ID.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ListInfo
-{
+pub struct ListInfo {
     /// Die Nummer des ersten Kapitels
     pub start: u64,
     /// Die Nummer des letzten Kapitels
@@ -222,12 +211,10 @@ pub struct ListInfo
     /// (Array von Objekten, erst sortiert nach Sprache, dann nach Episodennummer).
     /// Diese enthalten abhängig von der Kategorie unterschiedliche Werte:
     pub episodes: Vec<ListInfoDataEpisode>,
-
 }
 
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ListInfoDataEpisode
-{
+pub struct ListInfoDataEpisode {
     /// Die Nummer des Kapitels/Episode
     pub no: u64,
     /// Der Titel des Kapitels
@@ -242,14 +229,13 @@ pub struct ListInfoDataEpisode
 
 /// Diese Funktion liefert die für einen Anime/Manga abgegebenen Kommentare (mit mehr als 300 Zeichen).
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Comment
-{
+pub struct Comment {
     /// Die ID des Kommentars
     pub id: u64,
     /// Die ID des Entrys
     pub tid: u64,
     /// Der Typ des Kommentars
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub comment_type: String,
     /// Der beim Kommentar angegebene Status (0 = geschaut, 1 = am schauen, 2 = wird geschaut, 3 = abgebrochen)
     pub state: u8,
@@ -261,7 +247,7 @@ pub struct Comment
     /// Die Bewertung des Entrys
     pub rating: f32,
     /// Die Episode, bis zu der der Kommentarschreiber geschaut hat.
-    pub episode: 	u64,
+    pub episode: u64,
     /// Wie viele Personen den Kommentar hilfreich finden.
     pub positive: u64,
     /// Der Zeitpunkt der letzten Bearbeitung/Erstellung (?) des Kommentars (Unix-Timestamp in Sekunden)
@@ -276,8 +262,7 @@ pub struct Comment
 
 /// Diese Funktion liefert alle Verbindungen eines Entrys.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Relation
-{
+pub struct Relation {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Originaltitel des Entrys
@@ -314,8 +299,7 @@ pub struct Relation
 
 /// Diese Funktion liefert alle Tags eines Entrys.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct EntryTag
-{
+pub struct EntryTag {
     /// Die ID des Entrytags (NICHT die ID des Tags, sondern der Verknüpfung von Tag und Entry)
     pub id: u64,
     /// Die ID des Tags
@@ -334,8 +318,7 @@ pub struct EntryTag
 
 /// Diese Funktion liefert alle Daten zu einer Sub/Scanlation Gruppe anhand ihrer ID.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct TranslatorGroup
-{
+pub struct TranslatorGroup {
     /// Die id der Gruppe
     pub id: u64,
     /// Der Name der Gruppe
@@ -356,12 +339,11 @@ pub struct TranslatorGroup
 
 /// Diese Funktion liefert alle Daten zu einer Firma anhand ihrer ID.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Industry
-{
+pub struct Industry {
     /// Die id der Gruppe
     pub id: u64,
     /// Der Typ der Firma (publisher, studio, producer, record_label, talent_agent, streaming)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub industry_type: Firma,
     /// Der Name der Firma
     pub name: String,
@@ -373,12 +355,9 @@ pub struct Industry
     pub description: String,
 }
 
-impl Industry
-{
+impl Industry {
     /// Folgender Link enthält das Coverbild einer Firma: https://cdn.proxer.me/industry/<id>.jpg
-    pub fn get_industry_cover(&self)
-    -> String
-    {
+    pub fn get_industry_cover(&self) -> String {
         format!("https://cdn.proxer.me/industry/{}.jpg", self.id)
     }
 }
@@ -386,21 +365,14 @@ impl Industry
 /// Diese Klasse beinhaltet alle Schnittstellen, die sich auf das Info-System Proxers beziehen,
 /// insbesondere in Bezug auf Informationen zu Animes und Mangas, aber auch zu den weiteren Verzeichnissen.
 #[derive(Debug)]
-pub struct Info<'a>
-{
+pub struct Info<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Info<'a>
-{
+impl<'a> Info<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Info<'a>
-    {
-        Info
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Info<'a> {
+        Info { proxer: proxer }
     }
 
     /// Diese Funktion liefert ALLE Daten eines Animes/Mangas anhand seiner ID.
@@ -410,9 +382,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_fullentry(&self, id: u64)
-    -> Result<FullEntry>
-    {
+    pub fn get_fullentry(&self, id: u64) -> Result<FullEntry> {
         let url = url!("info", "fullentry");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -428,9 +398,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_entry(&self, id: u64)
-    -> Result<Entry>
-    {
+    pub fn get_entry(&self, id: u64) -> Result<Entry> {
         let url = url!("info", "entry");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -444,9 +412,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_name(&self, id: u64)
-    -> Result<Vec<Name>>
-    {
+    pub fn get_name(&self, id: u64) -> Result<Vec<Name>> {
         let url = url!("info", "names");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -461,9 +427,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_gate(&self, id: u64)
-    -> Result<bool>
-    {
+    pub fn get_gate(&self, id: u64) -> Result<bool> {
         let url = url!("info", "gate");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -478,9 +442,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_language(&self, id: u64)
-    -> Result<Vec<String>>
-    {
+    pub fn get_language(&self, id: u64) -> Result<Vec<String>> {
         let url = url!("info", "lang");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -494,9 +456,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_season(&self, id: u64)
-    -> Result<Vec<Season>>
-    {
+    pub fn get_season(&self, id: u64) -> Result<Vec<Season>> {
         let url = url!("info", "season");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -510,9 +470,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_groups(&self, id: u64)
-    -> Result<Vec<Group>>
-    {
+    pub fn get_groups(&self, id: u64) -> Result<Vec<Group>> {
         let url = url!("info", "groups");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -526,9 +484,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_publisher(&self, id: u64)
-    -> Result<Vec<Publisher>>
-    {
+    pub fn get_publisher(&self, id: u64) -> Result<Vec<Publisher>> {
         let url = url!("info", "publisher");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -544,9 +500,7 @@ impl<'a> Info<'a>
     /// * `id` - Die ID des gewünschten Animes/Mangas.
     /// * `p` - (optional): Die zu ladende Seite der Liste, Start bei 0. Default 0.
     /// * `limit` - (optional): Die Nummer der zu ladenden Episoden/Kapitel pro Seite. Default 50.
-    pub fn get_listinfo(&self, id: u64, page: Option<u64>, limit: Option<u64>)
-    -> Result<ListInfo>
-    {
+    pub fn get_listinfo(&self, id: u64, page: Option<u64>, limit: Option<u64>) -> Result<ListInfo> {
         let url = url!("info", "listinfo");
         let body = param_build!("id" => Some(id),
             "p" => page,
@@ -566,9 +520,13 @@ impl<'a> Info<'a>
     /// * `limit` - Die Nummer der zu ladenden Kommentare pro Seite. Default 25.
     /// * `sort` - Ändert die Sortierung der Liste. Setze Wert "rating" um nach meisten Empfehlungen zu sortieren,
     /// ansonsten Sortierung nach Neueste zuerst.
-    pub fn get_comments(&self, id: u64, page: Option<u64>, limit: Option<u64>, sort: Option<Sort>)
-    -> Result<Vec<Group>>
-    {
+    pub fn get_comments(
+        &self,
+        id: u64,
+        page: Option<u64>,
+        limit: Option<u64>,
+        sort: Option<Sort>,
+    ) -> Result<Vec<Group>> {
         let url = url!("info", "comments");
         let body = param_build!("id" => Some(id),
             "p" => page,
@@ -585,9 +543,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_relations(&self, id: u64)
-    -> Result<Vec<Relation>>
-    {
+    pub fn get_relations(&self, id: u64) -> Result<Vec<Relation>> {
         let url = url!("info", "relations");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -601,9 +557,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID des gewünschten Animes/Mangas.
-    pub fn get_entrytag(&self, id: u64)
-    -> Result<Vec<EntryTag>>
-    {
+    pub fn get_entrytag(&self, id: u64) -> Result<Vec<EntryTag>> {
         let url = url!("info", "entrytag");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -617,9 +571,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID der gewünschten Gruppe.
-    pub fn get_translatorgroup(&self, id: u64)
-    -> Result<TranslatorGroup>
-    {
+    pub fn get_translatorgroup(&self, id: u64) -> Result<TranslatorGroup> {
         let url = url!("info", "translatorgroup");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -633,9 +585,7 @@ impl<'a> Info<'a>
     /// # Arguments
     ///
     /// * `id` - Die ID der gewünschten Gruppe.
-    pub fn get_industry(&self, id: u64)
-    -> Result<Industry>
-    {
+    pub fn get_industry(&self, id: u64) -> Result<Industry> {
         let url = url!("info", "industry");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;
@@ -651,9 +601,7 @@ impl<'a> Info<'a>
     /// * `id` - Die ID des gewünschten Animes/Mangas.
     /// * `type` - Die Liste, zu der der Anime hinzugefügt werden soll.
     /// Erlaubt: "note" (Wird noch geschaut), "favor" (Favoriten), "finish" (Abgeschlossen)
-    pub fn set_userinfo(&self, id: u64, watch_type: WatchType)
-    -> Result<()>
-    {
+    pub fn set_userinfo(&self, id: u64, watch_type: WatchType) -> Result<()> {
         let url = url!("info", "setuserinfo");
         let body = param_build!("id" => Some(id), "type" => Some(watch_type));
         let response = self.proxer.connect(&url, &body)?;

@@ -1,14 +1,13 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Diese Funktion liefert ein Kapitel eines festgelegten Mangas.
 /// Um Mangapunkte für das Lesen zu erhalten muss ein User angemeldet sein.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Chapter
-{
+pub struct Chapter {
     /// Die ID des Kapitels
     pub cid: u64,
     /// Die ID des Entrys
@@ -37,11 +36,8 @@ pub struct Chapter
     pub pages: Vec<Vec<(i32, i32, i32)>>,
 }
 
-impl Chapter
-{
-    pub fn get_chapter_link(&self)
-    -> String
-    {
+impl Chapter {
+    pub fn get_chapter_link(&self) -> String {
         // format!("https://manga{}.proxer.me/f/{}/{}/{}", self.server, self.eid, self.cid, self.)
         format!("TODO")
     }
@@ -51,21 +47,14 @@ impl Chapter
 /// und andere rein Manga-bezogene Aktionen durchzuführen.
 /// Der Zugriff auf diese Klasse ist stark beschränkt.
 #[derive(Debug)]
-pub struct Manga<'a>
-{
+pub struct Manga<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Manga<'a>
-{
+impl<'a> Manga<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Manga<'a>
-    {
-        Manga
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Manga<'a> {
+        Manga { proxer: proxer }
     }
 
     /// Diese Funktion liefert ein Kapitel eines festgelegten Mangas.
@@ -76,9 +65,7 @@ impl<'a> Manga<'a>
     /// * `id` - Die id des Entrys
     /// * `episode` - Die Episodennummer des zu ladenden Kapitels
     /// * `language` - Die zu ladende Sprache (de,en)
-    pub fn get_chapter(&self, id: u64, episode: u64, language: &str)
-    -> Result<Vec<Chapter>>
-    {
+    pub fn get_chapter(&self, id: u64, episode: u64, language: &str) -> Result<Vec<Chapter>> {
         let url = url!("manga", "chapter");
         let body = param_build!("id" => Some(id),
             "episode" => Some(episode),

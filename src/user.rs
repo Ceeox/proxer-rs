@@ -1,13 +1,12 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Mit dieser Schnittstelle kann ein User mithilfe eines Passwortes und eines Usernamen eingeloggt werden
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Login
-{
+pub struct Login {
     /// Die ID des eingeloggten Users.
     pub uid: u64,
     /// Der Avatar des eingeloggten Users.
@@ -18,8 +17,7 @@ pub struct Login
 
 /// Mit dieser Schnittstelle kann ein User ausgeloggt werden
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Logout
-{
+pub struct Logout {
     pub error: u8,
     pub message: String,
 }
@@ -29,8 +27,7 @@ pub struct Logout
 /// Ist weder ID noch Username gegeben, so werden die Daten des eingeloggten Users abgerufen.
 /// Ist auch dies nicht gegeben, so wird eine Fehlermeldung ausgegeben.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct UserInfo
-{
+pub struct UserInfo {
     ///  Die ID des abgefragten Users
     pub uid: u64,
     /// Der Username des abgefragten Users
@@ -63,8 +60,7 @@ pub struct UserInfo
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct TopTen
-{
+pub struct TopTen {
     ///  Die ID des Entrys
     pub eid: u64,
     ///  Der Name des Entrys
@@ -83,8 +79,7 @@ pub struct TopTen
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct List
-{
+pub struct List {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Name des Entrys
@@ -119,8 +114,7 @@ pub struct List
 /// so wird geprüft ob der momentan eingeloggte Nutzer mit dem User Befreundet ist.
 /// Es ist daher ratsam, vor der Verwendung dieser Schnittstelle einen User einzuloggen (oder ein token zu verwenden).
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct LatestComment
-{
+pub struct LatestComment {
     /// Die ID des Kommentars
     pub id: u64,
     /// Die ID des Entrys
@@ -142,7 +136,7 @@ pub struct LatestComment
     /// Der Username des Erstellers des Kommentars
     pub username: String,
     /// Die User-ID des Erstellers des Kommentars
-    pub uid:  u64,
+    pub uid: u64,
     /// Das Profilbild des Erstellers des Kommentars
     pub avatar: String,
 }
@@ -151,8 +145,7 @@ pub struct LatestComment
 /// vornehmlich Login und Logout, aber auch die Möglichkeit,
 /// einen neuen User zu registrieren sowie die öffentlichen Daten eines jeden Users per ID oder Username abzufragen.
 #[derive(Debug)]
-pub struct User<'a>
-{
+pub struct User<'a> {
     /// Die ID des eingeloggten Users.
     pub uid: u64,
     /// Der Avatar des eingeloggten Users.
@@ -165,15 +158,11 @@ pub struct User<'a>
     proxer: &'a Proxer,
 }
 
-impl<'a> User<'a>
-{
+impl<'a> User<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer, username: &str, password: &str)
-    -> Result<User<'a>>
-    {
+    pub fn new(proxer: &'a Proxer, username: &str, password: &str) -> Result<User<'a>> {
         let user: Login = User::login(&proxer, username, password)?;
-        Ok(User
-        {
+        Ok(User {
             uid: user.uid,
             avatar: user.avatar,
             token: user.token,
@@ -188,9 +177,7 @@ impl<'a> User<'a>
     /// * `username` - Der Benutzername des zu einloggenden Benutzers.
     /// * `password` - Das Passwort des zu einloggenden Benutzers
     /// * `api_key` - API_KEY.
-    pub fn login(proxer: &Proxer, username: &str, password: &str)
-    -> Result<Login>
-    {
+    pub fn login(proxer: &Proxer, username: &str, password: &str) -> Result<Login> {
         let url = url!("user", "login");
         let body = param_build!("username" => Some(username),
             "password" => Some(password));
@@ -200,9 +187,7 @@ impl<'a> User<'a>
     }
 
     /// Mit dieser Schnittstelle kann ein User ausgeloggt werden
-    pub fn logout(self)
-    -> Result<()>
-    {
+    pub fn logout(self) -> Result<()> {
         let url = url!("user", "logout");
         let response = self.proxer.connect(&url, "")?;
         let data: Logout = serde_json::from_reader(response)?;
@@ -218,9 +203,7 @@ impl<'a> User<'a>
     /// # Arguments
     ///
     /// * `&self` - User-ID, deren Daten abgefragt werden sollen
-    pub fn get_userinfo(&self)
-    -> Result<UserInfo>
-    {
+    pub fn get_userinfo(&self) -> Result<UserInfo> {
         let url = url!("user", "userinfo");
         let body = param_build!("uid" => Some(self.uid));
         let response = self.proxer.connect(&url, &body)?;
@@ -241,9 +224,7 @@ impl<'a> User<'a>
     ///
     /// * `uid` - User-ID, deren Daten abgefragt werden sollen
     /// * `kat` - Die Kategorie, die geladen werden soll. Mögliche Werte: anime, manga. Default: anime.
-    pub fn get_topten(&self, uid: u64, kat: Option<Kategorie>)
-    -> Result<Vec<TopTen>>
-    {
+    pub fn get_topten(&self, uid: u64, kat: Option<Kategorie>) -> Result<Vec<TopTen>> {
         let url = url!("user", "topten");
         let body = param_build!("uid" => Some(uid), "kat" => kat);
         let response = self.proxer.connect(&url, &body)?;
@@ -269,16 +250,16 @@ impl<'a> User<'a>
     /// * `search` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring ihres Namens haben. Dabei ist die Position im Namen egal.
     /// * `search_start` - Durch die Angabe dieses Parameters werden nur Entrys angezeigt, die den angegeben Wert als Substring zu Beginn ihres Namens haben.
     /// * `sort` - Dieser Parameter gibt an, wie die Liste sortiert werden soll, erlaubte Eingaben (Fehlerhafte Eingaben werden auf den Default-Wert gezwungen)
-    pub fn get_list(&self,
-        uid:	u64,
+    pub fn get_list(
+        &self,
+        uid: u64,
         kat: Option<Kategorie>,
         page: Option<u64>,
         limit: Option<u64>,
         search: Option<String>,
         search_start: Option<String>,
-        sort: Option<Sort>)
-    -> Result<Vec<List>>
-    {
+        sort: Option<Sort>,
+    ) -> Result<Vec<List>> {
         let url = url!("user", "list");
         let body = param_build!("uid" => Some(uid),
             "kat" => kat,
@@ -306,13 +287,13 @@ impl<'a> User<'a>
     /// * `page` - Dieser Parameter gibt an, welche Seite geladen werden soll. Default Wert 0. Start bei 0.
     /// * `limit` - Dieser Parameter gibt an, wie viele Einträge eine Seite enthalten soll. Default Wert 25.
     /// * `length` -  Dieser Parameter gibt die minimale Anzahl an Zeichen an, ab der ein Kommentar angezeigt werden soll. Default 300.
-    pub fn get_latestcomments(&self,
+    pub fn get_latestcomments(
+        &self,
         kat: Option<Kategorie>,
         page: Option<u64>,
         limit: Option<u64>,
-        length: Option<u64>)
-    -> Result<Vec<LatestComment>>
-    {
+        length: Option<u64>,
+    ) -> Result<Vec<LatestComment>> {
         let url = url!("user", "comments");
         let body = param_build!("uid" => Some(self.uid),
             "kat" => kat,

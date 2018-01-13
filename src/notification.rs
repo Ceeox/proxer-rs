@@ -1,16 +1,15 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Gibt die neuesten News aus.
 /// Der Bildlink einer News setzt sich zusammen aus: cdn.proxer.me/news/[News-ID]_[Image-ID].png
 /// Für Tumbnail: cdn.proxer.me/news/th/[News-ID]_[Image-ID].png
 /// Link zum Forumspost der News: proxer.me/forum/[catid]/[mid]
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct News
-{
+pub struct News {
     /// Die ID der News
     pub nid: u64,
     /// Der Zeitpunkt der publizierung (Unix-Timestamp als Sekunden gespeichert)
@@ -45,21 +44,14 @@ pub struct News
 /// die mit Daten zu tun haben, die normalerweise auf Proxer oben rechts bei den Notifications zu sehen sind,
 /// insbesondere News und Benachrichtigungen.
 #[derive(Debug)]
-pub struct Notification<'a>
-{
+pub struct Notification<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Notification<'a>
-{
+impl<'a> Notification<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Notification<'a>
-    {
-        Notification
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Notification<'a> {
+        Notification { proxer: proxer }
     }
 
     /// Diese Funktion gibt die Anzahl an verschiedenen Notification-Kategorien zurück (kleine rote Zahlen auf Proxer).
@@ -71,9 +63,7 @@ impl<'a> Notification<'a>
     /// * 3 = Freundschaftsanfragen
     /// * 4 = News
     /// * 5 = Benachrichtigungen
-    pub fn get_count(&self)
-    -> Result<String>
-    {
+    pub fn get_count(&self) -> Result<String> {
         let url = url!("notifications", "count");
         let body = String::new();
         let response = self.proxer.connect(&url, &body)?;
@@ -92,9 +82,7 @@ impl<'a> Notification<'a>
     /// * `page` - Die zu ladende Seite, beginnend ab 0 (Auf Seite 0 befinden sich die neuesten News,
     /// nach hinten werden die News älter). Wenn nicht gegeben, so wird die erste Seite geladen.
     /// * `limit` - Die Anzahl der zu ladenden News pro Seite. Default 15.
-    pub fn get_news_per_api(&self, page: Option<u64>, limit: Option<u64>)
-    -> Result<Vec<News>>
-    {
+    pub fn get_news_per_api(&self, page: Option<u64>, limit: Option<u64>) -> Result<Vec<News>> {
         let url = url!("notifications", "news");
         let body = param_build!("p" => page, "limit" => limit);
         let response = self.proxer.connect(&url, &body)?;
@@ -109,9 +97,7 @@ impl<'a> Notification<'a>
     ///
     /// * `nid` - Die ID der zu löschenden Notification.
     /// Wenn weggelassen oder 0, so werden alle als gelesen markierten Benachrichtigungen gelöscht.
-    pub fn delete_notification(&self, nid: Option<u64>)
-    -> Result<()>
-    {
+    pub fn delete_notification(&self, nid: Option<u64>) -> Result<()> {
         let url = url!("notifications", "delete");
         let body = param_build!("nid" => nid);
         let response = self.proxer.connect(&url, &body)?;

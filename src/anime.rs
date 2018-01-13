@@ -1,18 +1,17 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, ohne den Proxerstream!.
 /// Um Animepunkte für das Schauen zu erhalten muss ein User angemeldet sein.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Stream
-{
+pub struct Stream {
     /// Die ID des Streams
     pub id: u64,
     /// Auf welchem Hoster der Stream liegt
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub host_type: String,
     /// Der Name des Hosters (Klartext)
     pub name: String,
@@ -38,12 +37,11 @@ pub struct Stream
 /// eine zusätzliche Abfrage der "Get Streams" Schnittstelle ist also nicht nötig.
 /// Hinweis: Diese Schnittstelle ist momentan gesperrt!
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct ProxerStream
-{
+pub struct ProxerStream {
     /// Die ID des Streams
     pub id: u64,
     /// Auf welchem Hoster der Stream liegt
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub host_type: String,
     /// Der Name des Hosters (Klartext)
     pub name: String,
@@ -66,21 +64,14 @@ pub struct ProxerStream
 /// Diese Klasse dient dazu, Streams für Animes zu erhalten, und andere rein Anime-bezogene Aktionen durchzuführen.
 /// Der Zugriff auf diese Klasse ist stark beschränkt.
 #[derive(Debug)]
-pub struct Anime<'a>
-{
+pub struct Anime<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> Anime<'a>
-{
+impl<'a> Anime<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> Anime<'a>
-    {
-        Anime
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> Anime<'a> {
+        Anime { proxer: proxer }
     }
 
     /// Diese Funktion liefert die Streams einer Folge eines festgelegten Animes, ohne den Proxerstream!.
@@ -91,9 +82,7 @@ impl<'a> Anime<'a>
     /// * `id` - Die id des Entrys
     /// * `episode` - Die Episodennummer der zu ladenden Folge
     /// * `language` - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)
-    pub fn get_streams(&self, id: u64, episode: u64, language: Language)
-    -> Result<Vec<Stream>>
-    {
+    pub fn get_streams(&self, id: u64, episode: u64, language: Language) -> Result<Vec<Stream>> {
         let url = url!("anime", "streams");
         let body = param_build!("id" => Some(id),
             "episode" => Some(episode),
@@ -115,9 +104,12 @@ impl<'a> Anime<'a>
     /// * `id` - Die id des Entrys
     /// * `episode` - Die Episodennummer der zu ladenden Folge
     /// * `language` - Die zu ladende Sprache (gersub,gerdub,engsub,engdub)
-    pub fn get_proxerstreams(&self, id: u64, episode: u64, language: Language)
-    -> Result<Vec<ProxerStream>>
-    {
+    pub fn get_proxerstreams(
+        &self,
+        id: u64,
+        episode: u64,
+        language: Language,
+    ) -> Result<Vec<ProxerStream>> {
         let url = url!("anime", "proxerstreams");
         let body = param_build!("id" => Some(id),
             "episode" => Some(episode),
@@ -136,9 +128,7 @@ impl<'a> Anime<'a>
     /// #Arguments
     ///
     /// * `id` - Die id des Entrys
-    pub fn get_link(&self, id: u64)
-    -> Result<String>
-    {
+    pub fn get_link(&self, id: u64) -> Result<String> {
         let url = url!("anime", "link");
         let body = param_build!("id" => Some(id));
         let response = self.proxer.connect(&url, &body)?;

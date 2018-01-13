@@ -1,13 +1,12 @@
 use serde_json;
 
-use ::error::*;
-use ::Proxer;
-use ::models::*;
+use error::*;
+use Proxer;
+use models::*;
 
 /// Diese Funktion erfüllt die Aufgabe der erweiterten Suche
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct EntrySearch
-{
+pub struct EntrySearch {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Name des Entrys (Der selbe Entry kann mit unterschiedlichen Namen mehrfach auftreten)
@@ -34,8 +33,7 @@ pub struct EntrySearch
 }
 /// Diese Funktion liefert eine Liste aller Entrys einer Kategorie mit bestimmten Einschränkungsmöglichkeiten.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct EntryList
-{
+pub struct EntryList {
     /// Die ID des Entrys
     pub id: u64,
     /// Der Name des Entrys (Der selbe Entry kann mit unterschiedlichen Namen mehrfach auftreten)
@@ -63,8 +61,7 @@ pub struct EntryList
 
 /// Diese Funktion zieht aus einem String die IDs aller darin vorkommenden Tags und gibt sie zurück.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct TagIDs
-{
+pub struct TagIDs {
     /// Ein Array, dass die IDs aller vorkommenden Tags ohne Minus ("-") enthält.
     pub tags: Vec<String>,
     /// Ein Array, dass die IDs aller vorkommenden Tags mit Minus ("-") enthält.
@@ -73,12 +70,11 @@ pub struct TagIDs
 
 /// Diese Funktion liefert eine Liste aller Tags, anhand bestimmter Kriterien.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Tag
-{
+pub struct Tag {
     /// Die ID des Tags
     pub id: u64,
     /// Der Typ des Tags (entry_genre,entry_tag,entry_tag_h,gallery)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub tag_type: String,
     /// Der Name des Tags
     pub tag: String,
@@ -92,8 +88,7 @@ pub struct Tag
 
 /// Diese Funktion liefert eine Liste aller Sub/Scanlation Gruppen, anhand bestimmter Kriterien.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct TranslatorGroup
-{
+pub struct TranslatorGroup {
     /// Die id der Gruppe
     pub id: u64,
     /// Der Name der Gruppe
@@ -106,12 +101,11 @@ pub struct TranslatorGroup
 
 /// Diese Funktion liefert eine Liste aller Firmen, anhand bestimmter Kriterien.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct Industry
-{
+pub struct Industry {
     /// Die id der Gruppe
     pub id: u64,
     /// Der Typ der Firma (publisher, studio, producer, record_label, talent_agent, streaming)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub industry_type: Firma,
     /// Der Name der Firma
     pub name: String,
@@ -123,8 +117,7 @@ pub struct Industry
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Gruppe anhand ihrer ID.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct TranslatorGroupProject
-{
+pub struct TranslatorGroupProject {
     /// Die id des Entrys
     pub id: u64,
     /// Der Name des Entrys (Originalname)
@@ -136,7 +129,7 @@ pub struct TranslatorGroupProject
     /// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
     pub medium: Medium,
     /// Der Status der Subgruppe (Werte siehe Parameter)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub trans_group_type: String,
     /// Ein Integer-Wert, der den Status des Entrys beschreibt
     /// 0: Nicht Erschienen (Pre-Airing)
@@ -153,8 +146,7 @@ pub struct TranslatorGroupProject
 
 /// Diese Funktion liefert eine Liste aller Projekte (=Entrys) einer Firma anhand ihrer ID.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
-pub struct IndustrysProject
-{
+pub struct IndustrysProject {
     /// Die id des Entrys
     pub id: u64,
     /// Der Name des Entrys (Originalname)
@@ -166,7 +158,7 @@ pub struct IndustrysProject
     /// Das Medium des Entrys (animeseries,movie,ova,hentai,mangaseries,oneshot,doujin,hmanga)
     pub medium: Medium,
     /// Der Typ der Firma (Werte siehe Parameter)
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub industy_type: String,
     /// Ein Integer-Wert, der den Status des Entrys beschreibt
     /// 0: Nicht Erschienen (Pre-Airing)
@@ -187,21 +179,14 @@ pub struct IndustrysProject
 /// die wie die Erweiterte Suche auf Proxer funktioniert, sowie Auflistungs-Schnittstellen,
 /// die Animelisten nach bestimmten Schemata erstellen.
 #[derive(Debug)]
-pub struct List<'a>
-{
+pub struct List<'a> {
     proxer: &'a Proxer,
 }
 
-impl<'a> List<'a>
-{
+impl<'a> List<'a> {
     #[doc(hidden)]
-    pub fn new(proxer: &'a Proxer)
-    -> List<'a>
-    {
-        List
-        {
-            proxer: proxer,
-        }
+    pub fn new(proxer: &'a Proxer) -> List<'a> {
+        List { proxer: proxer }
     }
 
     /// Diese Funktion erfüllt die Aufgabe der erweiterten Suche
@@ -239,7 +224,8 @@ impl<'a> List<'a>
     /// "spoiler_0" für keine Spoiler (Default), "spoiler_10" für Spoiler und Nicht-Spoiler, "spoiler_1" für nur Spoiler.
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn entry_search(&self,
+    pub fn entry_search(
+        &self,
         name: Option<String>,
         language: Option<String>,
         medium_type: Option<Medium>,
@@ -254,9 +240,8 @@ impl<'a> List<'a>
         tagratefilter: Option<String>,
         tagspoilerfilter: Option<String>,
         page: Option<u64>,
-        limit: Option<u64>)
-    -> Result<Vec<EntrySearch>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<EntrySearch>> {
         let url = url!("list", "entrysearch");
         let body = param_build!("name" => name,
             "language" => language,
@@ -293,15 +278,15 @@ impl<'a> List<'a>
     /// Um nach nicht-alphabetischen Anfängen (Erstes Zeichen) zu filtern, 'nonAlpha' angeben. (Kein Effekt wenn leer)
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_entrylist(&self,
+    pub fn get_entrylist(
+        &self,
         kat: Option<Kategorie>,
         medium: Option<Medium>,
         is_h: Option<bool>,
         start: Option<String>,
         page: Option<u64>,
-        limit: Option<u64>)
-    -> Result<Vec<EntryList>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<EntryList>> {
         let url = url!("list", "entrylist");
         let body = param_build!("kat" => kat,
             "medium" => medium,
@@ -324,9 +309,7 @@ impl<'a> List<'a>
     /// Es können nur Tags erkannt werden, vor und nach denen ein Leerzeichen bzw der Anfang/das Ende des Strings sind.
     /// Zudem darf vor einem Tag (Also nach dem Leerzeichen/Beginn des Strings vor dem Tag) ein Minus ("-") stehen.
     /// Solcherart gekennzeichnete Tags werden gesondert ausgegeben.
-    pub fn get_tag_ids(&self, search: String)
-    -> Result<TagIDs>
-    {
+    pub fn get_tag_ids(&self, search: String) -> Result<TagIDs> {
         let url = url!("list", "tagids");
         let body = param_build!("search" => Some(search));
         let response = self.proxer.connect(&url, &body)?;
@@ -349,13 +332,14 @@ impl<'a> List<'a>
     /// * `sort_type` - In welcher Reihenfolge die Sortierung ist. 'ASC' für aufsteigend,
     /// 'DESC' für absteigend (Jeder andere Wert wird zu DESC). Default: ASC
     /// * `subtype` - Die Kategorie des Tags
-    pub fn get_tags(&self, search: Option<String>,
+    pub fn get_tags(
+        &self,
+        search: Option<String>,
         tag_type: Option<String>,
         sort: Option<String>,
         sort_type: Option<String>,
-        sub_type: Option<SubType>)
-    -> Result<Vec<Tag>>
-    {
+        sub_type: Option<SubType>,
+    ) -> Result<Vec<Tag>> {
         let url = url!("list", "tags");
         let body = param_build!("search" => search,
             "type" => tag_type,
@@ -381,12 +365,13 @@ impl<'a> List<'a>
     /// erlaubte Werte: "de", "en", "misc". Default: Alle.
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_translatorgroups(&self, start: Option<String>,
+    pub fn get_translatorgroups(
+        &self,
+        start: Option<String>,
         contains: Option<String>,
         page: Option<u64>,
-        limit: Option<u64>)
-    -> Result<Vec<TranslatorGroup>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<TranslatorGroup>> {
         let url = url!("list", "translatorgroups");
         let body = param_build!("start" => start,
             "contains" => contains,
@@ -413,15 +398,15 @@ impl<'a> List<'a>
     ///  erlaubte Werte: 'publisher','studio','producer','record_label','talent_agent','streaming'. Default: Alle.
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_industrys(&self,
+    pub fn get_industrys(
+        &self,
         start: Option<String>,
         contains: Option<String>,
         country: Option<String>,
         firma_type: Option<Firma>,
         page: Option<u64>,
-        limit: Option<u64>,)
-    -> Result<Vec<Industry>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<Industry>> {
         let url = url!("list", "industrys");
         let body = param_build!("start" => start,
             "contains" => contains,
@@ -446,14 +431,14 @@ impl<'a> List<'a>
     /// -1 (kein H, Default), 0 (beides), 1 (nur H)
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_translatorgroups_projects(&self,
+    pub fn get_translatorgroups_projects(
+        &self,
         id: u64,
         status_type: Option<TranslationStatus>,
         is_h: Option<i8>,
         page: Option<u64>,
-        limit: Option<u64>,)
-    -> Result<Vec<TranslatorGroupProject>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<TranslatorGroupProject>> {
         let url = url!("list", "translatorgroupprojects");
         let body = param_build!("id" => Some(id),
             "type" => status_type,
@@ -478,14 +463,14 @@ impl<'a> List<'a>
     /// Werte: -1 (kein H, Default), 0 (beides), 1 (nur H)
     /// * `page` - Die zu ladende Seite, Beginn bei 0, Default 0.
     /// * `limit` - Wie viele Einträge eine Seite enthalten soll. Default 100.
-    pub fn get_industry_projects(&self,
+    pub fn get_industry_projects(
+        &self,
         id: u64,
         firma_type: Option<Firma>,
         is_h: Option<i8>,
         page: Option<u64>,
-        limit: Option<u64>)
-    -> Result<Vec<IndustrysProject>>
-    {
+        limit: Option<u64>,
+    ) -> Result<Vec<IndustrysProject>> {
         let url = url!("list", "industryprojects");
         let body = param_build!("id" => Some(id),
             "type" => firma_type,
