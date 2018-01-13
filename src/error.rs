@@ -69,10 +69,10 @@ pub struct DecodeErrorCode;
 
 impl DecodeErrorCode
 {
-    pub fn decode(p_code: u16)
+    pub fn decode(code: u16)
     -> String
     {
-        match p_code
+        match code
         {
             1000 =>	format!("API-Version existiert nicht."),
             1001 =>	format!("API-Version wurde entfernt."),
